@@ -13,21 +13,6 @@
 
     <script type="text/javascript" src="js/login.js"></script>
     <title>登陆 -- 奇文书坊</title>
-    <script>
-        $(function () {
-
-            if({{ error_name }} == 1 ){
-                $('#login_username').html('用户名错误').show();
-                $('#txtUsername').val('{{ username }}');
-                $('#txtPassword').val('{{ password }}');
-
-            }
-            if({{ error_pwd }}== 1 ){
-                $('#login_password_error').html('密码错误').show();
-                $('#txtUsername').val('{{ username }}');
-                $('#txtPassword').val('{{ password }}');
-            }
-        });
     </script>
 	
 </head>
@@ -65,7 +50,7 @@
                             </p>
 
                             <p class="auto_login">
-                                <a href="#">忘记密码</a>
+                                <a href="editpwd.html">忘记密码</a>
                                 <input id="autologin" class="auto_box" name="autologin"type="checkbox"tabindex="7" checked="">
                                 <span class="safe" style="display: inline-block;">记住密码</span>
                             </p>
