@@ -19,7 +19,7 @@
 	else{        
 	$id=$_POST['username'];
 	$password=$_POST['password'];
-	$result=mysqli_query($conn,"select*from id_password where id='$id' and password='$password'and identity='staff'");       
+	$result=mysqli_query($conn,"select*from staff_info where staff_id='$id' and staff_password='$password'");       
 	$number = mysqli_num_rows($result);        
 	if ($number) {            
 	echo '<script>window.location="admin_index.html";</script>';        } 
