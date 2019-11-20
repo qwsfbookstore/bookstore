@@ -19,7 +19,7 @@
 	else{        
 	$id=$_POST['txtUsername'];
 	$password=$_POST['txtPassword'];
-	$result=mysqli_query($conn,"select*from id_password where id='$id' and password='$password'and identity='staff'");       
+	$result=mysqli_query($conn,"select*from user_info where user_id='$id' and user_password='$password'");       
 	$number = mysqli_num_rows($result);        
 	if ($number) {            
 	echo '<script>window.location="index.html";</script>';        } 
