@@ -10,42 +10,44 @@
      <script type="text/javascript" src="js/register.js"></script>
     <link rel="stylesheet" type="text/css" href="css/foot.css">
      <script src="js/html5.js"></script>
-    <title>注册 -- 图书网</title>
+    <title>注册 -- 奇文书坊</title>
 </head>
 <body>
 
     <div class="ddnewhead_wrap">
         <div class="ddnewhead_content">
             <div class="ddnewhead_logo">
-                <a  href="#" title="返回首页">
-                    <img src="images/logo1.png" alt="" width="134" height="73">
+                <a  href="index.html" title="返回首页">
+                    <img src="images/logo1.png" alt="" width="109" height="73">
                 </a>
             </div>
             <div class="ddnewcarthead_bottom"></div>
         </div>
     </div>
-    <form  id='reFrom' action="{% url 'bUser :register' %}"  method="post">
+    <form  id='reFrom' action="register.php"  method="post">
         <div id="bd">
             <div class="shadow_box">
                 <div class="register_box">
                     <div class="head">
                         <span class="dd_more">
-                            <a  class="home" href="{% url 'bShop:index' %}">网站首页</a>
+                            <a  class="home" href="login.html">已有账号，立即登录</a>
                         </span>
-                        <a  class="head_a" href="#">新用户注册</a>
+                        <a  class="head_a" href="register.html">新用户注册</a>
                     </div>
                     <div class="body">
-                        <div id="J_cheatProofTop" class="new_tip" style="display: block">
-                            <div>贴心提示：请勿设置与邮箱密码相同的账户登录密码或支付密码，防止不法分子窃取您的当当账户信息，<a href="#">谨慎诈骗</a></div>
-
-                        </div>
-                        <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                            <tbody>
+                      <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                          <tbody>
                             <tr>
-                                <td class="t">用户名 </td>
+                                <td class="t">姓名 </td>
                                 <td class="z_index2">
-                                    <input name="txt_username" id="txt_username" autocomplete="off" maxlength="40" tabindex="1" value="" placeholder="请输入您的手机号码" type="text" class="text">
+                                    <input name="txt_username" id="txt_username" autocomplete="off" maxlength="40" tabindex="1" value="" placeholder="请输入您的姓名" type="text" class="text">
                                     <span id="J_tipUsername" class="cue warn"></span>
+                                </td>
+							<tr>
+								<td class="t">性别 </td>
+                                <td class="z_index2">
+                                    <input name="txt_sex" id="txt_sex" autocomplete="off" maxlength="40" tabindex="1" value="" placeholder="请输入您的性别" type="text" class="text">
+                                    <span id="J_tipUsersex" class="cue warn"></span>
                                 </td>
                             </tr>
                             <tr>
@@ -63,19 +65,20 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="t">邮 箱</td>
+                                <td class="t">手机号</td>
                                 <td class="z_index2">
-                                    <input name="txt_email" id="txt_email" autocomplete="off" maxlength="40" tabindex="1" value="" placeholder="请输入你的邮箱" type="text" class="text">
-                                     <span id="J_tipEmail" class="cue warn"></span>
+                                    <input name="txt_tel" id="txt_tel" autocomplete="off" maxlength="40" tabindex="1" value="" placeholder="请输入你的手机号" type="text" class="text">
+                                     <span id="J_tipTel" class="cue warn"></span>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="t"></td>
                                 <td class="clause">
-                                    <span class="float_l">
+                                    <p class="float_l">&nbsp;</p>
+                                    <p class="float_l">
                                          <input id="chb_agreement"  name="chb_agreement"type="checkbox"tabindex="7" checked="checked">
-                                            我已阅读并同意《协议》
-                                    </span>
+                                            我已阅读并同意《奇文书坊购书协议》
+                                    </p>
                                 </td>
                             </tr>
                             <tr>

@@ -10,7 +10,7 @@ $(function () {
 		check_user_name();
 	});
 	
-	$('#txt_usersex').blur(function() {  /*失去焦点执行*/
+	$('#txt_sex').blur(function() {  /*失去焦点执行*/
 		check_user_sex();
 	});
 	
@@ -44,15 +44,15 @@ $(function () {
 	function check_user_sex(){
 		var re = /^['男'|'女']$/;
 
-		if(re.test($('#txt_usersex').val()))      
+		if(re.test($('#txt_sex').val()))      
 		{
-			$('#txt_usersex').next().hide();
+			$('#txt_sex').next().hide();
 			sex = false;
 		}
 		else
 		{
-			$('#txt_usersex').next().html('性别只能为男或女');
-			$('#txt_usersex').next().show();
+			$('#txt_sex').next().html('性别只能为男或女');
+			$('#txt_sex').next().show();
 			sex = true;
 		}
 	}
