@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>后台管理系统</title>
+    <title>奇文书坊后台管理系统</title>
     <meta name="author" content="DeathGhost" />
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
@@ -26,24 +26,17 @@
     <h2>
         <?php
         session_start();
-            echo'超级管理员：'.$_SESSION['staff_name'];
+        echo'超级管理员：'.$_SESSION['staff_name'];
         ?>
     </h2>
     <ul>
-        <li>
-            <dl>
-                <!--当前链接则添加class:active-->
-                <dt>图片管理</dt>
-                <dd><a href=""  >图片上传</a></dd>
-            </dl>
-        </li>
+
         <li>
             <dl>
                 <!--当前链接则添加class:active-->
                 <dt>商品管理</dt>
-                <dd><a href="">商品添加/修改</a></dd>
-                <dd><a href="">种类添加</a></dd>
-                <dd><a href="">商品列表</a></dd>
+                <dd><a href="addproduct.html">书目添加</a></dd>
+                <dd><a href="">书目列表/修改/补货</a></dd>
             </dl>
         </li>
         <li>
