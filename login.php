@@ -19,6 +19,8 @@
     if ($row['user_password'] == $password) {
     $_SESSION['user_id'] = "$id";
     $_SESSION['user_name'] = $row['user_name'];
+    $_SESSION['user_tel'] = $row['user_tel'];
+    $_SESSION['user_address'] = $row['user_address'];
     echo "<script>
         alert('登录成功！正在跳转...')
         window.location.href=\"index.php\";

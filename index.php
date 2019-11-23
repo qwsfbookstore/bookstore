@@ -32,23 +32,23 @@
             </div>
             <div class="user_link fl">
                 <span>|</span>
-                <a href="{% url 'bUser :personalinfo' %}">用户中心</a>
+                <a href="personalinfo.php">用户中心</a>
                 <span>|</span>
-                <a href="{% url 'bShop:showcart' %}">我的购物车</a>
+                <a href="ShowCart.php">我的购物车</a>
                 <span>|</span>
-                <a href="#">我的订单</a>
+                <a href="">我的订单</a>
             </div>
         </div>
     </div>
 </div>
 <div class="search_bar clearfix">
-    <a href="{% url 'bShop:index' %}" class="logo fl"><img src="images/logo1.png" width="160" height="99"></a>
+    <a href="index.php" class="logo fl"><img src="images/logo1.png" width="160" height="99"></a>
     <div class="search_con fl">
         <input type="text" class="input_text fl" name="" placeholder="搜索商品">
         <input type="button" class="input_btn fr" name="" value="搜索">
     </div>
     <div class="guest_cart fr">
-        <a href="{% url 'bShop:showcart' %}" class="cart_name fl">我的购物车</a>
+        <a href="ShowCart.php" class="cart_name fl">我的购物车</a>
         <div class="goods_count fl" id="show_count">0</div>
     </div>
 </div>
