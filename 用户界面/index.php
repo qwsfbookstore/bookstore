@@ -44,8 +44,10 @@
 <div class="search_bar clearfix">
     <a href="index.php" class="logo fl"><img src="images/logo1.png" width="160" height="99"></a>
     <div class="search_con fl">
-        <input type="text" class="input_text fl" name="" placeholder="搜索商品">
-        <input type="button" class="input_btn fr" name="" value="搜索">
+        <form action="search_result.php" method="post">
+            <input type="text" class="input_text fl" name="search_word" placeholder="搜索商品">
+            <input type="submit" class="input_btn fr" name="search" value="搜索">
+        </form>
     </div>
     <div class="guest_cart fr">
         <a href="ShowCart.php" class="cart_name fl">我的购物车</a>
