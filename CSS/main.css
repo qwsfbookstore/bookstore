@@ -208,7 +208,7 @@ html,body{height:100%}
 .goods_list li h4 a{font-size:14px;color:#666;font-weight:normal;line-height:24px;}
 .goods_list li h4 a:hover{color:#ff8800}
 
-.goods_list li img{display:block;width:180px;height:180px;margin:0 auto;}
+.goods_list li img{display:block;width:150px;height:180px;margin:0 auto;}
 .goods_list li .prize{text-align:center;font-size:20px;color:#c40000;margin-top:5px;}
 
 
