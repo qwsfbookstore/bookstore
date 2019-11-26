@@ -35,11 +35,12 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 352px;
+    width: 250px;
+	margin-left=5px;
 }
 #preview>p
 {
-    width: 350px;
+    width: 250px;
     height: 350px;
     border: 1px solid #ddd;
     margin-bottom: 5px;
@@ -48,7 +49,8 @@
 #preview p img
 {
     vertical-align:middle;
-    width:350px;
+	
+    width:250px;
     height:350px;
 }
 #preview h1
@@ -219,17 +221,18 @@ p#medimImgContainer{
     font-weight: normal;
 }
 .prize_bar {
-    top: 60px;
+    
     height: 72px;
     width: 100%;
     background-color: #fff5f5;
     line-height: 72px;
     position: absolute;
+	margin-top: 20px;
 }
 .prize_bar .show_pirze {
     font-size: 15px;
     color: #969696;
-    padding-left: 15px;
+    padding-left: 5px;
 }
 .prize_bar .show_pirze em {
     text-decoration: line-through;
@@ -245,8 +248,8 @@ p#medimImgContainer{
     display: block;
     position: absolute;
     top:140px;
-
- }
+	margin-top: 100px;
+	 }
 .goods_num .num_name {
     width: 70px;
     height: 52px;
