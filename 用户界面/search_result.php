@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>奇文书坊-检索结果</title>
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="stylesheet" type="text/css" href="css/foot.css">
-    <link rel="stylesheet" type="text/css" href="css/reset.css">
-    <link href="css/layout.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="css/foot.css"/>
+    <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+    <link rel="stylesheet" type="text/css"  href="css/booklist.css"/>
     <script src="js/html5.js"></script>
     <script type="text/javascript" src="js/ie6.js"></script>
     <script src="js/jquery.js"></script>
