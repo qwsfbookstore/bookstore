@@ -30,25 +30,23 @@
             die("Connection failed: " . $conn->connect_error);
             }
 
-        $book_id = $_GET['book_id'];
+        $book_id = $_GET['id'];
 
         $sql = "SELECT * FROM book_info WHERE book_id = $book_id";
 
-        $result1 = $conn->query($sql);
-        $result2 = $conn->query($sql);
-        $result3 = $conn->query($sql);
-        $result4 = $conn->query($sql);
+        $result = $conn->query($sql);
+  
     ?>
     <div class="header_con">
         <div class="header">
             <div class="welcome fl">欢迎来到奇文书坊!</div>
-        </div>
+			</div>
      </div>
     <div class="search_bar clearfix">
-        <a href="index.html" class="logo fl"><img src="images/logo1.png" width="140" height="90"></a>
+        <a href="index.php" class="logo fl"><img src="images/logo1.png" width="140" height="90"></a>
         <div class="guest_cart fr">
             <a href="ShowCart.html" class="cart_name fl">我的购物车</a>
-            <div class="goods_count fl" id="show_count">click</div>
+            <div class="goods_count fl" id="show_count">0</div>
         </div>
     </div>
 
@@ -64,37 +62,39 @@
         <a href="#">全部分类</a>
         <span>></span>
         <?php
-        while ($row1=mysqli_fetch_array($result1)) {
-            echo $row1['book_type'];
-        }
+        $row=mysqli_fetch_array($result);
+            echo $row['book_type'];
+        
         ?>
         <span>></span>
         <span>商品详情</span>
     </div>
     <div class="goods_detail_con clearfix">
        <!--产品简介-->
+	   <form method="get" action="detail.php">
         <div id="product_intro">
             <div id="preview">
                 <p id="medimImgContainer">
-                          <img id="mediumImg" src="book_images/9787040406641.png"/>
+                          <img id="mediumImg" src=<?php echo $row["book_picture"]?>>
                   </p>
             </div>
-            <form method="get" action="detail.php">
+            
                  <div class="goods_detail_list fr">
                     <h3>
                     <?php
-                        while ($row2=mysqli_fetch_array($result2)) {
-                        echo '<p>图书编号：'.$row2['book_id'].'</p>';
-                        echo '<p>图书名称：'.$row2['book_name'].'</p>';
-                        }
+                        
+                        echo '<p>ISBN：'.$row['book_id'].'</p><br/>';
+                        echo '<p>书名：'.$row['book_name'].'</p><br/>';
+						echo '<p>评分：'.$row['book_grade'].'</p><br/>';
+						echo '<p>出版社：'.$row['book_publisher'].'</p>';
                     ?>
                     </h3>
                     <div class="prize_bar">
                         <span class="show_pirze2">
                             <em id="danjia">
                             <?php
-                                while ($row3=mysqli_fetch_array($result3)){ echo'<p>价格：'.$row3['book_sale_price'].'元</p>';
-                            }
+                               echo'<p>价格：'.$row['book_sale_price'].'元</p>';
+                            
                             ?>
                         </span>
                      </div>
@@ -106,6 +106,9 @@
                                 <a href="javascript:;"  class="minus fr" id="jianhao">-</a>
                             </div>
                         </div>
+						<h3>
+            
+                    </h3>
                         <div class="operate_btn">
                             <a href="#" class="buy_btn">立即购买</a>
                             <a href="javascript:;"  class="add_cart" id="add_cart">加入购物车<i class="cart"></i></a>
@@ -130,10 +133,10 @@
         </ul>
          <div class="over">
             <?php
-                while ($row4=mysqli_fetch_array($result4)) {
-                    echo '<p>中文简介：'.$row4['CH_intro'].'</p>';
-                    echo '<p>英文简介：'.$row4['ENG_intro'].'</p>';
-                    }
+               
+                    echo '<p>中文简介：'.$row['CH_intro'].'</p>';
+                    echo '<p>英文简介：'.$row['ENG_intro'].'</p>';
+                    
             ?>
          </div>
 

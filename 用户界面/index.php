@@ -37,23 +37,28 @@
                 <a href="ShowCart.php">我的购物车</a>
                 <span>|</span>
                 <a href="checkorder.php">我的订单</a>
+				<span>|</span>
+                <a href="checkorder.php">留言板</a>
             </div>
         </div>
     </div>
 </div>
 <div class="search_bar clearfix">
     <a href="index.php" class="logo fl"><img src="images/logo1.png" width="160" height="99"></a>
+	<form action="search_result.php" method="post" autocomplete="off">
     <div class="search_con fl">
-        <input type="text" class="input_text fl" name="" placeholder="搜索商品">
+        <input type="text" class="input_text fl" name="search_word" placeholder="搜索商品">
         <input type="button" class="input_btn fr" name="" value="搜索">
     </div>
+	</form>
     <div class="guest_cart fr">
         <a href="ShowCart.php" class="cart_name fl">我的购物车</a>
         <div class="goods_count fl" id="show_count">0</div>
     </div>
 </div>
 <div class="center_con clearfix">
-<img src="images/index_ad.jpg" width="739" height="423"  style="margin-left:20%; border: 5px solid orangered">
+
+<a href="detail.php?id='9787040406641'"><img src="images/index_ad.jpg" width="739" height="423"  style="margin-left:20%; border: 5px solid orangered">
 <div class="list_model">
         <div class="list_title clearfix">
             <h3 class="fl" id="model01">文学</h3>
@@ -76,8 +81,8 @@
                 ?>
                 <li>
 
-                    <h4><a href="detail.php?id=id=<?php echo $row1["book_id"]?>"><?php echo $row1["book_name"] ?></a></h4>
-                    <a href="detail.php?id=id=<?php echo $row1["book_id"]?>"><img src=<?php echo $row1["book_picture"]?>></a>
+                    <h4><a href="detail.php?id=<?php echo $row1["book_id"]?>"><?php echo $row1["book_name"] ?></a></h4>
+                    <a href="detail.php?id=<?php echo $row1["book_id"]?>"><img src=<?php echo $row1["book_picture"]?>></a>
                     <div class="prize"><?php echo $row1["book_sale_price"]."元"?></div>
                 </li>
                     <?php
@@ -110,8 +115,8 @@
                     ?>
                     <li>
 
-                        <h4><a href="detail.php?id=id=<?php echo $row2["book_id"]?>"><?php echo $row2["book_name"] ?></a></h4>
-                        <a href="detail.php?id=id=<?php echo $row2["book_id"]?>"><img src=<?php echo $row2["book_picture"]?>></a>
+                        <h4><a href="detail.php?=id=<?php echo $row2["book_id"]?>"><?php echo $row2["book_name"] ?></a></h4>
+                        <a href="detail.php?id=<?php echo $row2["book_id"]?>"><img src=<?php echo $row2["book_picture"]?>></a>
                         <div class="prize"><?php echo $row2["book_sale_price"]."元"?></div>
                     </li>
                     <?php
@@ -143,8 +148,8 @@
                     ?>
                     <li>
 
-                        <h4><a href="detail.php?id=id=<?php echo $row3["book_id"]?>"><?php echo $row3["book_name"] ?></a></h4>
-                        <a href="detail.php?id=id=<?php echo $row3["book_id"]?>"><img src=<?php echo $row3["book_picture"]?>></a>
+                        <h4><a href="detail.php?id=<?php echo $row3["book_id"]?>"><?php echo $row3["book_name"] ?></a></h4>
+                        <a href="detail.php?id=<?php echo $row3["book_id"]?>"><img src=<?php echo $row3["book_picture"]?>></a>
                         <div class="prize"><?php echo $row3["book_sale_price"]."元"?></div>
                     </li>
                     <?php
@@ -176,8 +181,8 @@
                     ?>
                     <li>
 
-                        <h4><a href="detail.php?id=id=<?php echo $row4["book_id"]?>"><?php echo $row4["book_name"] ?></a></h4>
-                        <a href="detail.php?id=id=<?php echo $row4["book_id"]?>"><img src=<?php echo $row4["book_picture"]?>></a>
+                        <h4><a href="detail.php?id=<?php echo $row4["book_id"]?>"><?php echo $row4["book_name"] ?></a></h4>
+                        <a href="detail.php?id=<?php echo $row4["book_id"]?>"><img src=<?php echo $row4["book_picture"]?>></a>
                         <div class="prize"><?php echo $row4["book_sale_price"]."元"?></div>
                     </li>
                     <?php
