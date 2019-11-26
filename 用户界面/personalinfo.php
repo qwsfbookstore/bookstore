@@ -53,7 +53,7 @@
             <dl>
                 <dt id="class600" name="orders">我的交易</dt>
                 <dd>
-                    <a href="#">我的订单</a>
+                    <a href="checkorder.php">我的订单</a>
                 </dd>
                 <dt id="class640" name="personalinformation">个人中心</dt>
                 <dd>
@@ -87,6 +87,20 @@
                 <dd>
                     <?php
                     echo "手机号：&nbsp;&nbsp". $_SESSION['user_tel']
+                    ?>
+                </dd>
+
+                <dd>
+                    <?php
+                    include "db.php";
+                    $id=$_SESSION['user_id'];
+                    $row = sql('user_class', '*', "user_id = '$id'");
+                    echo "我的积分：&nbsp;&nbsp". $row['user_points']
+                    ?>
+                </dd>
+                <dd>
+                    <?php
+                    echo "我的身份：&nbsp;&nbsp". $row['user_class']
                     ?>
                 </dd>
             </dl>

@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>收货地址</title>
+    <title>我的订单</title>
     <link rel="shortcut icon" href="images/storelogo.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="/css/base.css">
     <link rel="stylesheet" type="text/css" href="css/base_1.css">
@@ -11,9 +10,6 @@
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/foot.css">
     <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="js/ie6.js"></script>
-
-    <script type="text/javascript" src="js/city.js"></script>
     <script type="text/javascript" src="js/method.js"></script>
 </head>
 
@@ -74,50 +70,88 @@
     </div>
     <div class="my_main">
         <div class="my_title">
-            <span class="title">收货地址管理</span>
+            <span class="title">我的订单</span>
         </div>
         <div class="address_list">
-            <h3>收货地址</h3>
+            <h3>我的消费</h3>
             <dl>
-                <dt>当前地址：</dt>
+                <dt>消费总额：</dt>
                 <dd><?php
-                    echo $_SESSION['user_address']
+					include "db.php";
+					$id=$_SESSION['user_id'];
+					$row = sql('user_consumption', '*', "user_id = '$id'");
+                    echo $row['total_consumption']."元";
                     ?></dd>
             </dl>
         </div>
         <div class="shadow_box">
-            <div class="body">
-                <form  id='reFrom' action="adddetail.php"  method="post">
-                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                        <tr>
-                            <td class="t">修改收货地址:</td>
-                        </tr>
-                        <tr>
-                            <td class="t"></td>
-                            <td class="z_index2">
-                                <textarea name="adddetail" id="adddetail"></textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="t"></td>
-                            <td class="z_index2">
-                                <input type="button" id="address_btn" value="提交" >
-                            </td>
-                        </tr>
-                    </table>
+          
+          <form  id='reFrom' action=""  method="post">
+                <style type="text/css">
+            .table-con th{
+                background-color: #FE642E;/*背景颜色*/
+                color: #FFFFFF;
+            }
+            table{
+                background-color: #FFFFFF;
+                border-collapse: collapse;
+                vertical-align: center;
+				height: auto;
+            }
+            table,th,td{
+                border:1px solid #D8D8D8;
+            }
+            td{
+                text-align: center;
+                vertical-align: middle;
+            }
+
+                </style>
+					</head>
+          
+             <div class="table-con">
+                <table align="left">
+                <tr>
+                  <th width=100 >订单编号</th>
+                  <th width=100>员工编号</th>
+                  <th width=100>订单时间</th>
+                  <th width=100>订单总额</th>
+                    <th width=100>查看详情</th>
+                </tr>
+                    <?php
+                    $sql="SELECT*from order_sum where user_id = '$id' order by order_time desc";
+                    $r=mysqli_query($conn,$sql);
+                    while ($row=mysqli_fetch_array($r)) {
+                    ?>
+                    <tr>
+                            <td><?php echo $row["order_id"] ?></td>
+                            <td><?php echo $row["staff_id"]?></td>
+                            <td><?php echo $row["order_time"]?></td>
+                            <td><?php echo $row["total_sales"]?></td>
+                            <td><a href="orderdetail.php?id=<?php echo $row["order_id"]?>">查看详情</ a></td>
+
+                    </tr>
+                        <?php
+                    }
+                    ?>
+
+                </table>
+
+              </div>
+
+                
+
                 </form>
 
             </div>
-        </div>
+  </div>
     </div>
 
 </div>
 <div class="footer_nav_box">
     <div class="clear"></div>
 </div>
-<script type="text/javascript" src="js/distpicker.data.js"></script>
-<script type="text/javascript" src="js/distpicker.js"></script>
-<script type="text/javascript" src="js/address.js"></script>
-
-
 </body>
+</html>
+
+

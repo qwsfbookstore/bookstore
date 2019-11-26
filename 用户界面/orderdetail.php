@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>收货地址</title>
+    <title>订单详情</title>
     <link rel="shortcut icon" href="images/storelogo.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="/css/base.css">
     <link rel="stylesheet" type="text/css" href="css/base_1.css">
@@ -11,9 +10,6 @@
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/foot.css">
     <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="js/ie6.js"></script>
-
-    <script type="text/javascript" src="js/city.js"></script>
     <script type="text/javascript" src="js/method.js"></script>
 </head>
 
@@ -74,50 +70,83 @@
     </div>
     <div class="my_main">
         <div class="my_title">
-            <span class="title">收货地址管理</span>
-        </div>
-        <div class="address_list">
-            <h3>收货地址</h3>
-            <dl>
-                <dt>当前地址：</dt>
-                <dd><?php
-                    echo $_SESSION['user_address']
-                    ?></dd>
-            </dl>
+            <span class="title"><?PHP
+                include "db.php";
+                $order_id=$_GET['id'];
+                echo $order_id;
+                ?>
+                </span>
         </div>
         <div class="shadow_box">
-            <div class="body">
-                <form  id='reFrom' action="adddetail.php"  method="post">
-                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                        <tr>
-                            <td class="t">修改收货地址:</td>
-                        </tr>
-                        <tr>
-                            <td class="t"></td>
-                            <td class="z_index2">
-                                <textarea name="adddetail" id="adddetail"></textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="t"></td>
-                            <td class="z_index2">
-                                <input type="button" id="address_btn" value="提交" >
-                            </td>
-                        </tr>
-                    </table>
-                </form>
 
-            </div>
+            <form  id='reFrom' action=""  method="post">
+                <style type="text/css">
+                    .table-con th{
+                        background-color: #FE642E;/*背景颜色*/
+                        color: #FFFFFF;
+                    }
+                    table{
+                        background-color: #FFFFFF;
+                        border-collapse: collapse;
+                        vertical-align: center;
+                        height: auto;
+                        margin-top: 50px;
+                    }
+                    table,th,td{
+                        border:1px solid #D8D8D8;
+                    }
+                    td{
+                        text-align: center;
+                        vertical-align: middle;
+                    }
+
+                </style>
+                </head>
+
+                <div class="table-con">
+                    <table align="left">
+                        <tr>
+                            <th width=100 >图书ISBN</th>
+                            <th width=100>书名</th>
+                            <th width=100>图书封面</th>
+                            <th width=100>售价</th>
+                            <th width=100>数量</th>
+                        </tr>
+                        <?php
+                        $row_book=sql('order_details', '*', "order_id = '$order_id'");
+                        $book_id=$row_book['book_id'];
+                        $sql="select book_id,book_name,book_picture,book_sale_price from book_info where book_id='$book_id'";
+                        $r=mysqli_query($conn,$sql);
+                        while ($row=mysqli_fetch_array($r)) {
+                            ?>
+                            <tr>
+                                <td><?php echo $row["book_id"] ?></td>
+                                <td><?php echo $row["book_name"]?></td>
+                                <td><img src=<?php echo $row["book_picture"]?> width=100px></td>
+                                <td><?php echo $row["book_sale_price"]?></td>
+                                <td><?php echo $row_book["book_num"]?></td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+
+                    </table>
+
+                </div>
+
+
+
+            </form>
+
         </div>
     </div>
+</div>
 
 </div>
 <div class="footer_nav_box">
     <div class="clear"></div>
 </div>
-<script type="text/javascript" src="js/distpicker.data.js"></script>
-<script type="text/javascript" src="js/distpicker.js"></script>
-<script type="text/javascript" src="js/address.js"></script>
-
-
 </body>
+</html>
+
+

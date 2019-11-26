@@ -54,7 +54,7 @@
             <dl>
                 <dt id="class600" name="orders">我的交易</dt>
                 <dd>
-                    <a href="#">我的订单</a>
+                    <a href="checkorder.php">我的订单</a>
                 </dd>
                 <dt id="class640" name="personalinformation">个人中心</dt>
                 <dd>

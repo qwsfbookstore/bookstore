@@ -36,7 +36,7 @@
                 <span>|</span>
                 <a href="ShowCart.php">我的购物车</a>
                 <span>|</span>
-                <a href="">我的订单</a>
+                <a href="checkorder.php">我的订单</a>
             </div>
         </div>
     </div>
@@ -44,10 +44,8 @@
 <div class="search_bar clearfix">
     <a href="index.php" class="logo fl"><img src="images/logo1.png" width="160" height="99"></a>
     <div class="search_con fl">
-        <form action="search_result.php" method="post">
-            <input type="text" class="input_text fl" name="search_word" placeholder="搜索商品">
-            <input type="submit" class="input_btn fr" name="search" value="搜索">
-        </form>
+        <input type="text" class="input_text fl" name="" placeholder="搜索商品">
+        <input type="button" class="input_btn fr" name="" value="搜索">
     </div>
     <div class="guest_cart fr">
         <a href="ShowCart.php" class="cart_name fl">我的购物车</a>
