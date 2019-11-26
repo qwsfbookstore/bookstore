@@ -1,5 +1,4 @@
 <?php
-header("product_list.html");
 
 $servername = "127.0.0.1";
 $username = "root";
@@ -10,7 +9,6 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if($conn->connect_error){
     die("Connection failed: " . $conn->connect_error);
 }else {
-	echo "Connection successfully";
 	echo "<br>";
 	$bookname = $_POST['bookname'];
 	$bookid = $_POST['bookid'];
@@ -30,7 +28,7 @@ if($conn->connect_error){
 	if ($res_insert) {
 		echo '<script>alert("添加成功！");window.location="product_list.html";</script>';
 	} else {
-		echo '<script>alert("添加失败！");</script>';
+		echo '<script>alert("添加失败！请检查是否信息填写完整！");window.location="addproduct.html"</script>';
 	}
 }
 	mysqli_close($conn);
