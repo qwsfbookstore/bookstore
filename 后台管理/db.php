@@ -2,17 +2,16 @@
 header("Content-type: text/html; charset=utf-8");
 $servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "";
 $dbname = "bookstore";
 
-$dsn = "mysql:host=$servername;dbname=$dbname";
-$pdo = new PDO($dsn, $username, $password);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 function sql($table, $field = '*', $where = '')
 {
-    global $pdo;
+    global $conn;
     $sql = 'select' . ' ' . $field . ' ' . 'from' . ' ' . $table . ' where ' . $where;
-    $data = $pdo->query($sql)->fetch();
+    $data=mysqli_fetch_assoc($conn->query($sql));
     return $data;
 }
 ?>
