@@ -36,7 +36,7 @@
     <h1><img src="images/admin_logo.png"/></h1>
     <ul class="rt_nav">
         <li><a href="admin_index.php" class="website_icon">站点首页</a></li>
-        <li><a href="" class="quit_icon">安全退出</a></li>
+        <li><a href="admin_logout.php" class="quit_icon">安全退出</a></li>
     </ul>
 </header>
 <aside class="lt_aside_nav content mCustomScrollbar">
