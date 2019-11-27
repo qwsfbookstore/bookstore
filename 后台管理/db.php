@@ -2,7 +2,7 @@
 header("Content-type: text/html; charset=utf-8");
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 $dbname = "bookstore";
 
 $dsn = "mysql:host=$servername;dbname=$dbname";

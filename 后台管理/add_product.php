@@ -51,7 +51,7 @@ if($conn->connect_error){
 			$res_insert2 = $conn->query($sql2);
 			$res_insert4 = $conn->query($sql4);
 			if ($res_insert1 and $res_insert2 and $res_insert4) {
-				echo '<script>alert("添加成功！");window.location="product_list.html";</script>';
+				echo '<script>alert("添加成功！");window.location="product_list.php";</script>';
 
 			} else {
 				echo '<script>alert("添加失败！请检查信息是否填写完整！");history.go(-1);</script>';
@@ -62,7 +62,7 @@ if($conn->connect_error){
 			$res_insert3 = $conn->query($sql3);
 			$res_insert4 = $conn->query($sql4);
 			if ($res_insert1 and $res_insert2 and $res_insert3 and $res_insert4) {
-				echo '<script>alert("添加成功！");window.location="product_list.html";</script>';
+				echo '<script>alert("添加成功！");window.location="product_list.php";</script>';
 
 			} else {
 				echo '<script>alert("添加失败！请检查信息是否填写完整！");history.go(-1);</script>';
