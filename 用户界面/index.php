@@ -51,10 +51,7 @@
         <input type="button" class="input_btn fr" name="" value="搜索">
     </div>
 </form>
-<br/>
-<br/>
-<br/>
-<a href="advanced_search.html">&nbsp;&nbsp;高级检索</a>
+<a href="advanced_search.html" style="position:absolute; top:75px; left:990px; ">高级检索</a>
     <div class="guest_cart fr">
         <a href="ShowCart.php" class="cart_name fl">我的购物车</a>
         <div class="goods_count fl" id="show_count">0</div>
