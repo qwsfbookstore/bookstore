@@ -1,81 +1,87 @@
-$(document).ready(function () {
+$(function () {
+    var bookid =false;
+    var authorid =false
+    var bookscore = false;
+    /*var error_check = false;*/
 
-    var cookieop = new cookieOperate();
-    var csrf = cookieop.getCookie('csrftoken');
-    $('.standard-tag .close-icon').unbind().click(function () {
-        $(this).parent().remove();
-        $('.standard').val('');
+    $('#bookid').blur(function() {  /*失去焦点执行*/
+        check_book_id();
     });
-    $('.image-list-wrp .close-icon').unbind().click(function () {
-        $(this).parent().remove();
-        $('input[name="imglink"]').val('');
+
+    $('#authorid').blur(function() {  /*失去焦点执行*/
+        check_author_id();
     });
-    // 添加图片
-    $('.new-imgurl').click(function () {
-        var imgurl = $('input[name="imglink"]').val();
-        if ($('.image-list-wrp .new-img-preview').length > 3) {
-            alert('不允许添加超过4张产品图片');
-        } else if (imgurl == "") {
-            alert('图片链接不允许为空');
-        } else {
-            $('input[name="imglink"]').val('');
-            $('.image-list-wrp').append('<span class="new-img-preview"><img src="' + imgurl + '"/><i class="close-icon">×</i></span>');
-            $('.image-list-wrp .close-icon').unbind().click(function () {
-                $(this).parent().remove();
-                $('input[name="imglink"]').val('');
-            });
+
+    $('#bookscore').blur(function() {
+        check_bookscore();
+    });
+
+    function check_book_id() {
+        var re = /^{6}$/;
+
+        if(re.test($('#bookid').val()))
+        {
+            $('#bookid').next().hide();
+            bookid = false;
         }
-    });
-    // 添加产品
-    $('.new-pro').click(function () {
-        swal({
-            title: '是否添加产品?',
-            text: "是否添加产品",
-            type: "info",
-            showCancelButton: true,
-            confirmButtonColor: "#1ab394",
-            confirmButtonText: "是的",
-            cancelButtonText: '取消',
-            closeOnConfirm: true
-        }, function () {
-            var standard = [];
-            var imglink = [];
-            $('.standard-tag .btn-primary').each(function (i, e) {
-                standard.push($(e).text().replace('×', ''));
-            });
-            standard = standard.join('|');
-            for (var i = 0; i < $('.new-img-preview img').length; i++) {
-                imglink.push($('.new-img-preview img').eq(i).attr('src').replace(/#/g, ''));
-            }
-            $.ajax({
-                cache: false,
-                type: "post",
-                data: {
-                    first: $('.f-sec-type').val(),
-                    // second: $('.s-sec-type').val(),
-                    proname: $('input[name="proname"]').val(),
-                    proname2: $('input[name="proname2"]').val(),
+        else
+        {
+            $('#bookid').next().html('书目id只能是6位数字');
+            $('#bookid').next().show();
+            bookid = true;
+        }
+    }
 
-                    proprice: $('input[name="proprice"]').val(),
-                    discount: $('input[name="discount"]').val(),
-                    imglink: imglink,
+    function check_author_id(){
+        var re = /^{6}$/;
 
-                    //introinfo: $('input[name="introinfo"]').val(),
-                },
-                dataType: 'json',
-                url: " /admin/productm/newproduct/",
-                beforeSend: function (request) {
-                    request.setRequestHeader("X-CSRFToken", csrf);
-                },
-                success: function (res) {
-                    if (res.recode) {
-                        window.location = window.location;
-                    } else {
-                        alert(res.remsg)
-                    }
-                }
-            });
-        });
-    });
+        if(re.test($('#authorid').val()))
+        {
+            $('#authorid').next().hide();
+            authorid = false;
+        }
+        else
+        {
+            $('#authorid').next().html('作者id只能是6位数字');
+            $('#authorid').next().show();
+            authorid = true;
+        }
+    }
+
+    function check_bookscore() {
+        if($('#bookscore').val()>10){
+            $('#bookscore').next().html('书目评分只能在0到10分之间');
+            $('#bookscore').next().show();
+            bookscore = true;
+        }else if($('#bookscore').val()<0){
+            $('#bookscore').next().html('书目评分只能在0到10分之间');
+            $('#bookscore').next().show();
+            bookscore = true;
+        }else{
+            $('#bookscore').next().hide();
+            bookscore = false;
+        }
+    }
+
+
+    $('#addbook_button').click(function () {
+        check_book_id();
+        check_author_id();
+        check_bookscore();
+
+
+        if(bookid == false && authorid==false && bookscore == false)
+        {
+            $('#addproduct_form').submit();
+            console.log('提交成功');
+            return true;
+        }
+        else
+        {
+            console.log('输入有误');
+            return false;
+        }
+    })
+
 
 });
