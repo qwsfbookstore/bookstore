@@ -8,11 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <!--[if lt IE 9]>
-    <script src="js/html5.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="js/ie6.js"></script>
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <!-- Toastr style -->
     <link rel="stylesheet" type="text/css" href="css/plugins/toastr/toastr.min.css">
@@ -91,26 +87,34 @@
                                 </div>
                             </div>
                             <div class="ibox-content">
-                                <form action="add_product.php" method="post" class="form-horizontal" id="ishow-form">
+                                <form action="add_product.php" method="post" id="addproduct_form" class="form-horizontal">
 
                                     <div class="form-group">
                                         <text class="col-sm-2 control-label">书名</text>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="bookname" required="" value="" id="bookname">
+                                            <input type="text" class="form-control" name="bookname" required="" value="" id="bookname" placeholder="请输入书名">
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <text class="col-sm-2 control-label">书目id</text>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="bookid" required="" value="" id="bookid">
+                                            <input type="text" class="form-control" name="bookid" required="" id="bookid" value="" placeholder="请输入书目id">
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <text class="col-sm-2 control-label">书目作者</text>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="authorname" required="" id="authorname">
+                                            <input type="text" class="form-control" name="authorname" required="" id="authorname" placeholder="请输入作者名">
+                                        </div>
+                                    </div>
+
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <text class="col-sm-2 control-label">作者id</text>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="authorid" required="" id="authorid" placeholder="请输入作者id">
                                         </div>
                                     </div>
 
@@ -118,7 +122,7 @@
                                     <div class="form-group">
                                         <text class="col-sm-2 control-label">出版商</text>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="publisher" required="" id="publisher">
+                                            <input type="text" class="form-control" name="publisher" id="publisher">
                                         </div>
                                     </div>
 
@@ -150,7 +154,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">进价</label>
                                         <div class="col-sm-10">
-                                            <input type="number" step="any" class="form-control" name="price1" id="price1">
+                                            <input type="number" step="any" class="form-control" name="price1" id="price1" required="" placeholder="请输入书目进价">
                                         </div>
                                     </div>
 
@@ -158,7 +162,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">售价</label>
                                         <div class="col-sm-10">
-                                            <input type="number" step="any" class="form-control" name="price2" id="price2">
+                                            <input type="number" step="any" class="form-control" name="price2" id="price2" required="" placeholder="请输入书目售价">
                                         </div>
                                     </div>
 
@@ -174,7 +178,15 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">进货量</label>
                                         <div class="col-sm-10">
-                                            <input type="number" class="form-control" name="stocknumber" id="stocknumber">
+                                            <input type="number" class="form-control" name="stocknumber" id="stocknumber" required="" placeholder="请输入进货量">
+                                        </div>
+                                    </div>
+
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">书店id</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="storeid" id="storeid" required="" placeholder="请输入书店id">
                                         </div>
                                     </div>
 
@@ -200,9 +212,10 @@
 
                                     <div class="form-group">
                                         <div class="col-sm-4 col-sm-offset-2">
-                                            <button class="btn btn-primary new-pro" type="submit">新增书目</button>
+                                            <button class="btn btn-primary new-pro" type="submit" id="addbook_button" >新增书目</button>
                                         </div>
                                     </div>
+                                    <script type="text/javascript" src="js/addproduct.js"></script>
                                 </form>
                             </div>
                         </div>
