@@ -35,7 +35,7 @@
             <dl>
                 <!--当前链接则添加class:active-->
                 <dt>商品管理</dt>
-                <dd><a href="addproduct.html">书目添加</a></dd>
+                <dd><a href="addproduct.php">书目添加</a></dd>
                 <dd><a href="">书目列表/修改/补货</a></dd>
             </dl>
         </li>

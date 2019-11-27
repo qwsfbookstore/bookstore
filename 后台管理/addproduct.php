@@ -8,11 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <!--[if lt IE 9]>
-    <script src="js/html5.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="js/ie6.js"></script>
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <!-- Toastr style -->
     <link rel="stylesheet" type="text/css" href="css/plugins/toastr/toastr.min.css">
@@ -31,6 +27,8 @@
     <link rel="stylesheet" type="text/css" href="css/plugins/summernote/summernote.css">
     <link rel="stylesheet" type="text/css" href="css/plugins/summernote/summernote-bs3.css">
 
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
 </head>
 
 <body>
@@ -42,15 +40,20 @@
     </ul>
 </header>
 <aside class="lt_aside_nav content mCustomScrollbar">
-    <h2><a href="#">超级管理员：&nbsp;{{ userinfo.username }}</a></h2>
+    <h2>
+        <?php
+        session_start();
+        echo'超级管理员：'.$_SESSION['staff_name'];
+        ?>
+    </h2>
     <ul>
 
         <li>
             <dl>
                 <!--当前链接则添加class:active-->
                 <dt>商品管理</dt>
-                <dd><a href="addproduct.php">书目添加</a></dd>
-                <dd><a href="product_list.html" class="active1">书目列表/修改/补货</a></dd>
+                <dd><a href="addproduct.php" class="active1">书目添加</a></dd>
+                <dd><a href="product_list.html">书目列表/修改/补货</a></dd>
             </dl>
         </li>
         <li>
@@ -71,10 +74,10 @@
         <div id="page-wrapper" class="gray-bg dashbard-1">
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-9">
-                    <h2>商品管理</h2>
+                    <h1>商品管理</h1>
                     <ol class="breadcrumb">
                         <li class="active">
-                            <strong>更改书目信息</strong>
+                            <strong>添加书目</strong>
                         </li>
                     </ol>
                 </div>
@@ -91,43 +94,50 @@
                                 </div>
                             </div>
                             <div class="ibox-content">
-                                <form method="post" class="form-horizontal" id="ishow-form">
+                                <form action="add_product.php" method="post" id="addproduct_form" class="form-horizontal">
 
-                                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">书名</label>
+                                        <text class="col-sm-2 control-label">书名</text>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="bookname" required="" value="">
+                                            <input type="text" class="form-control" name="bookname" required="" value="" id="bookname" placeholder="请输入书名">
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">书目id</label>
+                                        <text class="col-sm-2 control-label">书目id</text>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="bookid" required="" value="">
+                                            <input type="text" class="form-control" name="bookid" required="" id="bookid" value="" placeholder="请输入书目id">
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">书目作者</label>
+                                        <text class="col-sm-2 control-label">书目作者</text>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="authorname" required="" >
-                                        </div>
-                                    </div>
-
-                                    <div class="hr-line-dashed"></div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">出版商</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="publisher" required="">
+                                            <input type="text" class="form-control" name="authorname" required="" id="authorname" placeholder="请输入作者名">
                                         </div>
                                     </div>
 
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">书目种类</label>
+                                        <text class="col-sm-2 control-label">作者id</text>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="booktype">
+                                            <input type="text" class="form-control" name="authorid" required="" id="authorid" placeholder="请输入作者id">
+                                        </div>
+                                    </div>
+
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <text class="col-sm-2 control-label">出版商</text>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="publisher" id="publisher">
+                                        </div>
+                                    </div>
+
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <text class="col-sm-2 control-label">书目种类</text>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="booktype" id="booktype">
                                         </div>
                                     </div>
 
@@ -135,7 +145,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">中文简介</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="CH_intro">
+                                            <input type="text" class="form-control" name="CH_intro" id="CH_intro">
                                         </div>
                                     </div>
 
@@ -143,7 +153,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">英文简介</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="ENG_intro">
+                                            <input type="text" class="form-control" name="ENG_intro" id="ENG_intro">
                                         </div>
                                     </div>
 
@@ -151,7 +161,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">进价</label>
                                         <div class="col-sm-10">
-                                            <input type="number" class="form-control" name="price1">
+                                            <input type="number" step="any" class="form-control" name="price1" id="price1" required="" placeholder="请输入书目进价">
                                         </div>
                                     </div>
 
@@ -159,7 +169,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">售价</label>
                                         <div class="col-sm-10">
-                                            <input type="number" class="form-control" name="price2">
+                                            <input type="number" step="any" class="form-control" name="price2" id="price2" required="" placeholder="请输入书目售价">
                                         </div>
                                     </div>
 
@@ -167,15 +177,23 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">评分</label>
                                         <div class="col-sm-10">
-                                            <input type="number" class="form-control" name="bookscore">
+                                            <input type="number" step="any" class="form-control" name="bookscore" id="bookscore">
                                         </div>
                                     </div>
 
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">库存量</label>
+                                        <label class="col-sm-2 control-label">进货量</label>
                                         <div class="col-sm-10">
-                                            <input type="number" class="form-control" name="stocknumber">
+                                            <input type="number" class="form-control" name="stocknumber" id="stocknumber" required="" placeholder="请输入进货量">
+                                        </div>
+                                    </div>
+
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">书店id</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="storeid" id="storeid" required="" placeholder="请输入书店id">
                                         </div>
                                     </div>
 
@@ -183,7 +201,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">书目图链接</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" name="imglink">
+                                            <input type="file" class="form-control" name="imglink" id="imglink">
                                         </div>
                                         <button class="btn btn-primary new-imgurl" type="button">
                                             添加
@@ -201,9 +219,10 @@
 
                                     <div class="form-group">
                                         <div class="col-sm-4 col-sm-offset-2">
-                                            <input class="btn btn-primary new-pro" type="button" value="更新">
+                                            <button class="btn btn-primary new-pro" type="submit" id="addbook_button" >新增书目</button>
                                         </div>
                                     </div>
+                                    <script type="text/javascript" src="js/addproduct.js"></script>
                                 </form>
                             </div>
                         </div>
@@ -214,60 +233,6 @@
         </div>
     </div>
 </section>
-
-
-<!-- Mainly scripts -->
-
-<script src="js/jquery-2.1.1.js" type="text/javascript"></script>
-<script src="js/bootstrap.js" type="text/javascript"></script>
-<script src="js/jquery.metisMenu.js" type="text/javascript"></script>
-<script src="js/jquery.slimscroll.min.js" type="text/javascript"></script>
-
-
-<!-- Flot -->
-<script src="js/plugins/flot/jquery.flot.js" type="text/javascript"></script>
-<script src="js/plugins/flot/jquery.flot.tooltip.min.js" type="text/javascript"></script>
-<script src="js/plugins/flot/jquery.flot.spline.js" type="text/javascript"></script>
-<script src="js/plugins/flot/jquery.flot.resize.js" type="text/javascript"></script>
-<script src="js/plugins/flot/jquery.flot.pie.js" type="text/javascript"></script>
-
-<!-- Peity -->
-<script src="js/plugins/peity/jquery.peity.min.js" type="text/javascript"></script>
-<script src="js/demo/peity-demo.js" type="text/javascript"></script>
-
-
-<!-- Custom and plugin javascript -->
-<script src="js/inspinia.js" type="text/javascript"></script>
-<script src="js/pace.min.js" type="text/javascript"></script>
-
-<!-- jQuery UI -->
-<script src="js/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
-
-<!-- GITTER -->
-<script src="js/plugins/gritter/jquery.gritter.min.js" type="text/javascript"></script>
-
-<!-- Sparkline -->
-<script src="js/plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
-
-
-<!-- Sparkline demo data  -->
-<script src="js/demo/sparkline-demo.js" type="text/javascript"></script>
-
-
-<!-- ChartJS-->
-<script src="js/plugins/chartJs/Chart.min.js" type="text/javascript"></script>
-
-<!-- Toastr -->
-<script src="js/plugins/toastr/toastr.min.js" type="text/javascript"></script>
-
-<!-- FooTable -->
-
-<script src="js/plugins/footable/footable.all.min.js" type="text/javascript"></script>
-<script src="js/plugins/sweetalert/sweetalert.min.js" type="text/javascript"></script>
-
-
-<script src="js/modproduct.js" type="text/javascript"></script>
-
 
 
 </body>

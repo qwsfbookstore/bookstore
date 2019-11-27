@@ -98,35 +98,38 @@
                 <th>库存</th>
                 <th>操作</th>
             </tr>
+
             <?php
             include "db.php";
-                $sql1="SELECT*from book_info where book_type='文学'";
-                $r1=mysqli_query($conn,$sql1);
-                for($x=0; $x<=3; $x++) {
-                    $row1=mysqli_fetch_array($r1);
-            ?>
-            {% for product in products %}
-            <tr>
-                {% with imgl=product.pdImage%}
-                <td class="center"><img id="img" src="{{ imgl}}" width="50" height="50"/></td>
-                {% endwith %}
+            $sql="SELECT*from book_info";
+            $r=mysqli_query($conn,$sql);
+            for($x=0; $x<=3; $x++){
+                $row=mysqli_fetch_array($r);
 
-                <td class="center">{{ book.name }}</td>
-                <td class="center">{{ book.id }}</td>
-                <td class="center">{{ book.type }}</td>
-                <td class="center">{{ book.author }}</td>
-                <td class="center">{{ book.publisher }}</td>
-                <td class="center">{{ book.chintro }}</td>
-                <td class="center">{{ book.engintro }}</td>
-                <td class="center">{{ book.bookscore }}</td>
-                <td class="center"><strong class="rmb_icon">{{ book.price1 }}</strong></td>
-                <td class="center"><strong class="rmb_icon">{{ book.price2 }}</strong></td>
-                <td class="center">{{ book.stocknumber }}</td>
-                <td class="center">
-                    <a href="{% url 'Admin:modproduct' %}?p_id={{ product.pid }}" title="修改书目信息/补货" class="link_icon">&#101;</a>
-                    <a href="{% url 'Admin:prodelete' %}?p_id={{ product.pid }}" title="删除书籍" class="link_icon">&#100;</a>
-                </td>
-            </tr>
+                ?>
+
+                {% for product in products %}
+                <tr>
+                    <td class="center"><a href="detail.php?id=id=<?php echo $row["book_id"]?>"><?php echo $row["book_picture"] ?></a></td>
+                    <td class="center"><?php echo $row["book_name"] ?></td>
+                    <td class="center">{{ book.id }}<?php echo $row["book_id"] ?></td>
+                    <td class="center">{{ book.type }}<?php echo $row["book_type"] ?></td>
+                    <td class="center">{{ book.author }}</td>
+                    <td class="center">{{ book.publisher }}<?php echo $row["book_publisher"] ?></td>
+                    <td class="center">{{ book.chintro }}<?php echo $row["CH_intro"] ?></td>
+                    <td class="center">{{ book.engintro }}<?php echo $row["ENG_intro"] ?></td>
+                    <td class="center">{{ book.bookscore }}<?php echo $row["book_grade"] ?></td>
+                    <td class="center"><strong class="rmb_icon">{{ book.price1 }}<?php echo $row["book_purchase_price"] ?></strong></td>
+                    <td class="center"><strong class="rmb_icon">{{ book.price2 }}<?php echo $row["book_sale_price"] ?></strong></td>
+                    <td class="center">{{ book.stocknumber }}</td>
+                    <td class="center">
+                        <a href="{% url 'Admin:modproduct' %}?p_id={{ product.pid }}" title="修改书目信息/补货" class="link_icon">&#101;</a>
+                        <a href="{% url 'Admin:prodelete' %}?p_id={{ product.pid }}" title="删除书籍" class="link_icon">&#100;</a>
+                    </td>
+                </tr>
+                <?php
+            }
+            ?>
             {% empty %}
             {% endfor %}
         </table>
