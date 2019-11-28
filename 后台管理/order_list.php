@@ -88,19 +88,33 @@
                 <th>用户ID</th>
                 <th>负责员工ID</th>
                 <th>下单时间</th>
+                <th>查看详情</th>
             </tr>
 
-            {% for product in products %}
             <tr>
 
-                <td class="center">{{ order_id }}</td>
-                <td class="center">{{ user_id }}</td>
-                <td class="center">{{ staff_id }}</td>
-                <td class="center">{{ order_time }}</td>
+            <?php
+                include "db.php";
+                $sql="SELECT*from order_info";
+                $result = $conn->query($sql);
+                $row=mysqli_fetch_array($result);
+                $row_num=mysqli_num_rows($result);
+                for($i=0;$i<$row_num;$i++){
+
+                ?>
+
+                <td class="center"><?php echo $row["order_id"] ?></td>
+                <td class="center"><?php echo $row["user_id"]?></td>
+                <td class="center"><?php echo $row["staff_id"]?></td>
+                <td class="center"><?php echo $row["order_time"]?></td>
+                <td class="center"><a href="orderdetail.php?id=<?php echo $row["order_id"]?>">查看详情</a></td>
 
             </tr>
-            {% empty %}
-            {% endfor %}
+            <?php
+            }
+            ?>
+
+
         </table>
         <aside class="paging">
             {% if page.has_previous  %}
