@@ -153,12 +153,27 @@
                 <label>
                     <td><span class="title">分类：</span></td>
                     <td><select name="type">
-                            <option value="所有分类">所有分类</option>
-                            <option value="文学">文学</option>
-                            <option value="经济">经济</option>
-                            <option value="计算机">计算机</option>
-                            <option value="数学">数学</option>}
-                            <option value="哲学">哲学</option>
+                        <?php 
+                        $servername = "localhost";
+                        $username = "root";
+                        $password = "";
+                        $dbname = "bookstore";
+
+                        $conn = new mysqli($servername, $username, $password, $dbname);
+                        if($conn->connect_error){
+                            die("Connection failed: " . $conn->connect_error);
+                        }
+                        mysqli_query($conn, "set names 'UTF8'");
+                        $sql = "SELECT DISTINCT book_type FROM book_info";
+                        $result = $conn->query($sql);
+                        echo '<option value="所有分类">所有分类</option>';
+                        if($result->num_rows > 0){
+                            while($row = $result->fetch_assoc()){
+                                echo "<option value=".$row["book_type"].">".$row["book_type"]."</option>";
+                            }
+                        }
+                        $conn->close();
+                         ?>
                         </select></td>
                 </label>
             </tr>
@@ -176,7 +191,7 @@
             <br>
             <tr>
                 <label>
-                    <td><span class="title">评分：</span></td>
+                    <td><span class="title">评分高于：</span></td>
                     <td><input type="number" name="score"></td>
                 </label>
             </tr>
@@ -184,7 +199,7 @@
             <tr>
                 <label>
                     <td><span class="title">库存状态：</span></td>
-                    <td><input type="checkbox" name="stock_status" value=1>仅显示有货</td>
+                    <td><input type="checkbox" name="stock_status[]" value=1>仅显示有货</td>
                 </label>
             </tr>
         </div>
