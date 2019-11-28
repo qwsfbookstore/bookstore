@@ -109,10 +109,10 @@
                 <td class="center"><?php echo $row["order_time"]?></td>
                 <td class="center"><a href="orderdetail.php?id=<?php echo $row["order_id"]?>">查看详情</a></td>
 
-            </tr>
             <?php
             }
             ?>
+            </tr>
 
 
         </table>
