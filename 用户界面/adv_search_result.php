@@ -92,8 +92,43 @@ $type = $_POST["type"] == "所有分类" ? "" : $_POST["type"];
 $lower_price = $_POST["lower_price"];
 $higher_price = $_POST["higher_price"];
 $score = $_POST["score"];
+$str = "stock_status";
+if(isset($_POST[$str])){
+    $status = 1;
+}else{
+    $status = 0;
+}
 
-$sql1 = "SELECT DISTINCT book_info.book_id, book_info.book_name, author_info.author_name, book_info.book_publisher, book_info.book_sale_price, book_info.book_type, book_info.book_grade, book_info.CH_intro, book_stock.stock_number, book_info.CH_intro FROM (book_info INNER JOIN book_stock ON book_info.book_id = book_stock.book_id) INNER JOIN (author_info INNER JOIN author_book_relationship ON author_info.author_id = author_book_relationship.author_id) ON book_info.book_id = author_book_relationship.book_id WHERE (book_name LIKE '%".$bookname."%') AND (book_type LIKE '%".$type."%') AND (author_name LIKE '%".$authorname."%') AND (ENG_intro LIKE '%".$keyword."%') AND (book_publisher LIKE '%".$publisher."%')";
+if ($type==""){
+    $sql1 = "SELECT book_name, book_grade, book_info.book_id, author_info.author_name,book_publisher, book_sale_price, CH_intro FROM ((book_info JOIN author_book_relationship ON book_info.book_id=author_book_relationship.book_id) JOIN author_info ON author_book_relationship.author_id=author_info.author_id)";
+}else{
+    $sql1 = "SELECT book_name, book_grade, book_info.book_id, author_info.author_name,book_publisher, book_sale_price, CH_intro FROM ((book_info JOIN author_book_relationship ON book_info.book_id=author_book_relationship.book_id) JOIN author_info ON author_book_relationship.author_id=author_info.author_id) WHERE book_type='".$type."'";
+}
+if ($bookname!=""){
+    $sql1 = "SELECT * FROM (".$sql1.") AS name WHERE book_name='".$bookname."'";
+}
+if ($authorname!=""){
+    $sql1 = "SELECT * FROM (".$sql1.") AS aut WHERE author_name='".$authorname."'";
+}
+if ($keyword!=""){
+    $sql1 = "SELECT * FROM (".$sql1.") AS word WHERE CH_intro LIKE '%".$keyword."%'";
+}
+if ($publisher!=""){
+    $sql1 = "SELECT * FROM (".$sql1.") AS pub WHERE book_publisher LIKE '%".$publisher."%'";
+}
+if ($ISBN!=""){
+    $sql1 = "SELECT * FROM (".$sql1.") AS isbn WHERE book_id='".$ISBN."'";
+}
+if ($lower_price!=""){
+    $sql1 = "SELECT * FROM (".$sql1.") AS low WHERE book_sale_price >".$lower_price;
+}
+if ($higher_price!=""){
+    $sql1 = "SELECT * FROM (".$sql1.") AS high WHERE book_sale_price <".$higher_price;
+}
+if ($score!=""){
+    $sql1 = "SELECT * FROM (".$sql1.") AS star WHERE book_grade >".$score;
+}
+
 $result = $conn->query($sql1);
 
 if($result->num_rows > 0){
@@ -125,23 +160,6 @@ else{
 	<br/>
 	<br/>'
 	;
-	while($row1 = $r1->fetch_assoc()){
-	echo '<div class="product_storyList_content_right">
-                <ul>
-                    <li class="product_storyList_content_dash"><a href="detail.php?id='.$row1["book_id"].'" class="blue_14">'.$row1["book_name"].'</a></li>
-                    <li>评分：'.$row1["book_grade"].'</li>
-                    <li>作　者：'.$row1["author_name"].'</a> 著</li>
-                    <li>出版社：'.$row1["book_publisher"].'</a></li>
-                    <li>'.$row1["CH_intro"].'</li>
-                    <li>
-                        <dl class="product_content_dd">
-                            <dd class="footer_dull_red"><span>￥'.$row1["book_sale_price"].'</span></dd>
-                        </dl>
-                    </li>
-                </ul>
-            </div>
-            <div class="product_storyList_content_bottom"></div>';
-	}
 }
 
 $conn->close();
