@@ -42,7 +42,7 @@
         <li>
             <dl>
                 <dt>订单管理</dt>
-                <dd><a href="#" >订单列表</a></dd>
+                <dd><a href="order_list.php" >订单列表</a></dd>
                 <dd><a href="#">订单详情</a></dd>
             </dl>
         </li>
