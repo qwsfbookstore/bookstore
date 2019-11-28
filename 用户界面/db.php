@@ -6,6 +6,7 @@ $password = "";
 $dbname = "bookstore";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
+mysqli_query($conn,"set names 'UTF8'");
 
 function sql($table, $field = '*', $where = '')
 {

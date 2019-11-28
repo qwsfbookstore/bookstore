@@ -37,9 +37,9 @@
                 <span>|</span>
                 <a href="ShowCart.php">我的购物车</a>
                 <span>|</span>
-                <a href="">我的订单</a>
+                <a href="checkorder.php">我的订单</a>
 				<span>|</span>
-                <a href="checkorder.php">留言板</a>
+                <a href="guestbook.php">留言板</a>
             </div>
         </div>
     </div>

@@ -38,7 +38,7 @@
                 <span>|</span>
                 <a href="checkorder.php">我的订单</a>
 				<span>|</span>
-                <a href="checkorder.php">留言板</a>
+                <a href="guestbook.php">留言板</a>
             </div>
         </div>
     </div>
