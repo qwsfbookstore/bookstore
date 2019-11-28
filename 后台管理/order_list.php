@@ -91,7 +91,6 @@
                 <th>查看详情</th>
             </tr>
 
-            <tr>
 
             <?php
                 include "db.php";
@@ -102,17 +101,18 @@
                 for($i=0;$i<$row_num;$i++){
 
                 ?>
-
+            <tr>
                 <td class="center"><?php echo $row["order_id"] ?></td>
                 <td class="center"><?php echo $row["user_id"]?></td>
                 <td class="center"><?php echo $row["staff_id"]?></td>
                 <td class="center"><?php echo $row["order_time"]?></td>
                 <td class="center"><a href="orderdetail.php?id=<?php echo $row["order_id"]?>">查看详情</a></td>
+            </tr>
 
             <?php
             }
             ?>
-            </tr>
+
 
 
         </table>
