@@ -18,6 +18,7 @@ if (!$row) {
 
 if ($row['staff_password'] == $password) {
     $_SESSION['staff_name'] = $row['staff_name'];
+	$_SESSION['staff_id'] = $row['staff_id'];
     echo "<script>
         alert('登录成功！正在跳转...')
         window.location.href=\"admin_index.php\";
