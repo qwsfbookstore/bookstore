@@ -86,11 +86,12 @@
         <div class="page_title">
             <h2 class="fl">员工列表</h2>
         </div>
+        <form action="staff_list.php" method="post" accept-charset="utf-8">
         <section class="mtb">
-
-            <input type="text" class="textbox textbox_225" placeholder="输入员工号/姓名..."/>
-            <input type="button" value="查询" class="group_btn"/>
+            <input type="text" name="search_word" class="textbox textbox_225" placeholder="输入员工号/姓名..."/>
+            <input type="submit" value="查询" class="group_btn"/>
         </section>
+        </form>
         <table class="table">
             <tr>
                 <th>员工ID</th>
@@ -101,10 +102,28 @@
                 <th>操作</th>
             </tr>
 
-
             <?php
-            include "db.php";
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $dbname = "bookstore";
+
+            $conn = new mysqli($servername, $username, $password, $dbname);
+            if($conn->connect_error){
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            mysqli_query($conn, "set names 'UTF8'");
             $sql="SELECT * from staff_info";
+            $word = "search_word";
+            if (isset($_POST[$word])){
+                $word = $_POST["search_word"];
+            }else{
+                $word = "";
+            }
+            if ($word!=""){
+                $sql = $sql." WHERE staff_id='".$word."' OR staff_name LIKE '%".$word."%'";
+            }
             $r=mysqli_query($conn,$sql);
             while ($row=mysqli_fetch_array($r)) {
                 ?>
