@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/foot.css">
     <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css"  href="css/booklist.css"/>
     <script src="js/html5.js"></script>
     <script type="text/javascript" src="js/ie6.js"></script>
     <script src="js/jquery.js"></script>
@@ -57,8 +58,6 @@
         background-color: #FF2832;
         color: white;
         padding: 14px 20px;
-        margin-left: 0;
-        margin-right: 0;
         border: none;
         border-radius: 4px;
         cursor: pointer;
@@ -105,52 +104,52 @@
             <input type="submit" class="input_btn fr" name="search" value="搜索">
         </form>
     </div>
+    <a href="advanced_search.php" style="position: relative; top:45px;">&nbsp;&nbsp;高级检索</a>
     <div class="guest_cart fr">
         <a href="ShowCart.php" class="cart_name fl">我的购物车</a>
         <div class="goods_count fl" id="show_count">0</div>
     </div>
 </div>
+</div>
+<div class="product_storyList_content_right">
     <form id="form1" name="form1" action="adv_search_result.php" method="post">
-        <div class="basic_condition">
         <table align="center">
                 <tr>
-                    <label>
                         <td><span class="title">书名：</span></td>
                         <td><input type="text" name="bookname"></td>
-                    </label>
                 </tr>
                 <br>
                 <tr>
-                    <label>
+
                         <td><span class="title">作者/译者：</span></td>
                         <td><input type="text" name="authorname"></td>
-                    </label>
+
                 </tr>
                 <br>
                 <tr>
-                    <label>
+
                         <td><span class="title">关键词：</span></td>
                         <td><input type="text" name="keyword"></td>
-                    </label>
+
                 </tr>
                 <br>
                 <tr>
-                    <label>
+
                         <td><span class="title">出版社：</span></td>
                         <td><input type="text" name="publisher"></td>
-                    </label>
+
                 </tr>
                 <br>
                 <tr>
-                    <label>
+
                         <td><span class="title">ISBN：</span></td>
                         <td><input type="text" name="ISBN"></td>
-                    </label>
+
                 </tr>
-        </div>
-        <div class="other_condition">
+
+
             <tr>
-                <label>
+
                     <td><span class="title">分类：</span></td>
                     <td><select name="type">
                         <?php 
@@ -175,41 +174,43 @@
                         $conn->close();
                          ?>
                         </select></td>
-                </label>
+
             </tr>
             <br>
             <tr>
-                <label>
+
                     <td><span class="title">价格区间：</span></td>
                     <td>
                         <input type="number" name="lower_price">
                         至
                         <input type="number" name="higher_price">
                     </td>
-                </label>
+
             </tr>
             <br>
             <tr>
-                <label>
+
                     <td><span class="title">评分高于：</span></td>
                     <td><input type="number" name="score"></td>
-                </label>
+
             </tr>
             <br>
             <tr>
-                <label>
+
                     <td><span class="title">库存状态：</span></td>
                     <td><input type="checkbox" name="stock_status[]" value=1>仅显示有货</td>
-                </label>
+
             </tr>
-        </div>
+		<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
         <tr>
-            <td>&nbsp;</td><td>&nbsp;</td>
-            <td><input type="submit" value="检索" name="search"></td>
-            <td><input type="button" value="清空检索条件" onclick="funClear()"></td>
+            <td><input type="submit" value="检索" name="search">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="清空检索条件" onclick="funClear()"></td>
         </tr>
         </table>
     </form>
+    <br/><br/>
+</div>
+<br/><br/><br/><br/>
 </body>
 
 </html>
