@@ -111,8 +111,10 @@
     </div>
 </div>
 </div>
-<div class="product_storyList_content_right">
-    <form id="form1" name="form1" action="adv_search_result.php" method="post">
+<div style="float:center;width:650px;margin:0 auto;border:1px solid #ff2832;">
+		
+		
+               <form id="form1" name="form1" action="adv_search_result.php" method="post">
         <table align="center">
                 <tr>
                         <td><span class="title">书名：</span></td>
@@ -208,9 +210,14 @@
         </tr>
         </table>
     </form>
-    <br/><br/>
+	 <br/><br/><br/><br/>
+
+            <div class="product_storyList_content_bottom"></div>
+            </div>
+
+   
 </div>
-<br/><br/><br/><br/>
+<br/><br/>
 </body>
 
 </html>

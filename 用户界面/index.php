@@ -49,12 +49,14 @@
     <div class="search_con fl">
         <input type="text" class="input_text fl" name="search_word" placeholder="搜索商品">
         <input type="button" class="input_btn fr" name="" value="搜索">
+		
+		
     </div>
 	</form>
-		<a href="advanced_search.php" style="position:absolute; top:75px; left:990px; ">高级检索</a>
+		<a href="advanced_search.php" style="position: relative; top:45px;">&nbsp;&nbsp;高级检索</a>
     <div class="guest_cart fr">
         <a href="ShowCart.php" class="cart_name fl">我的购物车</a>
-        <div class="goods_count fl" id="show_count">0</div>
+      <div class="goods_count fl" id="show_count">0</div>
     </div>
 </div>
 <div class="center_con clearfix">

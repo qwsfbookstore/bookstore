@@ -115,6 +115,28 @@ else{
 	<br/>
 	<br/>'
 	;
+	$sql2="SELECT*FROM (book_info INNER JOIN book_stock ON book_info.book_id = book_stock.book_id) INNER JOIN (author_info INNER JOIN author_book_relationship ON author_info.author_id = author_book_relationship.author_id) ON book_info.book_id = author_book_relationship.book_id";
+	$r1=mysqli_query($conn,$sql2);
+	while($row1 = $r1->fetch_assoc()){
+	echo '<div style="border:1px solid #ff2832;float:middle;width:1000px;margin:0 auto;">
+		<div class="product_storyList_content_left"><img src='.$row1["book_picture"].' style="height:200px;width:145px;"/></div>
+		<div class="product_storyList_content_right">
+                <ul>
+                    <li class="product_storyList_content_dash"><a href="detail.php?id='.$row1["book_id"].'" class="blue_14" style="font-size:20px;">'.$row1["book_name"].'</a></li>
+                    <li>评分：'.$row1["book_grade"].'</li>
+                    <li>作　者：'.$row1["author_name"].'</a> 著</li>
+                    <li>出版社：'.$row1["book_publisher"].'</a></li>
+                    <li>'.$row1["CH_intro"].'</li>
+                    <li>
+                        <dl class="product_content_dd">
+                            <dd class="footer_dull_red" style="font-size:20px;"><span>￥'.$row1["book_sale_price"].'</span></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+            <div class="product_storyList_content_bottom"></div>
+            </div>';
+	}
 }
 
 $conn->close();
