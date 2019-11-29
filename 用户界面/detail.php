@@ -29,6 +29,7 @@
         if($conn->connect_error){
             die("Connection failed: " . $conn->connect_error);
             }
+	mysqli_query($conn, "set names 'UTF8'");
 
         $book_id = $_GET['id'];
 
