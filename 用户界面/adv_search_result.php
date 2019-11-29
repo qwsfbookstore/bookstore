@@ -102,7 +102,7 @@ if(isset($_POST[$str])){
 if ($type==""){
     $sql1 = "SELECT book_name, book_grade, book_picture, book_info.book_id, author_info.author_name,book_publisher, book_sale_price, CH_intro FROM ((book_info JOIN author_book_relationship ON book_info.book_id=author_book_relationship.book_id) JOIN author_info ON author_book_relationship.author_id=author_info.author_id)";
 }else{
-    $sql1 = "SELECT book_name, book_grade, book_info.book_id, author_info.author_name,book_publisher, book_sale_price, CH_intro FROM ((book_info JOIN author_book_relationship ON book_info.book_id=author_book_relationship.book_id) JOIN author_info ON author_book_relationship.author_id=author_info.author_id) WHERE book_type='".$type."'";
+    $sql1 = "SELECT book_name, book_grade, book_picture, book_info.book_id, author_info.author_name,book_publisher, book_sale_price, CH_intro FROM ((book_info JOIN author_book_relationship ON book_info.book_id=author_book_relationship.book_id) JOIN author_info ON author_book_relationship.author_id=author_info.author_id) WHERE book_type='".$type."'";
 }
 if ($bookname!=""){
     $sql1 = "SELECT * FROM (".$sql1.") AS name WHERE book_name='".$bookname."'";
