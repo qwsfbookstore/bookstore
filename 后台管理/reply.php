@@ -21,7 +21,7 @@ if($_POST){
 // 删除留言
 if($_GET['action'] == 'delete'){
 	$delete_sql = "DELETE FROM guest_book WHERE id = $_GET[id]";
-	if(mysql_query($delete_sql)){
+	if(mysqli_query($conn,$delete_sql)){
 		exit('<script language="javascript">alert("删除成功！");self.location = "admin_guestbook.php";</script>');
 	} else {
 		echo '<script>alert("删除失败！");history.go(-1);</script>';
