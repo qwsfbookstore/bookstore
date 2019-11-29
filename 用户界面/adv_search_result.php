@@ -100,7 +100,7 @@ if(isset($_POST[$str])){
 }
 
 if ($type==""){
-    $sql1 = "SELECT book_name, book_grade, book_info.book_id, author_info.author_name,book_publisher, book_sale_price, CH_intro FROM ((book_info JOIN author_book_relationship ON book_info.book_id=author_book_relationship.book_id) JOIN author_info ON author_book_relationship.author_id=author_info.author_id)";
+    $sql1 = "SELECT book_name, book_grade, book_picture, book_info.book_id, author_info.author_name,book_publisher, book_sale_price, CH_intro FROM ((book_info JOIN author_book_relationship ON book_info.book_id=author_book_relationship.book_id) JOIN author_info ON author_book_relationship.author_id=author_info.author_id)";
 }else{
     $sql1 = "SELECT book_name, book_grade, book_info.book_id, author_info.author_name,book_publisher, book_sale_price, CH_intro FROM ((book_info JOIN author_book_relationship ON book_info.book_id=author_book_relationship.book_id) JOIN author_info ON author_book_relationship.author_id=author_info.author_id) WHERE book_type='".$type."'";
 }
@@ -132,34 +132,37 @@ if ($score!=""){
 $result = $conn->query($sql1);
 
 if($result->num_rows > 0){
-	while($row = $result->fetch_assoc()){
-		echo '<div class="product_storyList_content_right">
+    while($row = $result->fetch_assoc()){
+        echo '<div style="border:1px solid #ff2832;float:middle;width:1000px;margin:0 auto;">
+        <div class="product_storyList_content_left"><img src='.$row["book_picture"].' style="height:200px;width:145px;"/></div>
+        <div class="product_storyList_content_right">
                 <ul>
-                    <li class="product_storyList_content_dash"><a href="detail.php?id='.$row["book_id"].'" class="blue_14">'.$row["book_name"].'</a></li>
+                    <li class="product_storyList_content_dash"><a href="detail.php?id='.$row["book_id"].'" class="blue_14" style="font-size:20px;">'.$row["book_name"].'</a></li>
                     <li>评分：'.$row["book_grade"].'</li>
                     <li>作　者：'.$row["author_name"].'</a> 著</li>
                     <li>出版社：'.$row["book_publisher"].'</a></li>
                     <li>'.$row["CH_intro"].'</li>
                     <li>
                         <dl class="product_content_dd">
-                            <dd class="footer_dull_red"><span>￥'.$row["book_sale_price"].'</span></dd>
+                            <dd class="footer_dull_red" style="font-size:20px;"><span>￥'.$row["book_sale_price"].'</span></dd>
                         </dl>
                     </li>
                 </ul>
             </div>
-            <div class="product_storyList_content_bottom"></div>';
-	}
+            <div class="product_storyList_content_bottom"></div>
+            </div>';
+    }
 }
 else{
-	echo '<div class="product_storyList_content_right">
-	<br/>
-	<P align="center" style="font-size:20px">无结果</P>
-	<br/>
-	</div>
-	<br/>
-	<br/>
-	<br/>'
-	;
+    echo '<div style="float:center;width:400px;margin:0 auto;border:1px solid #ff2832;">
+    <br/>
+    <P align="center" style="font-size:20px">无结果</P>
+    <br/>
+    </div>
+    <br/>
+    <br/>
+    <br/>'
+    ;
 }
 
 $conn->close();
