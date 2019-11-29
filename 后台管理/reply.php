@@ -1,4 +1,5 @@
 <?php
+session_start();
 require("./db.php");
 if($_POST){
 	if(get_magic_quotes_gpc()){
@@ -8,8 +9,9 @@ if($_POST){
 	}
 	// 回复为空时，将回复时间置为空
 	$replytime = $reply?time():'NULL';
-	$update_sql = "UPDATE guest_book SET reply = '$reply', reply_time = $replytime WHERE id = $_POST[id]";
-	if(mysqli_query($conn,$update_sql)){
+	$staff_id=$_SESSION['staff_id'];
+	$update_sql = "UPDATE guest_book SET staff_id='$staff_id',reply = '$reply', reply_time = $replytime WHERE id = $_POST[id]";
+	if(mysqli_query($conn,$update_sql)&&$reply!=null){
 		exit('<script language="javascript">alert("回复成功！");self.location = "admin_guestbook.php";</script>');
 	} else {
 		exit('<script>alert("回复失败！");history.go(-1);</script>');

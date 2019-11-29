@@ -30,6 +30,9 @@
             });
         })(jQuery);
     </script>
+	<style>
+	body{overflow-y:auto;}
+	</style>
 </head>
 <body>
 <!--header-->
@@ -53,19 +56,30 @@
         <li>
             <dl>
                 <!--当前链接则添加class:active-->
-                <dt>商品管理</dt>
+                 <dt>图书管理</dt>
                 <dd><a href="addproduct.php">书目添加</a></dd>
-                <dd><a href="product_list.php">书目列表/修改/补货</a></dd>
+                <dd><a href="product_list.php">书目列表</a></dd>
             </dl>
         </li>
         <li>
             <dl>
                 <dt>订单管理</dt>
-                <dd><a href="order_list.php" class="active1">订单列表</a></dd>
-                <dd><a href="#">订单详情</a></dd>
+                <dd><a href="order_list.php" >订单列表</a></dd>
             </dl>
         </li>
-
+		<li>
+            <dl>
+                <dt>员工管理</dt>
+				<dd><a href="addstaff.php">员工添加</a></dd>
+                <dd><a href="staff_list.php" >员工列表</a></dd>
+            </dl>
+        </li>
+		<li>
+            <dl>
+                <dt>留言管理</dt>
+                <dd><a href="admin_guestbook.php" >留言列表</a></dd>
+            </dl>
+        </li>
         <li>
             <p class="btm_infor">© 奇文书坊出品</p>
         </li>
