@@ -84,20 +84,40 @@
     </ul>
 </aside>
 
+<?php 
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "bookstore";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if($conn->connect_error){
+    die("Connection failed: " . $conn->connect_error);
+}
+
+mysqli_query($conn, "set names 'UTF8'");
+?>
+
 <section class="rt_wrap content mCustomScrollbar">
     <div class="rt_content">
         <div class="page_title">
             <h2 class="fl">书目列表</h2>
             <a href="addproduct.php" class="fr top_rt_btn add_icon">添加书目</a>
         </div>
+        <form action="product_list.php" method="post" accept-charset="utf-8" name="form1">
         <section class="mtb">
-            <select class="select">
-                <option>书目分类</option>
-
+            <select class="select" name="query">
+                <option value="name" selected="true">图书名称</option>}
+                <option value="author">图书作者</option>
+                <option value="type">书目分类</option>
+                <option value="id">ISBN</option>}
+                <option value="publisher">出版社</option>
             </select>
-            <input type="text" class="textbox textbox_225" placeholder="输入产品关键词或产品货号..."/>
-            <input type="button" value="查询" class="group_btn"/>
+            <input type="text" class="textbox textbox_225" name="search_word"/>
+            <input type="submit" value="查询" class="group_btn"/>
         </section>
+        </form>
         <table class="table">
             <tr>
                 <th>书目图片</th>
@@ -106,53 +126,69 @@
                 <th>书目种类</th>
                 <th>书目作者</th>
                 <th>出版社</th>
-                <th>中文简介</th>
-                <th>英文简介</th>
                 <th>书目评分</th>
                 <th>进价</th>
                 <th>售价</th>
                 <th>库存</th>
                 <th>操作</th>
             </tr>
+<?php 
+$query = "query";
+$search_word = "search_word";
+if (isset($_POST[$query])){
+    $query = $_POST["query"];
+}else{
+    $query = "";
+}
+if (isset($_POST[$search_word])){
+    $search_word = $_POST["search_word"];
+}else{
+    $search_word = "";
+}
+$sql = "SELECT book_picture, book_name, book_info.book_id, book_type, author_name, book_publisher, CH_intro, ENG_intro, book_grade, book_purchase_price, book_sale_price, stock_num FROM (((book_info JOIN author_book_relationship ON book_info.book_id=author_book_relationship.book_id) JOIN author_info ON author_book_relationship.author_id=author_info.author_id) JOIN (SELECT book_id, sum(stock_number) AS stock_num FROM book_stock GROUP BY book_id) AS stock ON book_info.book_id=stock.book_id)";
+if ($search_word!=""){
+    if ($query=="name"){
+        $sql = $sql." WHERE book_name LIKE '%".$search_word."%'";
+    }elseif ($query=="author"){
+        $sql = $sql." WHERE author_name='".$search_word."'";
+    }elseif ($query=="type"){
+        $sql = $sql." WHERE book_type='".$search_word."'";
+    }elseif ($query=="id"){
+        $sql = $sql." WHERE book_id='".$search_word."'";
+    }elseif ($query=="publisher"){
+        $sql = $sql." WHERE book_publisher LIKE '%".$search_word."%'";
+    }elseif ($query==""){
+        $sql = $sql;
+    }
+}else{
+    $sql = $sql;
+}
 
-            {% for product in products %}
-            <tr>
-                {% with imgl=product.pdImage%}
-                <td class="center"><img id="img" src="{{ imgl}}" width="50" height="50"/></td>
-                {% endwith %}
+$result = $conn->query($sql);
 
-                <td class="center">{{ book.name }}</td>
-                <td class="center">{{ book.id }}</td>
-                <td class="center">{{ book.type }}</td>
-                <td class="center">{{ book.author }}</td>
-                <td class="center">{{ book.publisher }}</td>
-                <td class="center">{{ book.chintro }}</td>
-                <td class="center">{{ book.engintro }}</td>
-                <td class="center">{{ book.bookscore }}</td>
-                <td class="center"><strong class="rmb_icon">{{ book.price1 }}</strong></td>
-                <td class="center"><strong class="rmb_icon">{{ book.price2 }}</strong></td>
-                <td class="center">{{ book.stocknumber }}</td>
+if($result->num_rows > 0){
+    while($row = $result->fetch_assoc()){
+        echo '<tr>
+                <td class="center"><img id="img" src='.$row["book_picture"].' width="50" height="50"/></td>
+                <td class="center">'.$row["book_name"].'</td>
+                <td class="center">'.$row["book_id"].'</td>
+                <td class="center">'.$row["book_type"].'</td>
+                <td class="center">'.$row["author_name"].'</td>
+                <td class="center">'.$row["book_publisher"].'</td>
+                <td class="center">'.$row["book_grade"].'</td>
+                <td class="center"><strong class="rmb_icon">'.$row["book_purchase_price"].'</strong></td>
+                <td class="center"><strong class="rmb_icon">'.$row["book_sale_price"].'</strong></td>
+                <td class="center">'.$row["stock_num"].'</td>
                 <td class="center">
-                    <a href="{% url 'Admin:modproduct' %}?p_id={{ product.pid }}" title="修改书目信息/补货" class="link_icon">&#101;</a>
-                    <a href="{% url 'Admin:prodelete' %}?p_id={{ product.pid }}" title="删除书籍" class="link_icon">&#100;</a>
+                    <a href="" title="修改书目信息/补货" class="link_icon">&#101;</a>
+                    <a href="" title="删除书籍" class="link_icon">&#100;</a>
                 </td>
-            </tr>
-            {% empty %}
-            {% endfor %}
+            </tr>';
+        }
+    }
+$conn->close();
+?>
         </table>
-        <aside class="paging">
-            {% if page.has_previous  %}
-            <a href="{% url 'Admin:product_list' %}?page_num={{ page.previous_page_number }}">上一页</a>
-            {% else %}
-            <a href="#">上一页</a>
-            {% endif %}
-
-            {% if page.has_next  %}
-            <a href="{% url 'Admin:product_list' %}?page_num={{ page.next_page_number }}">下一页</a>
-            {% else %}
-            <a href="#">下一页</a>
-            {% endif %}
-        </aside>
     </div>
 </section>
 <script src="js/product_list.js" type="text/javascript"></script>
