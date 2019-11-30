@@ -3,7 +3,7 @@ session_start();
 
 $servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "";
 $dbname = "bookstore";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -43,7 +43,7 @@ $result = $conn->query($sql);
             <div class="login_btn fl">
                 <?php
                 if(empty($_SESSION['user_name']))
-                echo "<script>alert('请先登录！');window.location.href='homepage.php';</script>";
+                echo "<script>alert('请先登录！');window.location.href='index.php';</script>";
                 else
                 echo'欢迎您：'.$_SESSION['user_name'];
                 ?>
@@ -94,8 +94,8 @@ $result = $conn->query($sql);
         <li class="col05"><?php
             echo '<p>'.$row['book_sale_price'].'元</p><br/>';
             ?></li>
-        <li class="col06">2 本</li>
-        <li class="col07"><em id="price"> </em>72 元</li>
+        <li class="col06"> 本</li>
+        <li class="col07"><em id="price"> </em> 元</li>
         <li class="col08"><a href="{% url 'bShop:deletcart' %}?pid={{ cat.product_id }}">删除</a></li>
     </ul>
     <input type="text" id="cartlist" name="cartlist" value="">
