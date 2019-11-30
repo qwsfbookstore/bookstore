@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50723
 File Encoding         : 65001
 
-Date: 2019-11-28 19:15:09
+Date: 2019-11-30 16:13:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -323,12 +323,11 @@ CREATE TABLE `guest_book` (
 -- Records of guest_book
 -- ----------------------------
 INSERT INTO `guest_book` VALUES ('1', '200001', '叮当猫', '3', '吹爆员工董七，应该加鸡腿！小姐姐态度好好～下次还来这里买书', '1574930190', null, null, null);
-INSERT INTO `guest_book` VALUES ('4', '200004', '寂寞男大学生', '2', '秦大华征女友', '1574930333', null, null, null);
-INSERT INTO `guest_book` VALUES ('2', '200014', '人间水蜜桃', '10', '《数据库系统概论》这本教材太好了！', '1574930472', null, null, null);
-INSERT INTO `guest_book` VALUES ('7', '200007', '黄景瑜', '1', '表白秦总！我想请秦总吃饭！我想和秦总一起看电影！求求秦总答应我吧！秦总和我在一起吧！', '1574930807', null, '秦总答应了', '1574934081');
-INSERT INTO `guest_book` VALUES ('8', '200006', '大帅哥', '4', '方总太迷人太可爱了！真是人间水蜜桃', '1574930904', null, null, null);
-INSERT INTO `guest_book` VALUES ('9', '200009', '沙奈朵', '8', '表白陈总', '1574931023', null, null, null);
-INSERT INTO `guest_book` VALUES ('11', '200007', '绿茶小仙女', '13', '有人想一起交流川端康成的小说吗~', '1574935051', null, null, null);
+INSERT INTO `guest_book` VALUES ('5', '200014', '人间水蜜桃', '10', '《数据库系统概论》这本教材太好了！', '1574930472', null, null, null);
+INSERT INTO `guest_book` VALUES ('7', '200007', '黄景瑜', '1', '表白秦总！我想请秦总吃饭！我想和秦总一起看电影！求求秦总答应我吧！秦总和我在一起吧！', '1574930807', '110001', '秦总答应了', '1574934081');
+INSERT INTO `guest_book` VALUES ('8', '200006', '大帅哥', '4', '方总太迷人太可爱了！真是人间水蜜桃', '1574930904', '110001', '', null);
+INSERT INTO `guest_book` VALUES ('9', '200009', '沙奈朵', '8', '表白陈总', '1574931023', '', '', null);
+INSERT INTO `guest_book` VALUES ('11', '200007', '绿茶小仙女', '13', '有人想一起交流川端康成的小说吗~', '1574935051', '110003', '《雪国》推荐购买哦~', '1574941488');
 
 -- ----------------------------
 -- Table structure for order_details
@@ -478,6 +477,7 @@ INSERT INTO `staff_info` VALUES ('140002', '宋祖儿', '女', '20', '1589525535
 INSERT INTO `staff_info` VALUES ('140003', '金瀚', '男', '31', '15152048284', '144503');
 INSERT INTO `staff_info` VALUES ('140004', '欧阳娜娜', '女', '21', '15895252593', '447712');
 INSERT INTO `staff_info` VALUES ('140005', '宋妍霏', '女', '26', '13905222480', '356518');
+INSERT INTO `staff_info` VALUES ('140007', '金苗苗', '女', '20', '17723459809', '223456');
 
 -- ----------------------------
 -- Table structure for user_info
@@ -517,6 +517,8 @@ INSERT INTO `user_info` VALUES ('200018', '吴白', '男', '13905224622', '41045
 INSERT INTO `user_info` VALUES ('200019', '张三疯', '男', '15895258449', '905895', '北京市海淀区北京大学45甲号楼');
 INSERT INTO `user_info` VALUES ('200020', '张圆章', '男', '13905228665', '392138', '北京市海淀区北京大学45乙号楼');
 INSERT INTO `user_info` VALUES ('200021', '王思聪', '男', '18288888888', '374025', '北京市海淀区清华大学紫荆公寓');
+INSERT INTO `user_info` VALUES ('200022', '何洛洛', '男', '18399982845', '940257', null);
+INSERT INTO `user_info` VALUES ('200023', '黄宁静', '女', '15299937923', '897493', null);
 
 -- ----------------------------
 -- View structure for order_sum
