@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>奇文书坊-图书详情</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
         <link rel="stylesheet" type="text/css" href="css/detail.css">
        <link rel="stylesheet" type="text/css" href="css/foot.css">
