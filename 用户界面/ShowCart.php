@@ -41,31 +41,33 @@ $result = $conn->query($sql);
         <div class="welcome fl">欢迎来到奇文书坊</div>
         <div class="fr">
             <div class="login_btn fl">
-                <?php
+                 <?php
+                session_start();
                 if(empty($_SESSION['user_name']))
-                echo "<script>alert('请先登录！');window.location.href='index.php';</script>";
+                    echo'<a href="login.html">登录</a>
+                        <span>|</span>
+                        <a href="register.html">注册</a>';
                 else
-                echo'欢迎您：'.$_SESSION['user_name'];
-                ?>
+                    echo'欢迎您：'.$_SESSION['user_name'];
+                 ?>
                 <span>|</span>
                 <a href="logout.php">退出</a>
-                <a href="login.html">登录</a>
-                <span>|</span>
-                <a href="register.html">注册</a>
             </div>
             <div class="user_link fl">
                 <span>|</span>
-                <a href="#">用户中心</a>
+                <a href="personalinfo.php">用户中心</a>
                 <span>|</span>
                 <a href="ShowCart.php">我的购物车</a>
                 <span>|</span>
-                <a href="orderdetail.php">我的订单</a>
+                <a href="checkorder.php">我的订单</a>
+				<span>|</span>
+                <a href="guestbook.php">留言板</a>
             </div>
         </div>
     </div>
 </div>
 <div class="search_bar clearfix">
-    <a href="#" class="logo fl"><img src="images/logo1.png" width="175" height="104"></a>
+    <a href="index.php" class="logo fl"><img src="images/logo1.png" width="175" height="104"></a>
     <div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;购物车</div>
 </div>
 

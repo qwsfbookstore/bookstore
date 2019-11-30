@@ -42,9 +42,9 @@
 			</div>
      </div>
     <div class="search_bar clearfix">
-        <a href="homepage.php" class="logo fl"><img src="images/logo1.png" width="140" height="90"></a>
+        <a href="index.php" class="logo fl"><img src="images/logo1.png" width="140" height="90"></a>
         <div class="guest_cart fr">
-            <a href="ShowCart.html" class="cart_name fl">我的购物车</a>
+            <a href="ShowCart.php" class="cart_name fl">我的购物车</a>
             <div class="goods_count fl" id="show_count">0</div>
         </div>
     </div>
