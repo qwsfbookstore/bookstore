@@ -16,7 +16,11 @@ if($_POST){
     $sql5 = "update staff_info set staff_password='$password'where staff_id = '$id'";
 
     $result1 = $conn->query($sql1);
-        if($result1){
+	$result2 = $conn->query($sql2);
+	$result3 = $conn->query($sql3);
+	$result4 = $conn->query($sql4);
+	$result5 = $conn->query($sql5);
+        if($result1||$result2||$result3||$result4||$result5){
             echo '<script>alert("修改成功！");window.location="staff_list.php";</script>';
         }
         else {

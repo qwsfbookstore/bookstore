@@ -108,25 +108,41 @@
                             </div>
                             <div class="ibox-content">
                                 <form action="staff_operate.php?id=<?=$_GET['id']?>" method="post" id="addproduct_form" class="form-horizontal">
+								<?php
+								$servername = "localhost";
+								$username = "root";
+								$password = "";
+								$dbname = "bookstore";
 
+								$conn = new mysqli($servername, $username, $password, $dbname);
+								if($conn->connect_error){
+									die("Connection failed: " . $conn->connect_error);
+								}
+
+								mysqli_query($conn, "set names 'UTF8'");
+								$staff_id=$_GET['id'];
+								$sql="SELECT * from staff_info where staff_id='$staff_id'";
+								$r=mysqli_query($conn,$sql);
+								$row=mysqli_fetch_array($r);
+								?>
                                     <div class="form-group">
                                         <text class="col-sm-2 control-label">员工姓名</text>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="staffname"  value="" id="bookname" placeholder="请输入员工姓名">
+                                            <input type="text" class="form-control" name="staffname" required="" value=<?php echo $row["staff_name"];?> id="bookname" placeholder="请输入员工姓名">
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <text class="col-sm-2 control-label">员工性别</text>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="staffsex"  id="bookid" value="" placeholder="请输入员工性别">
+                                            <input type="text" class="form-control" name="staffsex"  id="bookid" required="" value=<?php echo $row["staff_sex"];?> placeholder="请输入员工性别">
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <text class="col-sm-2 control-label">员工年龄</text>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="staffage"  id="authorname" placeholder="请输入员工年龄">
+                                            <input type="text" class="form-control" name="staffage"  id="authorname" required="" value=<?php echo $row["staff_age"];?> placeholder="请输入员工年龄">
                                         </div>
                                     </div>
 
@@ -134,7 +150,7 @@
                                     <div class="form-group">
                                         <text class="col-sm-2 control-label">员工电话</text>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="stafftel"  id="authorid" placeholder="请输入员工电话">
+                                            <input type="text" class="form-control" name="stafftel"  id="authorid" required="" value=<?php echo $row["staff_tel"];?> placeholder="请输入员工电话">
                                         </div>
                                     </div>
 
@@ -142,7 +158,7 @@
                                     <div class="form-group">
                                         <text class="col-sm-2 control-label">员工密码</text>
                                         <div class="col-sm-10">
-                                            <input type="password" class="form-control" name="staffpassword" id="authorid" placeholder="请输入员工密码">
+                                            <input type="password" class="form-control" name="staffpassword" id="authorid" required="" value=<?php echo $row["staff_password"];?> placeholder="请输入员工密码">
                                         </div>
                                     </div>
                             </div>
