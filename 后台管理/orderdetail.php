@@ -84,59 +84,37 @@
 <section class="rt_wrap content mCustomScrollbar">
     <div class="rt_content">
         <div class="page_title">
-            <h2 class="fl">订单列表</h2>
+            <h2 class="fl">订单详情&nbsp;&nbsp;<?php include("db.php");$order_id=$_GET['id'];echo $order_id; ?></h2>
         </div>
-        <form action="order_list.php" method="post" accept-charset="utf-8">
-        <section class="mtb">
-            <input type="text" name="search_word" class="textbox textbox_225" placeholder="输入订单号..."/>
-            <input type="submit" value="查询" class="group_btn"/>
-        </section>
+ 
         </form>
         <table class="table">
             <tr>
-                <th>订单ID</th>
-                <th>用户ID</th>
-                <th>员工ID</th>
-                <th>订单时间</th>
-                <th>查看详情</th>
-          
-            </tr>
+                            <th>图书ISBN</th>
+                            <th>书名</th>
+                            <th>图书封面</th>
+                            <th>售价</th>
+                            <th>数量</th>
+                        </tr>
 
             <?php
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "bookstore";
-
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            if($conn->connect_error){
-                die("Connection failed: " . $conn->connect_error);
-            }
-
-            mysqli_query($conn, "set names 'UTF8'");
-            $sql="SELECT * from order_info";
-            $word = "search_word";
-            if (isset($_POST[$word])){
-                $word = $_POST["search_word"];
-            }else{
-                $word = "";
-            }
-            if ($word!=""){
-                $sql = $sql." WHERE order_id='".$word."'";
-            }
-            $r=mysqli_query($conn,$sql);
-            while ($row=mysqli_fetch_array($r)) {
-                ?>
-               <tr>
-                <td class="center"><?php echo $row["order_id"] ?></td>
-                <td class="center"><?php echo $row["user_id"]?></td>
-                <td class="center"><?php echo $row["staff_id"]?></td>
-                <td class="center"><?php echo $row["order_time"]?></td>
-                <td class="center"><a href="orderdetail.php?id=<?php echo $row["order_id"]?>">查看详情</a></td>
-            </tr>
-                <?php
-            }
-            ?>
+						
+                        $row_book=sql('order_details', '*', "order_id = '$order_id'");
+                        $book_id=$row_book['book_id'];
+                        $sql="select book_id,book_name,book_picture,book_sale_price from book_info where book_id='$book_id'";
+                        $r=mysqli_query($conn,$sql);
+                        while ($row=mysqli_fetch_array($r)) {
+                            ?>
+                            <tr>
+                                <td><?php echo $row["book_id"] ?></td>
+                                <td><?php echo $row["book_name"]?></td>
+                                <td><img src=<?php echo $row["book_picture"]?> width=100px></td>
+                                <td><?php echo $row["book_sale_price"]?></td>
+                                <td><?php echo $row_book["book_num"]?></td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
         </table>
         </aside>
     </div>
