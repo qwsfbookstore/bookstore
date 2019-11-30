@@ -15,13 +15,12 @@
     <script type="text/javascript"   src="js/common.js"></script>
 
 
-
 </head>
 <body>
     <?php
         $servername = "localhost";
         $username = "root";
-        $password = "";
+        $password = "root";
         $dbname = "bookstore";
 
         $conn = new mysqli($servername, $username, $password, $dbname);
@@ -29,7 +28,6 @@
         if($conn->connect_error){
             die("Connection failed: " . $conn->connect_error);
             }
-	mysqli_query($conn, "set names 'UTF8'");
 
         $book_id = $_GET['id'];
 
@@ -44,7 +42,7 @@
 			</div>
      </div>
     <div class="search_bar clearfix">
-        <a href="index.php" class="logo fl"><img src="images/logo1.png" width="140" height="90"></a>
+        <a href="homepage.php" class="logo fl"><img src="images/logo1.png" width="140" height="90"></a>
         <div class="guest_cart fr">
             <a href="ShowCart.html" class="cart_name fl">我的购物车</a>
             <div class="goods_count fl" id="show_count">0</div>
@@ -83,11 +81,10 @@
                  <div class="goods_detail_list fr">
                     <h3>
                     <?php
-                        
-                        echo '<p>ISBN：'.$row['book_id'].'</p><br/>';
                         echo '<p>书名：'.$row['book_name'].'</p><br/>';
 						echo '<p>评分：'.$row['book_grade'].'</p><br/>';
-						echo '<p>出版社：'.$row['book_publisher'].'</p>';
+						echo '<p>出版社：'.$row['book_publisher'].'</p><br/>';
+                        echo '<p>库存：'.$row['stock_num'].'</p>';
                     ?>
                     </h3>
                     <div class="prize_bar">
@@ -107,14 +104,15 @@
                                 <a href="javascript:;"  class="minus fr" id="jianhao">-</a>
                             </div>
                         </div>
-						<h3>
-            
-                    </h3>
+
                         <div class="operate_btn">
-                            <a href="#" class="buy_btn">立即购买</a>
-                            <a href="javascript:;"  class="add_cart" id="add_cart">加入购物车<i class="cart"></i></a>
+                            <a onclick="add()" class="add_cart" href="ShowCart.php?id=<?php echo $row['book_id'];?>">加入购物车</a>
+
                         </div>
+
+                        
                       </div>
+                
 
             </form>
       </div>
