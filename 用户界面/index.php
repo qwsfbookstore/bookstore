@@ -48,7 +48,7 @@
 	<form action="search_result.php" method="post" autocomplete="off">
     <div class="search_con fl">
         <input type="text" class="input_text fl" name="search_word" placeholder="搜索商品">
-        <input type="button" class="input_btn fr" name="" value="搜索">
+        <input type="submit" class="input_btn fr" name="" value="搜索">
 		
 		
     </div>
