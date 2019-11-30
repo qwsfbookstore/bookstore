@@ -1,8 +1,8 @@
 <?php
 
-$servername = "127.0.0.1";
+$servername = "localhost";
 $username = "root";
-$password = "abcd-123";
+$password = "";
 $dbname = "bookstore";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -65,7 +65,7 @@ if($conn->connect_error){
 				echo '<script>alert("添加成功！");window.location="product_list.php";</script>';
 
 			} else {
-				echo '<script>alert("添加失败！请检查信息是否填写完整！");history.go(-1);</script>';
+				echo '<script>alert("添加失败！请检查信息是否填写正确！");history.go(-1);</script>';
 			}
 		}
 
