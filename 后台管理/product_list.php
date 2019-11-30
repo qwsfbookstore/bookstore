@@ -145,7 +145,7 @@ if (isset($_POST[$search_word])){
 }else{
     $search_word = "";
 }
-$sql = "SELECT book_picture, book_name, book_info.book_id, book_type, author_name, book_publisher, CH_intro, ENG_intro, book_grade, book_purchase_price, book_sale_price, stock_num FROM (((book_info JOIN author_book_relationship ON book_info.book_id=author_book_relationship.book_id) JOIN author_info ON author_book_relationship.author_id=author_info.author_id) JOIN (SELECT book_id, sum(stock_number) AS stock_num FROM book_stock GROUP BY book_id) AS stock ON book_info.book_id=stock.book_id)";
+$sql = "SELECT book_picture, book_name, book_info.book_id, book_type, author_name, author_info.author_id, book_publisher, CH_intro, ENG_intro, book_grade, book_purchase_price, book_sale_price, stock_num FROM (((book_info JOIN author_book_relationship ON book_info.book_id=author_book_relationship.book_id) JOIN author_info ON author_book_relationship.author_id=author_info.author_id) JOIN (SELECT book_id, sum(stock_number) AS stock_num FROM book_stock GROUP BY book_id) AS stock ON book_info.book_id=stock.book_id)";
 if ($search_word!=""){
     if ($query=="name"){
         $sql = $sql." WHERE book_name LIKE '%".$search_word."%'";
@@ -168,22 +168,24 @@ $result = $conn->query($sql);
 
 if($result->num_rows > 0){
     while($row = $result->fetch_assoc()){
-        echo '<tr>
-                <td class="center"><img id="img" src='.$row["book_picture"].' width="50" height="50"/></td>
-                <td class="center">'.$row["book_name"].'</td>
-                <td class="center">'.$row["book_id"].'</td>
-                <td class="center">'.$row["book_type"].'</td>
-                <td class="center">'.$row["author_name"].'</td>
-                <td class="center">'.$row["book_publisher"].'</td>
-                <td class="center">'.$row["book_grade"].'</td>
-                <td class="center"><strong class="rmb_icon">'.$row["book_purchase_price"].'</strong></td>
-                <td class="center"><strong class="rmb_icon">'.$row["book_sale_price"].'</strong></td>
-                <td class="center">'.$row["stock_num"].'</td>
+        ?>
+        <tr>
+                <td class="center"><img id="img" src=<?php echo $row["book_picture"]?> width=50 height=50/></td>
+                <td class="center"><?php echo $row["book_name"]?></td>
+                <td class="center"><?php echo $row["book_id"]?></td>
+                <td class="center"><?php echo $row["book_type"]?></td>
+                <td class="center"><?php echo $row["author_name"]?></td>
+                <td class="center"><?php echo $row["book_publisher"]?></td>
+                <td class="center"><?php echo $row["book_grade"]?></td>
+                <td class="center"><strong class="rmb_icon"><?php echo $row["book_purchase_price"]?></strong></td>
+                <td class="center"><strong class="rmb_icon"><?php echo $row["book_sale_price"]?></strong></td>
+                <td class="center"><?php echo $row["stock_num"]?></td>
                 <td class="center">
-                    <a href="" title="修改书目信息/补货" class="link_icon">&#101;</a>
-                    <a href="" title="删除书籍" class="link_icon">&#100;</a>
+                    <a href="modproduct.php?book_id=<?php echo $row["book_id"]?>&author_id=<?php echo $row["author_id"]?>" title="修改书目信息/补货" class="link_icon">&#101;</a>
+                    <a href="product_operate.php?action=delete&?book_id=<?php echo $row["book_id"]?>&author_id=<?php echo $row["author_id"]?>" title="删除书籍" class="link_icon">&#100;</a>
                 </td>
-            </tr>';
+            </tr>
+            <?php
         }
     }
 $conn->close();
