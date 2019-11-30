@@ -37,6 +37,11 @@
 	$sql_insert = "insert into user_info(user_id,user_name,user_sex,user_tel,user_password) values('$newid','$username','$user_sex','$tel','$password')";
 	$res_insert=$conn->query($sql_insert);
 	if($res_insert){
+	session_start();
+	$_SESSION['user_id'] = "$newid";
+    $_SESSION['user_name'] = "$username";
+    $_SESSION['user_tel'] = "$tel";
+    $_SESSION['user_address'] = null; 
 	echo '<script>alert("注册成功！");window.location="index.php";</script>';
 	} 	
 	else {
