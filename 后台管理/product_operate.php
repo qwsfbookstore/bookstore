@@ -12,7 +12,7 @@ if($conn->connect_error){
 
 mysqli_query($conn, "set names 'UTF8'");
 
-if($_POST){
+if($_GET["action"]=="update"){
     $book_id = $_GET["book_id"];
     $author_id = $_GET["author_id"];
     $book_name = $_POST["bookname"];
@@ -36,11 +36,19 @@ if($_POST){
         }
 }
 if($_GET["action"]=="delete"){
-    $sql = "DELETE FROM book_info WHERE book_id='$book_id';";
-    if($conn->query($sql)){
-        exit('<script language="javascript">alert("删除成功！");self.location = "product_list.php";</script>');
-    } else {
-        echo '<script>alert("删除失败！");history.go(-1);</script>';
-    }
+    $book_id = $_GET["book_id"];
+    $author_id = $_GET["author_id"];
+    $sql2 = "DELETE FROM book_info WHERE book_info.book_id='".$book_id."';";
+    $sql3 = "DELETE FROM author_book_relationship WHERE author_book_relationship.book_id='".$book_id."';";
+    echo "$sql2";
+    $result2 = $conn->query($sql2);
+    $result3 = $conn->query($sql3);
+        if($result2 && $result3){
+            echo '<script>alert("删除成功！");window.location="product_list.php";</script>';
+        }
+        else {
+            echo mysqli_error($conn);
+            echo '<script>alert("删除失败！");</script>';
+        }
 }
 ?>
