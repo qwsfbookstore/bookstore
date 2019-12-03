@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-    <meta charset="utf-8">
-    <title>订单列表</title>
+    <meta charset="utf-8"/>
+    <title>奇文书坊后台管理系统</title>
     <meta name="author" content="DeathGhost" />
     <link rel="stylesheet" type="text/css" href="css/style.css">
-
-    <!--[if lt IE 9]>
-    <![endif]-->
-
-    <!-- Toastr style -->
-    <link rel="stylesheet" type="text/css" href="css/plugins/toastr/toastr.min.css">
-    <!-- Gritter -->
-    <link rel="stylesheet" type="text/css" href="css/plugins/toastr/toastr.min.css">
-    <link rel="stylesheet" type="text/css" href="js/plugins/gritter/jquery.gritter.css">
-    <link rel="stylesheet" type="text/css" href="css/plugins/sweetalert/sweetalert.css">
-
     <link rel="stylesheet" type="text/css" href="css/index.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
-
-    <link rel="stylesheet" type="text/css" href="css/animate.css">
-    <link rel="stylesheet" type="text/css" href="css/newstyle2.css">
-
-    <link rel="stylesheet" type="text/css" href="css/plugins/summernote/summernote.css">
-    <link rel="stylesheet" type="text/css" href="css/plugins/summernote/summernote-bs3.css">
-
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-
+    <!--[if lt IE 9]>
+    <script src="{% static 'admin/js/html5.js' %}"></script>
+    <![endif]-->
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script>
+        (function($){
+            $(window).load(function(){
+                $("a[rel='load-content']").click(function(e){
+                    e.preventDefault();
+                    var url=$(this).attr("href");
+                    $.get(url,function(data){
+                        $(".content .mCSB_container").append(data); //load new content inside .mCSB_container
+                        //scroll-to appended content
+                        $(".content").mCustomScrollbar("scrollTo","h2:last");
+                    });
+                });
+                $(".content").delegate("a[href='top']","click",function(e){
+                    e.preventDefault();
+                    $(".content").mCustomScrollbar("scrollTo",$(this).attr("href"));
+                });
+            });
+        })(jQuery);
+    </script>
 </head>
-
 <body>
+<!--header-->
 <header>
     <h1><img src="images/admin_logo.png"/></h1>
     <ul class="rt_nav">
@@ -39,15 +40,16 @@
         <li><a href="admin_logout.php" class="quit_icon">安全退出</a></li>
     </ul>
 </header>
+<!--aside nav-->
+<!--aside nav-->
 <aside class="lt_aside_nav content mCustomScrollbar">
     <h2>
-        <?php
-        session_start();
-        echo'超级管理员：'.$_SESSION['staff_name'];
-        ?>
+            <?php
+            session_start();
+            echo'超级管理员：'.$_SESSION['staff_name'];
+            ?>
     </h2>
     <ul>
-
         <li>
             <dl>
                 <!--当前链接则添加class:active-->
@@ -62,14 +64,14 @@
                 <dd><a href="order_list.php" >订单列表</a></dd>
             </dl>
         </li>
-        <li>
+		<li>
             <dl>
                 <dt>员工管理</dt>
-                <dd><a href="addstaff.php">员工添加</a></dd>
+				<dd><a href="addstaff.php">员工添加</a></dd>
                 <dd><a href="staff_list.php" >员工列表</a></dd>
             </dl>
         </li>
-        <li>
+		<li>
             <dl>
                 <dt>留言管理</dt>
                 <dd><a href="admin_guestbook.php" >留言列表</a></dd>
@@ -81,6 +83,7 @@
         </li>
     </ul>
 </aside>
+
 <?php 
 
 $servername = "localhost";
@@ -179,7 +182,7 @@ if($result->num_rows > 0){
                 <td class="center"><?php echo $row["stock_num"]?></td>
                 <td class="center">
                     <a href="modproduct.php?book_id=<?php echo $row["book_id"]?>&author_id=<?php echo $row["author_id"]?>" title="修改书目信息/补货" class="link_icon">&#101;</a>
-                    <a href="product_operate.php?action=delete&?book_id=<?php echo $row["book_id"]?>&author_id=<?php echo $row["author_id"]?>" title="删除书籍" class="link_icon">&#100;</a>
+                    <a href="product_operate.php?action=delete&book_id=<?php echo $row["book_id"]?>&author_id=<?php echo $row["author_id"]?>" title="删除书籍" class="link_icon">&#100;</a>
                 </td>
             </tr>
             <?php
@@ -190,9 +193,6 @@ $conn->close();
         </table>
     </div>
 </section>
-
-
+<script src="js/product_list.js" type="text/javascript"></script>
 </body>
 </html>
-
-
