@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50723
 File Encoding         : 65001
 
-Date: 2019-11-30 16:13:27
+Date: 2019-12-10 11:27:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -303,6 +303,23 @@ INSERT INTO `book_stock` VALUES ('9787559614636', '3', '24');
 INSERT INTO `book_stock` VALUES ('9787563334421', '1', '23');
 
 -- ----------------------------
+-- Table structure for cart_record
+-- ----------------------------
+DROP TABLE IF EXISTS `cart_record`;
+CREATE TABLE `cart_record` (
+  `user_id` char(6) DEFAULT NULL,
+  `book_id` char(13) DEFAULT NULL,
+  `book_num` int(11) DEFAULT NULL,
+  KEY `book_id` (`book_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of cart_record
+-- ----------------------------
+INSERT INTO `cart_record` VALUES ('200001', '9787515508610', '1');
+INSERT INTO `cart_record` VALUES ('200001', '9787513910521', '2');
+
+-- ----------------------------
 -- Table structure for guest_book
 -- ----------------------------
 DROP TABLE IF EXISTS `guest_book`;
@@ -370,6 +387,8 @@ INSERT INTO `order_details` VALUES ('340003', '9787515508610', '17');
 INSERT INTO `order_details` VALUES ('340004', '9787502847371', '12');
 INSERT INTO `order_details` VALUES ('340005', '9787121197888', '6');
 INSERT INTO `order_details` VALUES ('340006', '9787550611238', '12');
+INSERT INTO `order_details` VALUES ('340007', '9787040406641', '1');
+INSERT INTO `order_details` VALUES ('340007', '9787302224464', '1');
 
 -- ----------------------------
 -- Table structure for order_info
@@ -409,6 +428,7 @@ INSERT INTO `order_info` VALUES ('340003', '200009', '140002', '2019-09-07');
 INSERT INTO `order_info` VALUES ('340004', '200011', '140004', '2019-09-04');
 INSERT INTO `order_info` VALUES ('340005', '200001', '140003', '2019-09-20');
 INSERT INTO `order_info` VALUES ('340006', '200020', '140005', '2019-09-04');
+INSERT INTO `order_info` VALUES ('340007', '200001', null, '2019-12-10');
 
 -- ----------------------------
 -- Table structure for search_record
@@ -521,6 +541,12 @@ INSERT INTO `user_info` VALUES ('200022', '何洛洛', '男', '18399982845', '94
 INSERT INTO `user_info` VALUES ('200023', '黄宁静', '女', '15299937923', '897493', null);
 
 -- ----------------------------
+-- View structure for cart_info
+-- ----------------------------
+DROP VIEW IF EXISTS `cart_info`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SECURITY INVOKER VIEW `cart_info` AS select `cart_record`.`user_id` AS `user_id`,`cart_record`.`book_id` AS `book_id`,`cart_record`.`book_num` AS `book_num`,round(((`cart_record`.`book_num` * `book_info`.`book_sale_price`) * `user_class`.`user_discount`),2) AS `book_sumprice`,`user_class`.`user_discount` AS `user_discount`,`book_info`.`book_name` AS `book_name`,`book_info`.`book_picture` AS `book_picture`,`book_info`.`book_publisher` AS `book_publisher`,`book_info`.`book_type` AS `book_type`,`book_info`.`book_purchase_price` AS `book_purchase_price`,`book_info`.`book_sale_price` AS `book_sale_price`,`book_info`.`CH_intro` AS `CH_intro`,`book_info`.`ENG_intro` AS `ENG_intro`,`book_info`.`book_grade` AS `book_grade` from ((`cart_record` join `book_info`) join `user_class`) where ((convert(`cart_record`.`user_id` using utf8mb4) = `user_class`.`user_id`) and (convert(`cart_record`.`book_id` using utf8mb4) = `book_info`.`book_id`)) group by `cart_record`.`book_id` ;
+
+-- ----------------------------
 -- View structure for order_sum
 -- ----------------------------
 DROP VIEW IF EXISTS `order_sum`;
@@ -530,7 +556,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SEC
 -- View structure for user_class
 -- ----------------------------
 DROP VIEW IF EXISTS `user_class`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SECURITY INVOKER VIEW `user_class` AS select `user_consumption`.`user_id` AS `user_id`,`user_consumption`.`user_name` AS `user_name`,`user_consumption`.`total_consumption` AS `total_consumption`,`user_consumption`.`user_points` AS `user_points`,(case when (`user_consumption`.`user_points` = 0) then '普通会员' when (`user_consumption`.`user_points` < 1000) then '白金会员' when (`user_consumption`.`user_points` < 5000) then '黄金会员' when (`user_consumption`.`user_points` < 10000) then '铂金会员' else '钻石会员' end) AS `user_class` from `user_consumption` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SECURITY INVOKER VIEW `user_class` AS select `user_consumption`.`user_id` AS `user_id`,`user_consumption`.`user_name` AS `user_name`,`user_consumption`.`total_consumption` AS `total_consumption`,`user_consumption`.`user_points` AS `user_points`,(case when (`user_consumption`.`user_points` = 0) then '普通会员' when (`user_consumption`.`user_points` < 1000) then '白金会员' when (`user_consumption`.`user_points` < 5000) then '黄金会员' when (`user_consumption`.`user_points` < 10000) then '铂金会员' else '钻石会员' end) AS `user_class`,(case when (`user_consumption`.`user_points` = 0) then 1 when (`user_consumption`.`user_points` < 1000) then 0.95 when (`user_consumption`.`user_points` < 5000) then 0.9 when (`user_consumption`.`user_points` < 10000) then 0.85 else 0.8 end) AS `user_discount` from `user_consumption` ;
 
 -- ----------------------------
 -- View structure for user_consumption
