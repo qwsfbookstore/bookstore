@@ -118,8 +118,8 @@ html,body{height:100%}
 	display: none;
 	position: absolute;
 	z-index: 2;
-	bottom: 169px;
-	left: 462px;
+	bottom: 40px;
+	left: 407px;
 }
 .nav-item{
     display: inline-block;
