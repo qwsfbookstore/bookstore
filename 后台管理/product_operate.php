@@ -14,7 +14,6 @@ mysqli_query($conn, "set names 'UTF8'");
 
 if($_GET["action"]=="update"){
     $book_id = $_GET["book_id"];
-    $author_id = $_GET["author_id"];
     $book_name = $_POST["bookname"];
     $book_publisher = $_POST["publisher"];
     $book_type = $_POST["booktype"];
@@ -37,13 +36,13 @@ if($_GET["action"]=="update"){
 }
 if($_GET["action"]=="delete"){
     $book_id = $_GET["book_id"];
-    $author_id = $_GET["author_id"];
     $sql2 = "DELETE FROM book_info WHERE book_info.book_id='".$book_id."';";
     $sql3 = "DELETE FROM author_book_relationship WHERE author_book_relationship.book_id='".$book_id."';";
-    echo "$sql2";
+    $sql4 = "DELETE FROM book_stock WHERE book_id='".$book_id."';";
     $result2 = $conn->query($sql2);
     $result3 = $conn->query($sql3);
-        if($result2 && $result3){
+    $result4 = $conn->query($sql4);
+        if($result2 && $result3 && $result4){
             echo '<script>alert("删除成功！");window.location="product_list.php";</script>';
         }
         else {
