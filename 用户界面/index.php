@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>奇文书坊-首页</title>
-	
-	<link rel="stylesheet" type="text/css" href="css/public.css"/>
-	<link rel="stylesheet" type="text/css" href="css/index.css"/>
+
+    <link rel="stylesheet" type="text/css" href="css/demo.css">
+    <link rel="stylesheet" type="text/css" href="css/nava.css">
+    <link rel="stylesheet" type="text/css" href="css/floor.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/foot.css">
     <link rel="stylesheet" type="text/css" href="css/reset.css">
 
-    <script src="js/index.js"></script>
     <script src="js/html5.js"></script>
-	<script src="js/jquery-3.4.1.js"></script>
     <script type="text/javascript" src="js/ie6.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/index.js"></script>
+
 </head>
 
 <body>
@@ -94,17 +94,17 @@
 			<li><a href="#" >史哲经典</a></li>
 			<li><a href="#" >艺术荟萃</a></li>
 		</ul>
-         <div class="container">
-            <div class="wrap"  style="left:-802px;">
+   <div class="container">
+     <div class="wrap"  style="left:-802px;">
                 <img src="images/1.webp">
                 <a href="detail.php?id='9787040406641'"><img src="images/index_ad.jpg"></a>
                 <img src="images/ad1.jpg">
                 <img src="images/ad2.jpg">
                 <img src="images/4.webp">
                 <img src="images/1.webp">
-				<img src="images/index_ad.jpg">
+                <a href="detail.php?id='9787040406641'"><img src="images/index_ad.jpg"></a>
 
-            </div>
+      </div>
              <ul class="tab-nav" style="margin-left: -78px; display: block;">
                 <s class="nav-item" data-tab-idx="0"></s>
                 <s class="nav-item " data-tab-idx="1"></s>
@@ -115,15 +115,118 @@
              </ul>
             <div class="tab-prev" id='tab-prev'contenteditable="true"></div>
             <div class="tab-next" id='tab-next'contenteditable="true"></div>
-         </div>	
+         </div>
+     <div class="right_body">
+         <div class="floor">
+             <div class="book floor1 F1">
+                 <div class="bookHeader">
+                     <div class="bookLeft floorNav">
+                       
+                     <div class="bookRight">
+                         <div class="bookRightTop">
+                             <span class="topSpan">图书畅销榜</span>
+                             <span>高分好书榜</span>
+                         </div>
+                         <div class="bookRightButtom">
+                             <div class="bookRightBtm">
+                                 <?php
+                                 $sql_sale="SELECT * from book_top order by book_sale_num desc";
+                                 $r_sale=mysqli_query($conn,$sql_sale);
+                                 $row_sale=mysqli_fetch_array($r_sale);
+                                 ?>
+                                 <div>
+                                     <p class="num">1</p>
+                                     <ul>
+                                         <li class="ol222"><?php echo $row_sale['book_name'];?></li>
+                                         <ol class="ol22">
+                                             <li><img src="<?php echo $row_sale['book_picture'];?>"></li>
+                                             <li class="li22">
+                                                 <a href="detail.php?id=<?php echo $row_sale["book_id"]?>" ><span><?php echo $row_sale['book_name'];?></span></a>
+                                                 <a href="detail.php?id=<?php echo $row_sale["book_id"]?>" >
+                                                     <p><?php echo mb_substr($row_sale['CH_intro'],0,50);?></p></a>
+                                             </li>
+                                         </ol>
+                                     </ul>
+                                 </div>
+                                 <?php
+                                 for($num=2;$num<=6;$num++)
+                                 {$row_sale=mysqli_fetch_array($r_sale)
+                                 ?>
+                                 <div>
+                                     <p class="num"><?php echo $num;?></p>
+                                     <ul>
+                                         <li><?php echo $row_sale['book_name'];?></li>
+                                         <ol>
+                                             <li><img src="<?php echo $row_sale['book_picture'];?>"></li>
+                                             <li class="li22">
+                                                 <a href="detail.php?id=<?php echo $row_sale["book_id"]?>" ><span><?php echo $row_sale['book_name'];?></span></a>
+                                                 <a href="detail.php?id=<?php echo $row_sale["book_id"]?>" >
+                                                     <p><?php echo mb_substr($row_sale['CH_intro'],0,50);?></p></a>
+                                             </li>
+                                         </ol>
+                                     </ul>
+                                 </div>
+                                 <?php
+                                 }?>
 
+                             </div>
+                             <div class="bookRightBtm">
+                                 <?php
+                                 $sql_grade="SELECT * from book_top order by book_grade desc";
+                                 $r_grade=mysqli_query($conn,$sql_grade);
+                                 $row_grade=mysqli_fetch_array($r_grade);
+                                 ?>
+                                 <div>
+                                     <p class="num">1</p>
+                                     <ul>
+                                         <li class="ol222"><?php echo $row_grade['book_name'];?></li>
+                                         <ol class="ol22">
+                                             <li><img src="<?php echo $row_grade['book_picture'];?>"></li>
+                                             <li class="li22">
+                                                 <a href="detail.php?id=<?php echo $row_grade["book_id"]?>" ><span><?php echo $row_grade['book_name'];?></span></a>
+                                                 <a href="detail.php?id=<?php echo $row_grade["book_id"]?>" >
+                                                     <p><?php echo mb_substr($row_grade['CH_intro'],0,50);?></p></a>
+                                             </li>
+                                         </ol>
+                                     </ul>
+                                 </div>
+                                 <?php
+                                 for($num=2;$num<=6;$num++)
+                                 {$row_grade=mysqli_fetch_array($r_grade)
+                                     ?>
+                                     <div>
+                                         <p class="num"><?php echo $num;?></p>
+                                         <ul>
+                                             <li><?php echo $row_grade['book_name'];?></li>
+                                             <ol>
+                                                 <li><img src="<?php echo $row_grade['book_picture'];?>"></li>
+                                                 <li class="li22">
+                                                     <a href="detail.php?id=<?php echo $row_grade["book_id"]?>" ><span><?php echo $row_grade['book_name'];?></span></a>
+                                                     <a href="detail.php?id=<?php echo $row_grade["book_id"]?>" >
+                                                         <p><?php echo mb_substr($row_grade['CH_intro'],0,50);?></p></a>
+                                                 </li>
+                                             </ol>
+                                         </ul>
+                                     </div>
+                                     <?php
+                                 }?>
+
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+        
+             </div>
+     </div>
+</div>
+</div>
 <div class="list_model">
         <div class="list_title clearfix">
             <h3 class="fl" id="model01">文学</h3>
             <div class="subtitle fl">
                 <span>|</span>
             </div>
-            <a href="list.php?type=文学" class="goods_more fr" >查看更多 ></a>
+            <a href="list.php?type=文学" class="goods_more fr" id="fruit_more">查看更多 ></a>
   </div>
 
         <div class="goods_con clearfix">
@@ -269,4 +372,8 @@
     <script type="text/javascript" src="js/editpwd.js"></script>
 
 </body>
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/demo.js"></script>
+<script type="text/javascript" src="js/floor.js"></script>
+<script type="text/javascript" src="js/lunbo.js"></script>
 </html>
