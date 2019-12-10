@@ -77,11 +77,11 @@ mysqli_query($conn, "set names 'UTF8'");
 $search_word = $_POST["search_word"];
 
 
-$sql1 = "SELECT DISTINCT book_info.book_id, book_info.book_name, book_info.book_picture, author_info.author_name, book_info.book_publisher, book_info.book_sale_price, book_info.book_type, book_info.book_grade, book_info.CH_intro, book_stock.stock_number, book_info.CH_intro FROM (book_info INNER JOIN book_stock ON book_info.book_id = book_stock.book_id) INNER JOIN (author_info INNER JOIN author_book_relationship ON author_info.author_id = author_book_relationship.author_id) ON book_info.book_id = author_book_relationship.book_id WHERE ((book_name LIKE '%".$search_word."%') OR (book_type LIKE '%".$search_word."%') OR (author_name LIKE '%".$search_word."%') OR (ENG_intro LIKE '%".$search_word."%') OR (book_publisher LIKE '%".$search_word."%'))";
+$sql1 = "SELECT DISTINCT book_info.book_id, book_info.book_name, book_info.book_picture, authors_name.names, book_info.book_publisher, book_info.book_sale_price, book_info.book_type, book_info.book_grade, book_info.CH_intro, book_info.CH_intro FROM (book_info INNER JOIN authors_name ON book_info.book_id = authors_name.book_id) WHERE ((book_name LIKE '%".$search_word."%') OR (book_type LIKE '%".$search_word."%') OR (names LIKE '%".$search_word."%') OR (ENG_intro LIKE '%".$search_word."%') OR (book_publisher LIKE '%".$search_word."%'))";
 $result = $conn->query($sql1);
-$sql2="SELECT*FROM (book_info INNER JOIN book_stock ON book_info.book_id = book_stock.book_id) INNER JOIN (author_info INNER JOIN author_book_relationship ON author_info.author_id = author_book_relationship.author_id) ON book_info.book_id = author_book_relationship.book_id";
+$sql2="SELECT DISTINCT book_info.book_id, book_info.book_name, book_info.book_picture, authors_name.names, book_info.book_publisher, book_info.book_sale_price, book_info.book_type, book_info.book_grade, book_info.CH_intro, book_info.CH_intro FROM (book_info INNER JOIN authors_name ON book_info.book_id = authors_name.book_id)";
 $r1=mysqli_query($conn,$sql2);
-             
+            
 
 if($result->num_rows > 0){
 	while($row = $result->fetch_assoc()){
@@ -91,7 +91,7 @@ if($result->num_rows > 0){
                 <ul>
                     <li class="product_storyList_content_dash"><a href="detail.php?id='.$row["book_id"].'" class="blue_14" style="font-size:20px;">'.$row["book_name"].'</a></li>
                     <li>评分：'.$row["book_grade"].'</li>
-                    <li>作　者：'.$row["author_name"].'</a> 著</li>
+                    <li>作　者：'.$row["names"].'</a> 著</li>
                     <li>出版社：'.$row["book_publisher"].'</a></li>
                     <li>'.$row["CH_intro"].'</li>
                     <li>
@@ -124,7 +124,7 @@ else{
                 <ul>
                     <li class="product_storyList_content_dash"><a href="detail.php?id='.$row1["book_id"].'" class="blue_14" style="font-size:20px;">'.$row1["book_name"].'</a></li>
                     <li>评分：'.$row1["book_grade"].'</li>
-                    <li>作　者：'.$row1["author_name"].'</a> 著</li>
+                    <li>作　者：'.$row1["names"].'</a> 著</li>
                     <li>出版社：'.$row1["book_publisher"].'</a></li>
                     <li>'.$row1["CH_intro"].'</li>
                     <li>
