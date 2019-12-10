@@ -242,13 +242,14 @@ p#medimImgContainer{
     font-size: 23px;
 }
 .goods_num {
-    height: 52px;
-    width: 100%;
-    margin-top: 19px;
-    display: block;
-    position: absolute;
-    top:140px;
+	height: 52px;
+	width: 100%;
+	margin-top: 19px;
+	display: block;
+	position: absolute;
+	top: 184px;
 	margin-top: 100px;
+	left: 2px;
 	 }
 .goods_num .num_name {
     width: 70px;
@@ -478,4 +479,3 @@ p#medimImgContainer{
 .over span{
     font-size: 18px;
 }
-
