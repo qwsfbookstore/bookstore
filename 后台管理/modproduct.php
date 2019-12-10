@@ -158,7 +158,7 @@ if($result->num_rows > 0){
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">中文简介</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="CH_intro" value=<?php echo $row["CH_intro"];?>>
+                                            <input type="text" class="form-control" name="CH_intro" value='<?php echo $row["CH_intro"];?>'>
                                         </div>
                                     </div>
 
@@ -166,8 +166,7 @@ if($result->num_rows > 0){
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">英文简介</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="ENG_intro"
-                                            value=<?php echo $row["ENG_intro"];?>>
+                                            <input type="text" class="form-control" name="ENG_intro" value='<?php echo $row["ENG_intro"];?>'>
                                         </div>
                                     </div>
 
