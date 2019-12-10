@@ -20,6 +20,7 @@
         <div class="fr">
             <div class="login_btn fl">
                 <?php
+                include "db.php";
                 session_start();
                 if(empty($_SESSION['user_name']))
                     echo "<script>alert('请先登录！');window.location.href='index.php';</script>";
@@ -77,7 +78,6 @@
             <dl>
                 <dt>消费总额：</dt>
                 <dd><?php
-					include "db.php";
 					$id=$_SESSION['user_id'];
 					$row = sql('user_consumption', '*', "user_id = '$id'");
                     echo $row['total_consumption']."元";

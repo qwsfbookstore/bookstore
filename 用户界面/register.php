@@ -45,7 +45,7 @@
 	echo '<script>alert("注册成功！");window.location="index.php";</script>';
 	} 	
 	else {
-    echo '<script>alert("注册失败！");</script>';
+    echo '<script>alert("注册失败！");history.go(-1);</script>';
 		}
 	   }
 	}

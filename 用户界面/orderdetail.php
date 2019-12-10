@@ -113,18 +113,17 @@
                             <th width=100>数量</th>
                         </tr>
                         <?php
-                        $row_book=sql('order_details', '*', "order_id = '$order_id'");
-                        $book_id=$row_book['book_id'];
-                        $sql="select book_id,book_name,book_picture,book_sale_price from book_info where book_id='$book_id'";
-                        $r=mysqli_query($conn,$sql);
+                        $r=mysqli_query($conn,"SELECT*from order_details where order_id = '$order_id'");
                         while ($row=mysqli_fetch_array($r)) {
+                            $id=$row['book_id'];
+                            $r1=sql('book_info', '*', "book_id = '$id'");
                             ?>
                             <tr>
-                                <td><?php echo $row["book_id"] ?></td>
-                                <td><?php echo $row["book_name"]?></td>
-                                <td><img src=<?php echo $row["book_picture"]?> width=100px></td>
-                                <td><?php echo $row["book_sale_price"]?></td>
-                                <td><?php echo $row_book["book_num"]?></td>
+                                <td><?php echo $r1["book_id"] ?></td>
+                                <td><?php echo $r1["book_name"]?></td>
+                                <td><img src=<?php echo $r1["book_picture"]?> width=100px></td>
+                                <td><?php echo $r1["book_sale_price"]?></td>
+                                <td><?php echo $row["book_num"]?></td>
                             </tr>
                             <?php
                         }

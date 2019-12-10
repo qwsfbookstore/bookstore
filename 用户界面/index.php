@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>奇文书坊-首页</title>
+	
+	<link rel="stylesheet" type="text/css" href="css/public.css"/>
+	<link rel="stylesheet" type="text/css" href="css/index.css"/>
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/foot.css">
     <link rel="stylesheet" type="text/css" href="css/reset.css">
+
+    <script src="js/index.js"></script>
     <script src="js/html5.js"></script>
+	<script src="js/jquery-3.4.1.js"></script>
     <script type="text/javascript" src="js/ie6.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/index.js"></script>
@@ -19,6 +25,7 @@
         <div class="fr">
             <div class="login_btn fl">
                 <?php
+                include "db.php";
                 session_start();
                 if(empty($_SESSION['user_name']))
                     echo'<a href="login.html">登录</a>
@@ -56,19 +63,148 @@
 		<a href="advanced_search.php" style="position: relative; top:45px;">&nbsp;&nbsp;高级检索</a>
     <div class="guest_cart fr">
         <a href="ShowCart.php" class="cart_name fl">我的购物车</a>
-      <div class="goods_count fl" id="show_count">0</div>
+        <?php
+        $user_id=$_SESSION['user_id'];
+        if($user_id){
+            $q = "SELECT * from cart_info WHERE user_id='$user_id'";
+            $r = mysqli_query($conn,$q);
+            $ra=mysqli_num_rows($r);
+        }else{
+            $ra = 0;
+        }
+        echo '<div class="goods_count fl" id="show_count">'.$ra.'</div>';
+        ?>
     </div>
 </div>
-<div class="center_con clearfix">
 
-<a href="detail.php?id='9787040406641'"><img src="images/index_ad.jpg" width="739" height="423"  style="margin-left:20%; border: 5px solid orangered">
+<div class="navbar_con">
+		<div class="navbar">
+			<h1 class="fl">全部商品分类</h1>
+
+		</div>
+	</div>
+	
+
+ <div class="center_con clearfix">
+		<ul class="subnav fl">
+			<li><a href="#" >文学小说</a></li>
+			<li><a href="#" >经济投资</a></li>
+			<li><a href="#" >畅销教辅</a></li>
+			<li><a href="#" >儿童书刊</a></li>
+			<li><a href="#" >史哲经典</a></li>
+			<li><a href="#" >艺术荟萃</a></li>
+		</ul>
+         <div class="container">
+            <div class="wrap"  style="left:-802px;">
+                <img src="images/1.webp">
+                <a href="detail.php?id='9787040406641'"><img src="images/index_ad.jpg"></a>
+                <img src="images/ad1.jpg">
+                <img src="images/ad2.jpg">
+                <img src="images/4.webp">
+                <img src="images/1.webp">
+				<img src="images/index_ad.jpg">
+
+            </div>
+             <ul class="tab-nav" style="margin-left: -78px; display: block;">
+                <s class="nav-item" data-tab-idx="0"></s>
+                <s class="nav-item " data-tab-idx="1"></s>
+                <s class="nav-item" data-tab-idx="2"></s>
+                <s class="nav-item" data-tab-idx="3"></s>
+                <s class="nav-item" data-tab-idx="4"></s>
+
+             </ul>
+            <div class="tab-prev" id='tab-prev'contenteditable="true"></div>
+            <div class="tab-next" id='tab-next'contenteditable="true"></div>
+         </div>
+		 <div class="right_body">
+             <div class="book-right">
+                 <div class="bookR-content">
+                     <span>图书畅销榜</span>
+                     <span>童书新书版</span>
+                     <ul class="bookR-content-ul BookRc-ul1">
+                         <li><span style="color: red;">1</span> <span class="spns0 spns1">&nbsp;&nbsp;人间失格</span>
+                             <div class="boox-ul1">
+                                 <img src="img/23761145-1_l.jpg"/>
+                                 <p>
+                                     <a href="">人间失格（日本小说家太宰治的自传体小说。李现推荐）<span>超然！“丧尸文化”流行《人间失格》成了现象级畅销</span></a>
+                                 </p>
+                             </div>
+                         </li>
+                         <li><span style="color: orange;">2</span> <span class="spns0">&nbsp;&nbsp;神奇校车-图书</span>
+                             <div class="boox-ul1">
+                                 <img src="img/25252408-1_l.jpg"/>
+                                 <p>
+                                     <a href="">全12册，新增《新增博览会》<span>风靡全世界，神奇校车再次出发</span></a>
+                                 </p>
+                             </div>
+                         </li>
+                         <li><span style="color: green;">3</span> &nbsp;&nbsp;小熊和最好的爸爸</li>
+                         <li><span>4</span> &nbsp;&nbsp;人生海海</li>
+                         <li><span>5</span> &nbsp;&nbsp;活着（2017年新版）</li>
+                         <li><span>6</span> &nbsp;&nbsp;正面管教（修订版）</li>
+                         <li><span>7</span> &nbsp;&nbsp;浮生六记</li>
+                         <li><span>8</span> &nbsp;&nbsp;我喜欢生命本来的样子</li>
+                         <li><span>9</span> &nbsp;&nbsp;神奇校车</li>
+                         <li><span>10</span> &nbsp;三体-全三册</li>
+                     </ul>
+                     <ul class="bookR-content-ul BookRc-ul2">
+                         <li>
+                             <span style="color: red;">1</span> <span class="spns0 spns1">&nbsp;&nbsp;六神磊磊</span>
+                             <div class="boox-ul1">
+                                 <img src="img/dsad.jpg"/>
+                                 <p>
+                                     <a href="">全12册，新增《新增博览会》<span>六神磊磊：给孩子的唐诗课。我不勉强教育孩子背唐</span></a>
+                                 </p>
+                             </div>
+                             <!--<span style="color: red;">1</span> &nbsp;&nbsp;六神磊磊
+                             <div class="bookR-content-ul-img bookRCU-img1">
+                                 <img src="img/dsad.jpg"/>
+                                 <span> 全12册，新增《新增博览会》</span>
+                                 <p>六神磊磊：给孩子的唐诗课。我不勉强教育孩子背唐</p>
+                             </div>-->
+                         </li>
+                         <li>
+                             <span style="color: orange;">2</span> <span class="spns0 ">&nbsp;&nbsp;神探狗全五册</span>
+                             <div class="boox-ul1">
+                                 <img src="img/27893366-1_l.jpg"/>
+                                 <p>
+                                     <a href="">全12册，新增《新增博览会》<span>勇士在逆境中诞生，英雄从灰烬中崛起，于都给你的超能力</span></a>
+                                 </p>
+                             </div>
+                             <!--<span style="color: orange;">2</span> &nbsp;&nbsp;神探狗全五册
+                             <div class="bookR-content-ul-img bookRCU-img2">
+                                 <img src="img/27893366-1_l.jpg"/>
+                                 <span> 全12册，新增《新增博览会》</span>
+                                 <p>勇士在逆境中诞生，英雄从灰烬中崛起，于都给你的超能力</p>
+                             </div>-->
+                         </li>
+                         <li><span style="color: green;">3</span> &nbsp;&nbsp;给孩子的未来科学课</li>
+                         <li><span>4</span> &nbsp;&nbsp;快乐的力量</li>
+                         <li><span>5</span> &nbsp;&nbsp;这就是物理</li>
+                         <li><span>6</span> &nbsp;&nbsp;穿越时空看文明</li>
+                         <li><span>7</span> &nbsp;&nbsp;啊呀我的牙</li>
+                         <li><span>8</span> &nbsp;&nbsp;我喜欢生命本来的样子</li>
+                         <li><span>9</span> &nbsp;&nbsp;书里掉出来的一直狼</li>
+                         <li><span>10</span> &nbsp;世界博物馆的奇妙之旅</li>
+                     </ul>
+                 </div>
+
+             </div>
+         </div>
+ </div>
+
+         </div>
+             
+					
+				
+
 <div class="list_model">
         <div class="list_title clearfix">
             <h3 class="fl" id="model01">文学</h3>
             <div class="subtitle fl">
                 <span>|</span>
             </div>
-            <a href="#" class="goods_more fr" >查看更多 ></a>
+            <a href="list.php?type=文学" class="goods_more fr" >查看更多 ></a>
   </div>
 
         <div class="goods_con clearfix">
@@ -76,7 +212,7 @@
             <ul  class="goods_list fl">
                 <span></span>
                 <?php
-                include "db.php";
+
                 $sql1="SELECT*from book_info where book_type='文学'";
                 $r1=mysqli_query($conn,$sql1);
                 for($x=0; $x<=3; $x++) {
@@ -102,7 +238,7 @@
             <div class="subtitle fl">
                 <span>|</span>
             </div>
-            <a href="#" class="goods_more fr" id="fruit_more">查看更多 ></a>
+            <a href="list.php?type=经济" class="goods_more fr" id="fruit_more">查看更多 ></a>
         </div>
 
 

@@ -32,9 +32,9 @@
         $book_id = $_GET['id'];
 
         $sql = "SELECT * FROM book_info WHERE book_id = $book_id";
-
-        $result = $conn->query($sql);
-  
+        $sql1= "SELECT * FROM book_stock WHERE book_id = $book_id";
+        $result = mysqli_query($conn,$sql);
+        $result1 = mysqli_query($conn,$sql1);
     ?>
     <div class="header_con">
         <div class="header">
@@ -45,7 +45,18 @@
         <a href="index.php" class="logo fl"><img src="images/logo1.png" width="140" height="90"></a>
         <div class="guest_cart fr">
             <a href="ShowCart.php" class="cart_name fl">我的购物车</a>
-            <div class="goods_count fl" id="show_count">0</div>
+            <?php
+            session_start();
+            $user_id=$_SESSION['user_id'];
+            if($user_id){
+                $q = "SELECT * from cart_info WHERE user_id='$user_id'";
+                $r = mysqli_query($conn,$q);
+                $ra=mysqli_num_rows($r);
+            }else{
+                $ra = 0;
+            }
+            echo '<div class="goods_count fl" id="show_count">'.$ra.'</div>';
+            ?>
         </div>
     </div>
 
@@ -62,6 +73,7 @@
         <span>></span>
         <?php
         $row=mysqli_fetch_array($result);
+        $row1=mysqli_fetch_array($result1);
             echo $row['book_type'];
         
         ?>
@@ -70,7 +82,7 @@
     </div>
     <div class="goods_detail_con clearfix">
        <!--产品简介-->
-	   <form method="get" action="detail.php">
+	   <form method="post" action="addtocart.php">
         <div id="product_intro">
             <div id="preview">
                 <p id="medimImgContainer">
@@ -79,12 +91,13 @@
             </div>
             
                  <div class="goods_detail_list fr">
+                     <input type="hidden" name="id" value="<?php echo $book_id;?>">
                     <h3>
                     <?php
                         echo '<p>书名：'.$row['book_name'].'</p><br/>';
 						echo '<p>评分：'.$row['book_grade'].'</p><br/>';
 						echo '<p>出版社：'.$row['book_publisher'].'</p><br/>';
-                        echo '<p>库存：'.$row['stock_num'].'</p>';
+                        echo '<p>库存：'.$row1['stock_number'].'</p>';
                     ?>
                     </h3>
                     <div class="prize_bar">
@@ -99,16 +112,16 @@
                      <div class="goods_num clearfix">
                          <div class="num_name fl">数 量：</div>
                             <div class="num_add fl">
-                                <input type="text" class="num_show_{{ product.pid }} fl" id="shuliang" value="1">
+                                <input type="number" class="num_show_{{ product.pid }} fl" id="shuliang" name="num" value="1">
                                 <a href="javascript:;" class="add fr" id="jiahao">+</a>
                                 <a href="javascript:;"  class="minus fr" id="jianhao">-</a>
                             </div>
                         </div>
 
-                        <div class="operate_btn">
-                            <a onclick="add()" class="add_cart" href="ShowCart.php?id=<?php echo $row['book_id'];?>">加入购物车</a>
+                     <div class="operate_btn">
 
-                        </div>
+                         <a href="javascript:;"><i class="cart"><input type="submit" value="加入购物车"  class="add_cart" id="add_cart"></i></a>
+                     </div>
 
                         
                       </div>

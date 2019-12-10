@@ -72,6 +72,7 @@
         <div class="fr">
             <div class="login_btn fl">
                 <?php
+                include("db.php");
                 session_start();
                 if(empty($_SESSION['user_name']))
                     echo'<a href="login.html">登录</a>
@@ -107,7 +108,18 @@
     <a href="advanced_search.php" style="position: relative; top:45px;">&nbsp;&nbsp;高级检索</a>
     <div class="guest_cart fr">
         <a href="ShowCart.php" class="cart_name fl">我的购物车</a>
-        <div class="goods_count fl" id="show_count">0</div>
+        <?php
+        session_start();
+        $user_id=$_SESSION['user_id'];
+        if($user_id){
+            $q = "SELECT * from cart_info WHERE user_id='$user_id'";
+            $r = mysqli_query($conn,$q);
+            $ra=mysqli_num_rows($r);
+        }else{
+            $ra = 0;
+        }
+        echo '<div class="goods_count fl" id="show_count">'.$ra.'</div>';
+        ?></div>
     </div>
 </div>
 </div>
