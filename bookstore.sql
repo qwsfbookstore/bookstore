@@ -571,3 +571,9 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SEC
 -- ----------------------------
 DROP VIEW IF EXISTS `user_consumption`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SECURITY INVOKER VIEW `user_consumption` AS select `user_info`.`user_id` AS `user_id`,`user_info`.`user_name` AS `user_name`,ifnull(round(sum(`order_sum`.`total_sales`),2),0) AS `total_consumption`,(ifnull(round(sum(`order_sum`.`total_sales`),0),0) * 10) AS `user_points` from (`user_info` left join (`order_sum` join `order_info` on((`order_sum`.`order_id` = `order_info`.`order_id`))) on((`user_info`.`user_id` = `order_info`.`user_id`))) group by `user_info`.`user_id` order by sum(`order_sum`.`total_sales`) desc ;
+
+-- ----------------------------
+-- View structure for authors_name
+-- ----------------------------
+DROP TABLE IF EXISTS `authors_name`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SECURITY INVOKER VIEW `authors_name`  AS  select `author_book_relationship`.`book_id` AS `book_id`,group_concat(`author_info`.`author_name` separator ',') AS `names` from (`author_book_relationship` join `author_info` on((`author_book_relationship`.`author_id` = `author_info`.`author_id`))) group by `author_book_relationship`.`book_id` ;
