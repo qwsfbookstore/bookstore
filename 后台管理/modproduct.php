@@ -3,12 +3,16 @@
 <head>
 
     <meta charset="utf-8">
-    <title>订单列表</title>
+    <title>奇文书坊后台管理系统</title>
     <meta name="author" content="DeathGhost" />
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <!--[if lt IE 9]>
+    <script src="js/html5.js"></script>
     <![endif]-->
+    <script type="text/javascript" src="js/ie6.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <!-- Toastr style -->
     <link rel="stylesheet" type="text/css" href="css/plugins/toastr/toastr.min.css">
@@ -27,52 +31,33 @@
     <link rel="stylesheet" type="text/css" href="css/plugins/summernote/summernote.css">
     <link rel="stylesheet" type="text/css" href="css/plugins/summernote/summernote-bs3.css">
 
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-
 </head>
 
 <body>
 <header>
     <h1><img src="images/admin_logo.png"/></h1>
     <ul class="rt_nav">
-        <li><a href="admin_index.php" class="website_icon">站点首页</a></li>
-        <li><a href="admin_logout.php" class="quit_icon">安全退出</a></li>
+        <li><a href="admin_index.html" target="_blank" class="website_icon">站点首页</a></li>
+        <li><a href="" class="quit_icon">安全退出</a></li>
     </ul>
 </header>
 <aside class="lt_aside_nav content mCustomScrollbar">
-    <h2>
-        <?php
-        session_start();
-        echo'超级管理员：'.$_SESSION['staff_name'];
-        ?>
-    </h2>
+    <h2><a href="#">超级管理员：&nbsp;{{ userinfo.username }}</a></h2>
     <ul>
 
         <li>
             <dl>
                 <!--当前链接则添加class:active-->
-                <dt>图书管理</dt>
+                <dt>商品管理</dt>
                 <dd><a href="addproduct.php">书目添加</a></dd>
-                <dd><a href="product_list.php">书目列表</a></dd>
+                <dd><a href="product_list.php" class="active1">书目列表/修改/补货</a></dd>
             </dl>
         </li>
         <li>
             <dl>
                 <dt>订单管理</dt>
-                <dd><a href="order_list.php" >订单列表</a></dd>
-            </dl>
-        </li>
-        <li>
-            <dl>
-                <dt>员工管理</dt>
-                <dd><a href="addstaff.php">员工添加</a></dd>
-                <dd><a href="staff_list.php" >员工列表</a></dd>
-            </dl>
-        </li>
-        <li>
-            <dl>
-                <dt>留言管理</dt>
-                <dd><a href="admin_guestbook.php" >留言列表</a></dd>
+                <dd><a href="order_list.php">订单列表</a></dd>
+                <dd><a href="#">订单详情</a></dd>
             </dl>
         </li>
 
@@ -96,9 +81,8 @@ if($conn->connect_error){
 mysqli_query($conn, "set names 'UTF8'");
 
 $book_id = $_GET["book_id"];
-$auth = $_GET["author_id"];
 
-$sql = "SELECT book_picture, book_name, book_info.book_id, book_type, author_name, author_info.author_id, book_publisher, CH_intro, ENG_intro, book_grade, book_purchase_price, book_sale_price, stock_num FROM (((book_info JOIN author_book_relationship ON book_info.book_id=author_book_relationship.book_id) JOIN author_info ON author_book_relationship.author_id=author_info.author_id) JOIN (SELECT book_id, sum(stock_number) AS stock_num FROM book_stock GROUP BY book_id) AS stock ON book_info.book_id=stock.book_id) WHERE book_info.book_id='".$book_id."' AND author_info.author_id='".$auth."'";
+$sql = "SELECT book_picture, book_name, book_info.book_id, book_type, names, book_publisher, CH_intro, ENG_intro, book_grade, book_purchase_price, book_sale_price, stock_num FROM ((book_info JOIN authors_name ON book_info.book_id = authors_name.book_id) JOIN (SELECT book_id, sum(stock_number) AS stock_num FROM book_stock GROUP BY book_id) AS stock ON book_info.book_id=stock.book_id) WHERE book_info.book_id='".$book_id."'";
 $result = $conn->query($sql);
 ?>
 
@@ -131,7 +115,7 @@ $result = $conn->query($sql);
 if($result->num_rows > 0){
     while($row = $result->fetch_assoc()){
         ?>
-                                <form action="product_operate.php?action=update&book_id=<?php echo $row["book_id"]?>&author_id=<?php echo $row["author_id"]?>" method="post" class="form-horizontal" id="ishow-form">
+                                <form action="product_operate.php?action=update&book_id=<?php echo $row["book_id"]?>" method="post" class="form-horizontal" id="ishow-form">
                                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">书名</label>
@@ -150,7 +134,7 @@ if($result->num_rows > 0){
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">书目作者</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="authorname" required="" value=<?php echo $row["author_name"];?>>
+                                            <input type="text" class="form-control" name="authorname" required="" value=<?php echo $row["names"];?>>
                                         </div>
                                     </div>
 
@@ -239,6 +223,7 @@ if($result->num_rows > 0){
     </div>
 </section>
 
+
 <!-- Mainly scripts -->
 
 <script src="js/jquery-2.1.1.js" type="text/javascript"></script>
@@ -290,6 +275,9 @@ if($result->num_rows > 0){
 
 
 <script src="js/modproduct.js" type="text/javascript"></script>
+
+
+
 </body>
 </html>
 
