@@ -31,7 +31,7 @@
 
         $book_id = $_GET['id'];
 
-        $sql = "SELECT * FROM book_info WHERE book_id = $book_id";
+        $sql = "SELECT * FROM book_info JOIN authors_name ON book_info.book_id = authors_name.book_id WHERE book_info.book_id = $book_id";
         $sql1= "SELECT * FROM book_stock WHERE book_id = $book_id";
         $result = mysqli_query($conn,$sql);
         $result1 = mysqli_query($conn,$sql1);
@@ -95,8 +95,9 @@
                     <h3>
                     <?php
                         echo '<p>书名：'.$row['book_name'].'</p><br/>';
-						echo '<p>评分：'.$row['book_grade'].'</p><br/>';
-						echo '<p>出版社：'.$row['book_publisher'].'</p><br/>';
+			echo '<p>作者：'.$row['names'].'</p><br/>';
+			echo '<p>评分：'.$row['book_grade'].'</p><br/>';
+			echo '<p>出版社：'.$row['book_publisher'].'</p><br/>';
                         echo '<p>库存：'.$row1['stock_number'].'</p>';
                     ?>
                     </h3>
