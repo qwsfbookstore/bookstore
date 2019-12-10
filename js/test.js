@@ -9,10 +9,10 @@
     $('#add_cart').click(function () {
         $.ajax({
             type: 'POST',
-            url: '/shop/addtocart/',
+            url: "addtocart.php",
             data: {
-                product_pid: $('input[name="pid[]"]').val(),
-                pnum: $('input[id="shuliang"]').val(),
+                book_id: $('input[name="pid[]"]').val(),
+                num: $('input[id="shuliang"]').val(),
                 sumprice :$("#zongjia").text(),
             },
             beforeSend: function (request) {
