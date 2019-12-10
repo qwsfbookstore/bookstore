@@ -109,7 +109,6 @@
     <div class="guest_cart fr">
         <a href="ShowCart.php" class="cart_name fl">我的购物车</a>
         <?php
-        session_start();
         $user_id=$_SESSION['user_id'];
         if($user_id){
             $q = "SELECT * from cart_info WHERE user_id='$user_id'";
