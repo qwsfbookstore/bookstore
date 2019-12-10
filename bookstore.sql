@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50723
 File Encoding         : 65001
 
-Date: 2019-12-10 11:27:20
+Date: 2019-12-10 18:48:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -389,6 +389,7 @@ INSERT INTO `order_details` VALUES ('340005', '9787121197888', '6');
 INSERT INTO `order_details` VALUES ('340006', '9787550611238', '12');
 INSERT INTO `order_details` VALUES ('340007', '9787040406641', '1');
 INSERT INTO `order_details` VALUES ('340007', '9787302224464', '1');
+INSERT INTO `order_details` VALUES ('340008', '9787508647357', '1');
 
 -- ----------------------------
 -- Table structure for order_info
@@ -429,6 +430,7 @@ INSERT INTO `order_info` VALUES ('340004', '200011', '140004', '2019-09-04');
 INSERT INTO `order_info` VALUES ('340005', '200001', '140003', '2019-09-20');
 INSERT INTO `order_info` VALUES ('340006', '200020', '140005', '2019-09-04');
 INSERT INTO `order_info` VALUES ('340007', '200001', null, '2019-12-10');
+INSERT INTO `order_info` VALUES ('340008', '200004', null, '2019-12-10');
 
 -- ----------------------------
 -- Table structure for search_record
@@ -539,6 +541,12 @@ INSERT INTO `user_info` VALUES ('200020', '张圆章', '男', '13905228665', '39
 INSERT INTO `user_info` VALUES ('200021', '王思聪', '男', '18288888888', '374025', '北京市海淀区清华大学紫荆公寓');
 INSERT INTO `user_info` VALUES ('200022', '何洛洛', '男', '18399982845', '940257', null);
 INSERT INTO `user_info` VALUES ('200023', '黄宁静', '女', '15299937923', '897493', null);
+
+-- ----------------------------
+-- View structure for book_top
+-- ----------------------------
+DROP VIEW IF EXISTS `book_top`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SECURITY INVOKER VIEW `book_top` AS select `book_info`.`book_id` AS `book_id`,`order_details`.`book_num` AS `book_sale_num`,`book_info`.`book_grade` AS `book_grade`,`book_info`.`book_name` AS `book_name`,`book_info`.`book_picture` AS `book_picture`,`book_info`.`book_publisher` AS `book_publisher`,`book_info`.`book_type` AS `book_type`,`book_info`.`book_purchase_price` AS `book_purchase_price`,`book_info`.`book_sale_price` AS `book_sale_price`,`book_info`.`CH_intro` AS `CH_intro`,`book_info`.`ENG_intro` AS `ENG_intro` from (`book_info` join `order_details`) where (`book_info`.`book_id` = `order_details`.`book_id`) group by `book_info`.`book_id` ;
 
 -- ----------------------------
 -- View structure for cart_info
