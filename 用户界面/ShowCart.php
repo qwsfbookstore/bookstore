@@ -99,8 +99,6 @@
     <div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;购物车</div>
 </div>
 <?php
-
-    session_start();
     $id=$_SESSION['user_id'];
     $sql="SELECT*from cart_info where user_id = '$id'";
     $r=mysqli_query($conn,$sql);
