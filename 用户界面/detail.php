@@ -20,11 +20,11 @@
     <?php
         $servername = "localhost";
         $username = "root";
-        $password = "root";
+        $password = "";
         $dbname = "bookstore";
 
         $conn = new mysqli($servername, $username, $password, $dbname);
-
+	mysqli_query($conn, "set names 'UTF8'");
         if($conn->connect_error){
             die("Connection failed: " . $conn->connect_error);
             }
