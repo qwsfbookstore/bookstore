@@ -64,8 +64,8 @@
     <div class="guest_cart fr">
         <a href="ShowCart.php" class="cart_name fl">我的购物车</a>
         <?php
-        $user_id=$_SESSION['user_id'];
-        if($user_id){
+        if(empty($_SESSION['user_id'])){
+			$user_id=$_SESSION['user_id'];
             $q = "SELECT * from cart_info WHERE user_id='$user_id'";
             $r = mysqli_query($conn,$q);
             $ra=mysqli_num_rows($r);

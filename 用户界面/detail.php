@@ -121,7 +121,7 @@
 
                      <div class="operate_btn">
 
-                         <a href="javascript:;"><i class="cart"><input type="submit" value="加入购物车"  class="add_cart" id="add_cart"></i></a>
+                       <a href="javascript:;"><i class="cart"><input type="submit" value="加入购物车"  class="add_cart" id="add_cart"></i></a>
                      </div>
 
                         
