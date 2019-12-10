@@ -543,22 +543,16 @@ INSERT INTO `user_info` VALUES ('200022', '何洛洛', '男', '18399982845', '94
 INSERT INTO `user_info` VALUES ('200023', '黄宁静', '女', '15299937923', '897493', null);
 
 -- ----------------------------
--- View structure for book_top
--- ----------------------------
-DROP VIEW IF EXISTS `book_top`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SECURITY INVOKER VIEW `book_top` AS select `book_info`.`book_id` AS `book_id`,`order_details`.`book_num` AS `book_sale_num`,`book_info`.`book_grade` AS `book_grade`,`book_info`.`book_name` AS `book_name`,`book_info`.`book_picture` AS `book_picture`,`book_info`.`book_publisher` AS `book_publisher`,`book_info`.`book_type` AS `book_type`,`book_info`.`book_purchase_price` AS `book_purchase_price`,`book_info`.`book_sale_price` AS `book_sale_price`,`book_info`.`CH_intro` AS `CH_intro`,`book_info`.`ENG_intro` AS `ENG_intro` from (`book_info` join `order_details`) where (`book_info`.`book_id` = `order_details`.`book_id`) group by `book_info`.`book_id` ;
-
--- ----------------------------
--- View structure for cart_info
--- ----------------------------
-DROP VIEW IF EXISTS `cart_info`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SECURITY INVOKER VIEW `cart_info` AS select `cart_record`.`user_id` AS `user_id`,`cart_record`.`book_id` AS `book_id`,`cart_record`.`book_num` AS `book_num`,round(((`cart_record`.`book_num` * `book_info`.`book_sale_price`) * `user_class`.`user_discount`),2) AS `book_sumprice`,`user_class`.`user_discount` AS `user_discount`,`book_info`.`book_name` AS `book_name`,`book_info`.`book_picture` AS `book_picture`,`book_info`.`book_publisher` AS `book_publisher`,`book_info`.`book_type` AS `book_type`,`book_info`.`book_purchase_price` AS `book_purchase_price`,`book_info`.`book_sale_price` AS `book_sale_price`,`book_info`.`CH_intro` AS `CH_intro`,`book_info`.`ENG_intro` AS `ENG_intro`,`book_info`.`book_grade` AS `book_grade` from ((`cart_record` join `book_info`) join `user_class`) where ((convert(`cart_record`.`user_id` using utf8mb4) = `user_class`.`user_id`) and (convert(`cart_record`.`book_id` using utf8mb4) = `book_info`.`book_id`)) group by `cart_record`.`book_id` ;
-
--- ----------------------------
 -- View structure for order_sum
 -- ----------------------------
 DROP VIEW IF EXISTS `order_sum`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SECURITY INVOKER VIEW `order_sum` AS select `order_info`.`order_id` AS `order_id`,`order_info`.`user_id` AS `user_id`,`order_info`.`staff_id` AS `staff_id`,`order_info`.`order_time` AS `order_time`,round(sum((`book_info`.`book_sale_price` * `order_details`.`book_num`)),2) AS `total_sales` from (`order_info` join (`book_info` join `order_details` on((`book_info`.`book_id` = `order_details`.`book_id`))) on((`order_info`.`order_id` = `order_details`.`order_id`))) group by `order_info`.`order_id`,`order_info`.`staff_id`,`order_info`.`order_time` ;
+
+-- ----------------------------
+-- View structure for user_consumption
+-- ----------------------------
+DROP VIEW IF EXISTS `user_consumption`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SECURITY INVOKER VIEW `user_consumption` AS select `user_info`.`user_id` AS `user_id`,`user_info`.`user_name` AS `user_name`,ifnull(round(sum(`order_sum`.`total_sales`),2),0) AS `total_consumption`,(ifnull(round(sum(`order_sum`.`total_sales`),0),0) * 10) AS `user_points` from (`user_info` left join (`order_sum` join `order_info` on((`order_sum`.`order_id` = `order_info`.`order_id`))) on((`user_info`.`user_id` = `order_info`.`user_id`))) group by `user_info`.`user_id` order by sum(`order_sum`.`total_sales`) desc ;
 
 -- ----------------------------
 -- View structure for user_class
@@ -567,10 +561,16 @@ DROP VIEW IF EXISTS `user_class`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SECURITY INVOKER VIEW `user_class` AS select `user_consumption`.`user_id` AS `user_id`,`user_consumption`.`user_name` AS `user_name`,`user_consumption`.`total_consumption` AS `total_consumption`,`user_consumption`.`user_points` AS `user_points`,(case when (`user_consumption`.`user_points` = 0) then '普通会员' when (`user_consumption`.`user_points` < 1000) then '白金会员' when (`user_consumption`.`user_points` < 5000) then '黄金会员' when (`user_consumption`.`user_points` < 10000) then '铂金会员' else '钻石会员' end) AS `user_class`,(case when (`user_consumption`.`user_points` = 0) then 1 when (`user_consumption`.`user_points` < 1000) then 0.95 when (`user_consumption`.`user_points` < 5000) then 0.9 when (`user_consumption`.`user_points` < 10000) then 0.85 else 0.8 end) AS `user_discount` from `user_consumption` ;
 
 -- ----------------------------
--- View structure for user_consumption
+-- View structure for cart_info
 -- ----------------------------
-DROP VIEW IF EXISTS `user_consumption`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SECURITY INVOKER VIEW `user_consumption` AS select `user_info`.`user_id` AS `user_id`,`user_info`.`user_name` AS `user_name`,ifnull(round(sum(`order_sum`.`total_sales`),2),0) AS `total_consumption`,(ifnull(round(sum(`order_sum`.`total_sales`),0),0) * 10) AS `user_points` from (`user_info` left join (`order_sum` join `order_info` on((`order_sum`.`order_id` = `order_info`.`order_id`))) on((`user_info`.`user_id` = `order_info`.`user_id`))) group by `user_info`.`user_id` order by sum(`order_sum`.`total_sales`) desc ;
+DROP VIEW IF EXISTS `cart_info`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SECURITY INVOKER VIEW `cart_info` AS select `cart_record`.`user_id` AS `user_id`,`cart_record`.`book_id` AS `book_id`,`cart_record`.`book_num` AS `book_num`,round(((`cart_record`.`book_num` * `book_info`.`book_sale_price`) * `user_class`.`user_discount`),2) AS `book_sumprice`,`user_class`.`user_discount` AS `user_discount`,`book_info`.`book_name` AS `book_name`,`book_info`.`book_picture` AS `book_picture`,`book_info`.`book_publisher` AS `book_publisher`,`book_info`.`book_type` AS `book_type`,`book_info`.`book_purchase_price` AS `book_purchase_price`,`book_info`.`book_sale_price` AS `book_sale_price`,`book_info`.`CH_intro` AS `CH_intro`,`book_info`.`ENG_intro` AS `ENG_intro`,`book_info`.`book_grade` AS `book_grade` from ((`cart_record` join `book_info`) join `user_class`) where ((convert(`cart_record`.`user_id` using utf8mb4) = `user_class`.`user_id`) and (convert(`cart_record`.`book_id` using utf8mb4) = `book_info`.`book_id`)) group by `cart_record`.`book_id` ;
+
+-- ----------------------------
+-- View structure for book_top
+-- ----------------------------
+DROP VIEW IF EXISTS `book_top`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SECURITY INVOKER VIEW `book_top` AS select `book_info`.`book_id` AS `book_id`,`order_details`.`book_num` AS `book_sale_num`,`book_info`.`book_grade` AS `book_grade`,`book_info`.`book_name` AS `book_name`,`book_info`.`book_picture` AS `book_picture`,`book_info`.`book_publisher` AS `book_publisher`,`book_info`.`book_type` AS `book_type`,`book_info`.`book_purchase_price` AS `book_purchase_price`,`book_info`.`book_sale_price` AS `book_sale_price`,`book_info`.`CH_intro` AS `CH_intro`,`book_info`.`ENG_intro` AS `ENG_intro` from (`book_info` join `order_details`) where (`book_info`.`book_id` = `order_details`.`book_id`) group by `book_info`.`book_id` ;
 
 -- ----------------------------
 -- View structure for authors_name
