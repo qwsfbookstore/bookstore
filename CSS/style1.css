@@ -1,0 +1,113 @@
+/*公共属性*/
+*{
+	margin: 0;
+	padding: 0;
+}
+html{
+	width: 100%;
+	height: 100%;
+	font-family: "Tahoma","verdana","arial", "sans-serif","宋体";
+	font-size: 12px;
+}
+img{
+	border: none;
+}
+a{
+	color: #006ec6;
+}
+a:hover{
+	text-decoration: none;
+}
+.bold{
+	font-weight: bold;
+}
+#container{
+	width: 800px;
+	margin: 0 auto;
+	overflow: hidden;
+	
+}
+/*留言本*/
+#guestbook{
+	width: 100%;
+	margin: 0 auto;
+}
+h3{
+	margin-top: 15px;
+	color: #d51300;
+	font-weight: bold;
+	border-bottom:1px #b7b8ba dashed;
+}
+.guestbook-list{
+	width: 99%;
+	margin: 5px 0 5px 0;
+	border: 1px #b7b8ba solid;
+	line-height: 1.5em;
+	float: left;
+}
+.guestbook-head{
+	background-color: #f6f6f6;
+	padding: 3px 3px 0 3px;
+	border-bottom:1px #b7b8ba dashed;
+}
+.guestbook-time {
+	font-size: 10px;
+	color: #a7a4a4;
+}
+.guestbook-content {
+	padding:5px 5px 5px 39px;
+}
+.guestbook-page{
+	padding: 5px 0 5px 0;
+	text-align: right;
+}
+#guestbook-form {
+	width: 98%;
+	float: left;
+	margin-top: 10px;
+}
+#guestbook-form form{
+	margin-top: 5px;
+}
+#guestbook-form label{
+	float: left;
+	width: 60px;
+	margin-top: 3px;
+	font-weight: bold;
+}
+#guestbook-form span{
+	color: #666666;
+}
+#guestbook-form input{
+	margin-bottom: 5px;
+}
+#guestbook-form .leftmargin {
+	margin-left: 61px;
+	margin-bottom: 5px;
+}
+#guestbook-form textarea{
+	width: 450px;
+	height: 150px;
+}
+#guestbook-form .submit{
+	width: 70px;
+	margin: 10px 0 0 60px;
+	height: 25px;
+}
+
+.refresh {
+	width: 600px;
+	margin: 200px auto 0 auto;
+	padding: 5px;
+	line-height: 1.5em;
+	border: 1px #b7b8ba solid;
+	background-color: #f6f6f6;
+}
+.login-form {
+	width: 600px;
+	margin: 200px auto 0 auto;
+	padding: 5px;
+	line-height: 1.5em;
+	border: 1px #b7b8ba solid;
+	background-color: #f6f6f6;
+}
