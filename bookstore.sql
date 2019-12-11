@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50723
 File Encoding         : 65001
 
-Date: 2019-12-11 13:11:15
+Date: 2019-12-11 13:28:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -566,7 +566,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SEC
 -- View structure for order_sum
 -- ----------------------------
 DROP VIEW IF EXISTS `order_sum`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SECURITY INVOKER VIEW `order_sum` AS select `order_info`.`order_id` AS `order_id`,`order_info`.`user_id` AS `user_id`,`order_info`.`staff_id` AS `staff_id`,`order_info`.`order_time` AS `order_time`,round(sum((`book_info`.`book_sale_price` * `order_details`.`book_num`)),2) AS `total_sales` from (`order_info` join (`book_info` join `order_details` on((`book_info`.`book_id` = `order_details`.`book_id`))) on((`order_info`.`order_id` = `order_details`.`order_id`))) group by `order_info`.`order_id`,`order_info`.`staff_id`,`order_info`.`order_time` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SECURITY INVOKER VIEW `order_sum` AS select `order_info`.`order_id` AS `order_id`,`order_info`.`user_id` AS `user_id`,`order_info`.`staff_id` AS `staff_id`,`order_info`.`order_time` AS `order_time`,round(sum((`book_info`.`book_sale_price` * `order_details`.`book_num`)),2) AS `total_sales`,`order_info`.`order_status` AS `order_status` from (`order_info` join (`book_info` join `order_details` on((`book_info`.`book_id` = `order_details`.`book_id`))) on((`order_info`.`order_id` = `order_details`.`order_id`))) group by `order_info`.`order_id`,`order_info`.`staff_id`,`order_info`.`order_time` ;
 
 -- ----------------------------
 -- View structure for user_class
