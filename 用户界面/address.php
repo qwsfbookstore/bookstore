@@ -69,6 +69,9 @@
                 <dd>
                     <a href="address.php" id="a_adress">收货地址</a>
                 </dd>
+				<dd>
+                    <a href="friendlist.php" id="a_adress">我的好友</a>
+                </dd>
             </dl>
         </div>
     </div>

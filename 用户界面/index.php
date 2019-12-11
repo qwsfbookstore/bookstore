@@ -45,7 +45,7 @@
                 <span>|</span>
                 <a href="checkorder.php">我的订单</a>
 				<span>|</span>
-                <a href="guestbook.php">留言板</a>
+                <a href="guestbook.php">读书社区</a>
             </div>
         </div>
     </div>
@@ -64,7 +64,7 @@
     <div class="guest_cart fr">
         <a href="ShowCart.php" class="cart_name fl">我的购物车</a>
         <?php
-        if(empty($_SESSION['user_id'])){
+        if(!empty($_SESSION['user_id'])){
 			$user_id=$_SESSION['user_id'];
             $q = "SELECT * from cart_info WHERE user_id='$user_id'";
             $r = mysqli_query($conn,$q);
@@ -96,12 +96,12 @@
 		</ul>
    <div class="container">
      <div class="wrap"  style="left:-802px;">
-                <img src="images/1.webp">
+                <img src="images/ad.jpg">
                 <a href="detail.php?id='9787040406641'"><img src="images/index_ad.jpg"></a>
-                <img src="images/ad1.jpg">
+                <img src="images/ad_staff.jpg">
                 <img src="images/ad2.jpg">
-                <img src="images/4.webp">
-                <img src="images/1.webp">
+                <img src="images/ad3.jpg">
+                <img src="images/ad.jpg">
                 <a href="detail.php?id='9787040406641'"><img src="images/index_ad.jpg"></a>
 
       </div>

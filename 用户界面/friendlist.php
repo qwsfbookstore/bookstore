@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>我的订单</title>
+    <title>我的好友</title>
     <link rel="shortcut icon" href="images/storelogo.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="/css/base.css">
     <link rel="stylesheet" type="text/css" href="css/base_1.css">
@@ -66,7 +66,7 @@
                 <dd>
                     <a href="address.php" id="a_adress">收货地址</a>
                 </dd>
-				<dd>
+                <dd>
                     <a href="friendlist.php" id="a_adress">我的好友</a>
                 </dd>
             </dl>
@@ -74,22 +74,24 @@
     </div>
     <div class="my_main">
         <div class="my_title">
-            <span class="title">我的订单</span>
+            <span class="title">我的好友</span>
         </div>
         <div class="address_list">
-            <h3>我的消费</h3>
+            <h3>好友列表</h3>
             <dl>
-                <dt>消费总额：</dt>
-                <dd><?php
-					$id=$_SESSION['user_id'];
-					$row = sql('user_consumption', '*', "user_id = '$id'");
-                    echo $row['total_consumption']."元";
-                    ?></dd>
+                <dt>好友总数：<?php
+                    $id=$_SESSION['user_id'];
+                    $q = "SELECT * from friend_relationship WHERE uid='$id'";
+                    $r = mysqli_query($conn,$q);
+                    $ra=mysqli_num_rows($r);
+                    echo $ra.'个'
+                    ?></dt>
+                <dt ><a href="frienddetail.php" style="color: orangered">查看详情</a></dt>
+
             </dl>
         </div>
         <div class="shadow_box">
-          
-          <form  id='reFrom' action=""  method="post">
+
                 <style type="text/css">
             .table-con th{
                 background-color: #FE642E;/*背景颜色*/
@@ -99,10 +101,13 @@
                 background-color: #FFFFFF;
                 border-collapse: collapse;
                 vertical-align: center;
-				height: auto;
             }
-            table,th,td{
+            th,td{
+                width:100px;
+                height: auto;
                 border:1px solid #D8D8D8;
+                table-layout: fixed;
+                word-wrap: break-word;
             }
             td{
                 text-align: center;
@@ -110,46 +115,86 @@
             }
 
                 </style>
-					</head>
-          
+				
+			 <p>
              <div class="table-con">
-                 
-                <table align="left">
+                 <?php
+                 $sql="SELECT*from friend_apply,user_info where friend_apply.sid = '$id' and friend_apply.uid = user_info.user_id order by apply_time desc";
+                 $r=mysqli_query($conn,$sql);
+                 if($r){
+                 ?>
+                <table>
+                    <caption align="top" style="margin-bottom: 5px;"><strong>收到申请</strong></caption>
                 <tr>
-                  <th width=100 >订单编号</th>
-                  <th width=100>员工编号</th>
-                  <th width=100>订单时间</th>
-                  <th width=100>订单总额</th>
-                    <th width=100>订单状态</th>
-                    <th width=100>查看详情</th>
+                  <th>申请人ID</th>
+                  <th>申请人姓名</th>
+                  <th>申请内容</th>
+                  <th>申请时间</th>
+                    <th>申请状态</th>
+                    <th>操作</th>
                 </tr>
-				<?php
-                 $sql="SELECT*from order_sum where user_id = '$id' order by order_time desc";
-                 $r=mysqli_query($conn,$sql);while ($row=mysqli_fetch_array($r)) {
-					?>
-			
-			
+                    <?php
+                    while ($row=mysqli_fetch_array($r)) {
+                    ?>
                     <tr>
-                            <td><?php echo $row["order_id"] ?></td>
-                            <td><?php if($row["staff_id"]) echo $row["staff_id"];else echo"暂无" ?></td>
-                            <td><?php echo $row["order_time"]?></td>
-                            <td><?php echo $row["total_sales"]?></td>
-                            <td><?php echo $row["order_status"]?></td>
-                            <td><a href="orderdetail.php?id=<?php echo $row["order_id"]?>">查看详情</ a></td>
+                            <td><?php echo $row["uid"] ?></td>
+                            <td><?php echo $row["user_name"] ?></td>
+                            <td><?php echo $row["apply_text"]?></td>
+                            <td><?php echo $row["apply_time"]?></td>
+                            <td><?php echo $row["apply_status"]?></td>
+                            <td><a href="friendoperate.php?action=accept&id=<?=$row['uid']?>">接受</a>
+                                <span>/</span>&nbsp;<a href="friendoperate.php?action=refuse&id=<?=$row['uid']?>">拒绝</a></td>
 
                     </tr>
                         <?php
-                    }
+                    }}
+
+                    ?>
+
+                </table>
+				
+              </div>
+			  </p>
+			</br></br></br>
+			<p>
+            <div class="table-con">
+                <?php
+                $sql="SELECT*from friend_apply,user_info  where friend_apply.uid = '$id' and friend_apply.uid = user_info.user_id order by apply_time desc";
+                $r=mysqli_query($conn,$sql);
+                if($r){
+                echo '
+                <table>
+                    <caption align="top" style="margin-bottom: 5px;"><strong>发出申请</strong></caption>
+
+                    <tr>
+                        <th>申请对象ID</th>
+                        <th>申请对象姓名</th>
+                        <th>申请内容</th>
+                        <th>申请时间</th>
+                        <th>申请状态</th>
+                        <th>操作</th>
+                    </tr>';
+
+                    while ($row=mysqli_fetch_array($r)) {
+                    ?>
+                    <tr>
+                        <td><?php echo $row["sid"] ?></td>
+                        <td><?php echo $row["user_name"] ?></td>
+                        <td><?php echo $row["apply_text"]?></td>
+                        <td><?php echo $row["apply_time"]?></td>
+                        <td><?php echo $row["apply_status"]?></td>
+                        <td><a href="friendoperate.php?action=delete&id=<?=$row['sid']?>">删除</a></td>
+
+                    </tr>
+                    <?php
+                    }}
 
                     ?>
 
                 </table>
 
-              </div>
-
-                
-
-                </form>
+            </div>
+			</p>
 
             </div>
   </div>

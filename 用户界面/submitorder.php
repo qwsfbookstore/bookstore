@@ -9,7 +9,7 @@ $res_id = $conn->query($sql_id);
 while($row = mysqli_fetch_assoc($res_id)) {
     $newid=$row["new_id"];
 }
-$sql_insert = "insert into order_info(order_id,user_id,order_time) values('$newid','$user_id','$createtime')";
+$sql_insert = "insert into order_info(order_id,user_id,order_time,order_status) values('$newid','$user_id','$createtime','未发货')";
 $res_insert=$conn->query($sql_insert);
 $r=mysqli_query($conn,"SELECT*from cart_info where user_id = '$user_id'");
 while ($row=mysqli_fetch_array($r)) {
