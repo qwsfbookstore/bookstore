@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50723
 File Encoding         : 65001
 
-Date: 2019-12-11 13:28:25
+Date: 2019-12-12 00:19:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -316,8 +316,45 @@ CREATE TABLE `cart_record` (
 -- ----------------------------
 -- Records of cart_record
 -- ----------------------------
-INSERT INTO `cart_record` VALUES ('200001', '9787515508610', '1');
-INSERT INTO `cart_record` VALUES ('200001', '9787513910521', '2');
+INSERT INTO `cart_record` VALUES ('200001', '9787502847371', '1');
+
+-- ----------------------------
+-- Table structure for friend_apply
+-- ----------------------------
+DROP TABLE IF EXISTS `friend_apply`;
+CREATE TABLE `friend_apply` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` char(6) DEFAULT NULL,
+  `sid` char(6) DEFAULT NULL,
+  `apply_text` text,
+  `apply_time` varchar(255) DEFAULT NULL,
+  `apply_status` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of friend_apply
+-- ----------------------------
+INSERT INTO `friend_apply` VALUES ('1', '200001', '200007', '你好！交个朋友吧！我也特别喜欢川端康成，我们可以多多交流。', '2019-12-11', '已通过');
+INSERT INTO `friend_apply` VALUES ('2', '200007', '200009', '你好', '2019-12-11', '待通过');
+INSERT INTO `friend_apply` VALUES ('3', '200014', '200007', 'hello', '2019-12-11', '未通过');
+INSERT INTO `friend_apply` VALUES ('4', '200009', '200006', '想认识小姐姐~', '2019-12-11', '待通过');
+
+-- ----------------------------
+-- Table structure for friend_relationship
+-- ----------------------------
+DROP TABLE IF EXISTS `friend_relationship`;
+CREATE TABLE `friend_relationship` (
+  `uid` char(6) NOT NULL,
+  `fid` char(6) NOT NULL,
+  PRIMARY KEY (`uid`,`fid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of friend_relationship
+-- ----------------------------
+INSERT INTO `friend_relationship` VALUES ('200001', '200007');
+INSERT INTO `friend_relationship` VALUES ('200007', '200001');
 
 -- ----------------------------
 -- Table structure for guest_book
@@ -344,7 +381,6 @@ INSERT INTO `guest_book` VALUES ('2', '200014', '人间水蜜桃', '10', '《数
 INSERT INTO `guest_book` VALUES ('3', '200007', '黄景瑜', '1', '表白秦总！我想请秦总吃饭！我想和秦总一起看电影！求求秦总答应我吧！秦总和我在一起吧！', '1574930807', '100001', '秦总答应了', '1574934081');
 INSERT INTO `guest_book` VALUES ('4', '200006', '大帅哥', '4', '方总太迷人太可爱了！真是人间水蜜桃', '1574930904', '100001', '', null);
 INSERT INTO `guest_book` VALUES ('5', '200009', '沙奈朵', '8', '表白陈总', '1574931023', '', '', null);
-INSERT INTO `guest_book` VALUES ('6', '200007', '绿茶小仙女', '13', '有人想一起交流川端康成的小说吗~', '1574935051', '100003', '《雪国》推荐购买哦~', '1574941488');
 
 -- ----------------------------
 -- Table structure for order_details
@@ -354,7 +390,8 @@ CREATE TABLE `order_details` (
   `order_id` char(6) NOT NULL,
   `book_id` char(13) NOT NULL,
   `book_num` tinyint(4) DEFAULT NULL,
-  PRIMARY KEY (`order_id`,`book_id`)
+  PRIMARY KEY (`order_id`,`book_id`),
+  CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order_info` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
