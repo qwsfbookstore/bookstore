@@ -116,6 +116,7 @@
                   <th width=100>员工编号</th>
                   <th width=100>订单时间</th>
                   <th width=100>订单总额</th>
+                    <th width=100>订单状态</th>
                     <th width=100>查看详情</th>
                 </tr>
                     <?php
@@ -125,9 +126,10 @@
                     ?>
                     <tr>
                             <td><?php echo $row["order_id"] ?></td>
-                            <td><?php echo $row["staff_id"]?></td>
+                            <td><?php if($row["staff_id"]) echo $row["staff_id"];else echo"暂无" ?></td>
                             <td><?php echo $row["order_time"]?></td>
                             <td><?php echo $row["total_sales"]?></td>
+                            <td><?php echo $row["order_status"]?></td>
                             <td><a href="orderdetail.php?id=<?php echo $row["order_id"]?>">查看详情</ a></td>
 
                     </tr>
