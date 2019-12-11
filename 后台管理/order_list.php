@@ -99,6 +99,7 @@
                 <th>员工ID</th>
                 <th>订单时间</th>
                 <th>查看详情</th>
+                <th>操作</th>
           
             </tr>
 
@@ -133,6 +134,17 @@
                 <td class="center"><?php echo $row["staff_id"]?></td>
                 <td class="center"><?php echo $row["order_time"]?></td>
                 <td class="center"><a href="orderdetail.php?id=<?php echo $row["order_id"]?>">查看详情</a></td>
+                   <?php
+                   if ($row["staff_id"]) {
+                       ?>
+                       <td class="center">已接单</td>
+                       <?php
+                   }else{
+                       ?>
+                       <td class = "center"><a href="order_operation.php">接单</a></td>
+                       <?php
+                   }
+                   ?>
             </tr>
                 <?php
             }
