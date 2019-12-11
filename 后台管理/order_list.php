@@ -137,9 +137,11 @@
                    <?php
                    if ($row["staff_id"]) {
                        ?>
-                       <td class="center">已接单</td>
+                       <td class="center">不可操作</td>
                        <?php
                    }else{
+                       session_start();
+                       $_SESSION['order_id']=$row["order_id"];
                        ?>
                        <td class = "center"><a href="order_operation.php">接单</a></td>
                        <?php
