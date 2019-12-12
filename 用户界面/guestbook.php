@@ -116,7 +116,12 @@
 	<p class="guestbook-head">
 	<img src="images/<?=$gb_array['face']?>.gif" />
 	<span class="bold"><?=$gb_array['user_id']."&nbsp;&nbsp;".$gb_array['nickname']?></span> <span class="guestbook-time">[<?=date("Y-m-d H:i", $gb_array['create_time'])?>]</span>
-      <?php if($user_id!=$gb_array['user_id'])  {echo "<button id='add' class='btn btn-primary' style='height: 25px;background: #FF8000;border-color: #FF8000;padding-top: 2px' data-toggle='modal' data-target='#myModal' code=".$gb_array['user_id'].">加好友</button></p>";}?>
+      <?php
+      $sid=$gb_array['user_id'];
+      $q1=  "select * from friend_relationship where uid='$user_id'and fid='$sid'";
+      if($user_id!=$gb_array['user_id']&&!(mysqli_fetch_array(mysqli_query($conn,$q1))))
+	  {echo "<button id='add' class='test_btn' style='height: 25px;background: #FF8000;border-color: #FF8000;color:white;padding-top: 2px' data-toggle='modal' data-target='#myModal' code=".$gb_array['user_id'].">加好友</button></p>";}
+	  ?>
 	<p class="guestbook-content"><?=nl2br($gb_array['content'])?></p>
 	<?php
 		// 回复
@@ -232,20 +237,24 @@
 <script>
     //定义空字符串，容纳被申请人的id
     var code="";
-    $("#add").click(function(){
+    $(".test_btn").click(function(){
         code = $(this).attr("code");
     })
     //将申请写进数据库
     $("#submit").click(function(){
         var plnr = $("#applytext").val();
         var plid = code;
+        alert(plnr);
+        alert(plid);
         $.ajax({
             url:"addfriend.php",
             data:{apply_text:plnr,sid:plid},
             type:"POST",
             dataType:"TEXT",
             success:function(data){
-                window.location.href="addfriend.php";
+                window.location.href="guestbook.php";
+                alert("发送请求成功！");
+
             }
         });
     })

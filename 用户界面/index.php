@@ -18,7 +18,7 @@
 
 </head>
 
-<div>
+<body>
 <div class="header_con">
     <div class="header">
         <div class="welcome fl">欢迎来到奇文书坊</div>
@@ -45,7 +45,7 @@
                 <span>|</span>
                 <a href="checkorder.php">我的订单</a>
 				<span>|</span>
-                <a href="guestbook.php">留言板</a>
+                <a href="guestbook.php">读书社区</a>
             </div>
         </div>
     </div>
@@ -64,7 +64,7 @@
     <div class="guest_cart fr">
         <a href="ShowCart.php" class="cart_name fl">我的购物车</a>
         <?php
-        if(empty($_SESSION['user_id'])){
+        if(!empty($_SESSION['user_id'])){
 			$user_id=$_SESSION['user_id'];
             $q = "SELECT * from cart_info WHERE user_id='$user_id'";
             $r = mysqli_query($conn,$q);
@@ -87,21 +87,21 @@
 
  <div class="center_con clearfix">
 		<ul class="subnav fl">
-			<li><a href="#" >文学小说</a></li>
-			<li><a href="#" >经济投资</a></li>
-			<li><a href="#" >畅销教辅</a></li>
-			<li><a href="#" >儿童书刊</a></li>
-			<li><a href="#" >史哲经典</a></li>
-			<li><a href="#" >艺术荟萃</a></li>
+			<li><a href="list.php?type=文学" >文学经典</a></li>
+			<li><a href="list.php?type=情感" >情感生活</a></li>
+            <li><a href="list.php?type=儿童" >儿童书刊</a></li>
+			<li><a href="list.php?type=历史" >历史名著</a></li>
+			<li><a href="list.php?type=悬疑" >悬疑探案</a></li>
+			<li><a href="list.php?type=社会" >社会纪实</a></li>
 		</ul>
    <div class="container">
      <div class="wrap"  style="left:-802px;">
-                <img src="images/1.webp">
+                <img src="images/ad.jpg">
                 <a href="detail.php?id='9787040406641'"><img src="images/index_ad.jpg"></a>
-                <img src="images/ad1.jpg">
+                <img src="images/ad_staff.jpg">
                 <img src="images/ad2.jpg">
-                <img src="images/4.webp">
-                <img src="images/1.webp">
+                <img src="images/ad3.jpg">
+                <img src="images/ad.jpg">
                 <a href="detail.php?id='9787040406641'"><img src="images/index_ad.jpg"></a>
 
       </div>
@@ -256,11 +256,11 @@
 
     <div class="list_model">
         <div class="list_title clearfix">
-            <h3 class="fl" id="model01">经济</h3>
+            <h3 class="fl" id="model01">情感</h3>
             <div class="subtitle fl">
                 <span>|</span>
             </div>
-            <a href="list.php?type=经济" class="goods_more fr" id="fruit_more">查看更多 ></a>
+            <a href="list.php?type=情感" class="goods_more fr" id="fruit_more">查看更多 ></a>
         </div>
 
 
@@ -269,7 +269,7 @@
             <ul  class="goods_list fl">
                 <span></span>
                 <?php
-                $sql2="SELECT*from book_info where book_type='经济' or book_type='投资'";
+                $sql2="SELECT*from book_info where book_type='情感'";
                 $r2=mysqli_query($conn,$sql2);
                 for($x=0; $x<=3; $x++) {
                     $row2=mysqli_fetch_array($r2);
@@ -289,11 +289,11 @@
     </div>
     <div class="list_model">
         <div class="list_title clearfix">
-            <h3 class="fl" id="model01">教辅</h3>
+            <h3 class="fl" id="model01">儿童</h3>
             <div class="subtitle fl">
                 <span>|</span>
             </div>
-            <a href="#" class="goods_more fr" id="fruit_more">查看更多 ></a>
+            <a href="list.php?type=儿童" class="goods_more fr" id="fruit_more">查看更多 ></a>
         </div>
 
 
@@ -302,7 +302,7 @@
             <ul  class="goods_list fl">
                 <span></span>
                 <?php
-                $sql3="SELECT*from book_info where book_type='数学' or book_type='计算机' or  book_type='艺术'";
+                $sql3="SELECT*from book_info where book_type='儿童'";
                 $r3=mysqli_query($conn,$sql3);
                 for($x=0; $x<=3; $x++) {
                     $row3=mysqli_fetch_array($r3);
@@ -322,11 +322,11 @@
     </div>
     <div class="list_model">
         <div class="list_title clearfix">
-            <h3 class="fl" id="model01">史哲</h3>
+            <h3 class="fl" id="model01">历史</h3>
             <div class="subtitle fl">
                 <span>|</span>
             </div>
-            <a href="#" class="goods_more fr" id="fruit_more">查看更多 ></a>
+            <a href="list.php?type=历史" class="goods_more fr" id="fruit_more">查看更多 ></a>
         </div>
 
 
@@ -335,7 +335,7 @@
             <ul  class="goods_list fl">
                 <span></span>
                 <?php
-                $sql4="SELECT*from book_info where book_type='哲学' or book_type='历史' or  book_type='心理学'";
+                $sql4="SELECT*from book_info where book_type='历史'";
                 $r4=mysqli_query($conn,$sql4);
                 for($x=0; $x<=3; $x++) {
                     $row4=mysqli_fetch_array($r4);
@@ -352,8 +352,181 @@
             </ul>
         </div>
 
+
     </div>
 
+     <div class="list_model">
+         <div class="list_title clearfix">
+             <h3 class="fl" id="model01">悬疑</h3>
+             <div class="subtitle fl">
+                 <span>|</span>
+             </div>
+             <a href="list.php?type=悬疑" class="goods_more fr" id="fruit_more">查看更多 ></a>
+         </div>
+
+
+         <div class="goods_con clearfix">
+
+             <ul  class="goods_list fl">
+                 <span></span>
+                 <?php
+                 $sql4="SELECT*from book_info where book_type='悬疑'";
+                 $r4=mysqli_query($conn,$sql4);
+                 for($x=0; $x<=3; $x++) {
+                     $row4=mysqli_fetch_array($r4);
+                     ?>
+                     <li>
+
+                         <h4><a href="detail.php?id=<?php echo $row4["book_id"]?>"><?php echo $row4["book_name"] ?></a></h4>
+                         <a href="detail.php?id=<?php echo $row4["book_id"]?>"><img src=<?php echo $row4["book_picture"]?>></a>
+                         <div class="prize"><?php echo $row4["book_sale_price"]."元"?></div>
+                     </li>
+                     <?php
+                 }
+                 ?>
+             </ul>
+         </div>
+
+
+     </div>
+
+     <div class="list_model">
+         <div class="list_title clearfix">
+             <h3 class="fl" id="model01">社会</h3>
+             <div class="subtitle fl">
+                 <span>|</span>
+             </div>
+             <a href="list.php?type=社会" class="goods_more fr" id="fruit_more">查看更多 ></a>
+         </div>
+
+
+         <div class="goods_con clearfix">
+
+             <ul  class="goods_list fl">
+                 <span></span>
+                 <?php
+                 $sql4="SELECT*from book_info where book_type='社会'";
+                 $r4=mysqli_query($conn,$sql4);
+                 for($x=0; $x<=3; $x++) {
+                     $row4=mysqli_fetch_array($r4);
+                     ?>
+                     <li>
+
+                         <h4><a href="detail.php?id=<?php echo $row4["book_id"]?>"><?php echo $row4["book_name"] ?></a></h4>
+                         <a href="detail.php?id=<?php echo $row4["book_id"]?>"><img src=<?php echo $row4["book_picture"]?>></a>
+                         <div class="prize"><?php echo $row4["book_sale_price"]."元"?></div>
+                     </li>
+                     <?php
+                 }
+                 ?>
+             </ul>
+         </div>
+
+
+     </div>
+
+     <div class="list_model">
+         <div class="list_title clearfix">
+             <h3 class="fl" id="model01">科幻</h3>
+             <div class="subtitle fl">
+                 <span>|</span>
+             </div>
+             <a href="list.php?type=科幻" class="goods_more fr" id="fruit_more">查看更多 ></a>
+         </div>
+
+
+         <div class="goods_con clearfix">
+
+             <ul  class="goods_list fl">
+                 <span></span>
+                 <?php
+                 $sql4="SELECT*from book_info where book_type='科幻'";
+                 $r4=mysqli_query($conn,$sql4);
+                 for($x=0; $x<=3; $x++) {
+                     $row4=mysqli_fetch_array($r4);
+                     ?>
+                     <li>
+
+                         <h4><a href="detail.php?id=<?php echo $row4["book_id"]?>"><?php echo $row4["book_name"] ?></a></h4>
+                         <a href="detail.php?id=<?php echo $row4["book_id"]?>"><img src=<?php echo $row4["book_picture"]?>></a>
+                         <div class="prize"><?php echo $row4["book_sale_price"]."元"?></div>
+                     </li>
+                     <?php
+                 }
+                 ?>
+             </ul>
+         </div>
+
+     </div>
+     <div class="list_model">
+         <div class="list_title clearfix">
+             <h3 class="fl" id="model01">心理</h3>
+             <div class="subtitle fl">
+                 <span>|</span>
+             </div>
+             <a href="list.php?type=心理" class="goods_more fr" id="fruit_more">查看更多 ></a>
+         </div>
+
+
+         <div class="goods_con clearfix">
+
+             <ul  class="goods_list fl">
+                 <span></span>
+                 <?php
+                 $sql4="SELECT*from book_info where book_type='心理'";
+                 $r4=mysqli_query($conn,$sql4);
+                 for($x=0; $x<=3; $x++) {
+                     $row4=mysqli_fetch_array($r4);
+                     ?>
+                     <li>
+
+                         <h4><a href="detail.php?id=<?php echo $row4["book_id"]?>"><?php echo $row4["book_name"] ?></a></h4>
+                         <a href="detail.php?id=<?php echo $row4["book_id"]?>"><img src=<?php echo $row4["book_picture"]?>></a>
+                         <div class="prize"><?php echo $row4["book_sale_price"]."元"?></div>
+                     </li>
+                     <?php
+                 }
+                 ?>
+             </ul>
+         </div>
+
+
+     </div>
+
+     <div class="list_model">
+         <div class="list_title clearfix">
+             <h3 class="fl" id="model01">魔幻</h3>
+             <div class="subtitle fl">
+                 <span>|</span>
+             </div>
+             <a href="list.php?type=魔幻" class="goods_more fr" id="fruit_more">查看更多 ></a>
+         </div>
+
+
+         <div class="goods_con clearfix">
+
+             <ul  class="goods_list fl">
+                 <span></span>
+                 <?php
+                 $sql4="SELECT*from book_info where book_type='魔幻'";
+                 $r4=mysqli_query($conn,$sql4);
+                 for($x=0; $x<=3; $x++) {
+                     $row4=mysqli_fetch_array($r4);
+                     ?>
+                     <li>
+
+                         <h4><a href="detail.php?id=<?php echo $row4["book_id"]?>"><?php echo $row4["book_name"] ?></a></h4>
+                         <a href="detail.php?id=<?php echo $row4["book_id"]?>"><img src=<?php echo $row4["book_picture"]?>></a>
+                         <div class="prize"><?php echo $row4["book_sale_price"]."元"?></div>
+                     </li>
+                     <?php
+                 }
+                 ?>
+             </ul>
+         </div>
+
+
+     </div>
      <div class="list_model">
          <div class="list_title clearfix">
              <h3 class="fl" id="model01">订单可视化</h3>
@@ -362,115 +535,104 @@
              </div>
              <a href="bar.html" class="goods_more fr" id="fruit_more">查看更多 ></a>
          </div>
-
-
          <div class="goods_con clearfix">
-         <div style="height: 100%; margin: 0">
-         <div id="container" style="height: 100%"></div>
-             <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
-             <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
-             <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
-             <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
-             <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
-             <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
-             <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+             <div style="height: 100%; margin: 0">
+                 <div id="container" style="height: 100%"></div>
+                 <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+                 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+                 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+                 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+                 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+                 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+                 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+                 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+                 <script type="text/javascript">
 
-             <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
-             <script type="text/javascript">
-
-
-                 var arr1=[],arr2=[],arr3=[];
-                 function arrTest(){
-                     $.ajax({
-                         type:"post",
-                         async:false,
-                         url:"jsconn.php",
-                         data:{},
-                         dataType:"json",
-                         success:function(result){
-                             if (result) {
-                                 for (var i = 0; i < result.length; i++) {
-                                     arr1.push(result[i].order_id);
-                                     arr2.push(result[i].book_name);
-                                     arr3.push(result[i].book_num);
+                     var arr1=[],arr2=[],arr3=[];
+                     function arrTest(){
+                         $.ajax({
+                             type:"post",
+                             async:false,
+                             url:"jsconn.php",
+                             data:{},
+                             dataType:"json",
+                             success:function(result){
+                                 if (result) {
+                                     for (var i = 0; i < result.length; i++) {
+                                         arr1.push(result[i].order_id);
+                                         arr2.push(result[i].book_name);
+                                         arr3.push(result[i].book_num);
+                                     }
                                  }
+                             },
+                             error: function(errmsg) {
+                                 alert("Ajax获取服务器数据出错了！"+ errmsg);
+                             }
+                         })
+                         return arr1,arr2,arr3;
+                     }
+                     arrTest();
+                     var dom = document.getElementById("container");
+                     var myChart = echarts.init(dom);
+                     var option = {
+                         tooltip: {
+                             trigger: 'axis'
+                         },
+                         legend: {
+                             data:['销量']
+                         },
+                         toolbox: {
+                             show : true,
+                             feature : {
+                                 dataView : {show: true, readOnly: false},
+                                 magicType : {show: true, type: ['line', 'bar']},
+                                 restore : {show: true},
+                                 saveAsImage : {show: true}
                              }
                          },
-                         error: function(errmsg) {
-                             alert("Ajax获取服务器数据出错了！"+ errmsg);
-                         }
-                     })
-                     return arr1,arr2,arr3;
-                 }
-                 arrTest();
-
-                 var dom = document.getElementById("container");
-                 var myChart = echarts.init(dom);
-
-                 var option = {
-
-                     tooltip: {
-                         trigger: 'axis'
-                     },
-
-                     legend: {
-                         data:['book_num']
-                     },
-
-                     toolbox: {
-                         show : true,
-                         feature : {
-                             dataView : {show: true, readOnly: false},
-                             magicType : {show: true, type: ['line', 'bar']},
-                             restore : {show: true},
-                             saveAsImage : {show: true}
-                         }
-                     },
-                     calculable : true,
-
-                     xAxis : [
-                         {
-                             type : 'category',
-                             data : arr2
-                         }],
-
-                     yAxis : [
-                         {type : 'value'}
-                     ],
-
-                     series : [
-
-                         {
-                             "name":"book_num",
-                             "type":"bar",
-                             "data":arr3,
-                             markPoint : {
-                                 data : [
-                                     {type : 'max', name: '最大值'},
-                                     {type : 'min', name: '最小值'}
-                                 ]
-                             },
-                             markLine : {
-                                 data : [
-                                     {type : 'average', name: '平均值'}
-                                 ]
+                         calculable : true,
+                         xAxis : [
+                             {
+                                 type : 'category',
+                                 data : arr2
+                             }],
+                         yAxis : [
+                             {type : 'value'}
+                         ],
+                         series : [
+                             {
+                                 "name":"销量",
+                                 "type":"bar",
+                                 "data":arr3,
+                                 markPoint : {
+                                     data : [
+                                         {type : 'max', name: '最大值'},
+                                         {type : 'min', name: '最小值'}
+                                     ]
+                                 },
+                                 markLine : {
+                                     data : [
+                                         {type : 'average', name: '平均值'}
+                                     ]
+                                 }
                              }
-                         }
-                     ]
-                 };
+                         ]
+                     };
+                     myChart.setOption(option);
+                 </script>
 
-                 myChart.setOption(option);
-             </script>
              </>
 
+
+
          </div>
+
+
 
      </div>
 
 
-
-
-        <div class="goods_con clearfix">
+     <div class="goods_con clearfix">
 
             <ul  class="goods_list fl">
                 <span></span>
@@ -486,8 +648,7 @@
 
     <script type="text/javascript" src="js/editpwd.js"></script>
 
-</div>
-
+</body>
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="js/demo.js"></script>
 <script type="text/javascript" src="js/floor.js"></script>
