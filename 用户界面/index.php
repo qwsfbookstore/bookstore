@@ -18,7 +18,7 @@
 
 </head>
 
-<body>
+<div>
 <div class="header_con">
     <div class="header">
         <div class="welcome fl">欢迎来到奇文书坊</div>
@@ -45,7 +45,7 @@
                 <span>|</span>
                 <a href="checkorder.php">我的订单</a>
 				<span>|</span>
-                <a href="guestbook.php">读书社区</a>
+                <a href="guestbook.php">留言板</a>
             </div>
         </div>
     </div>
@@ -64,7 +64,7 @@
     <div class="guest_cart fr">
         <a href="ShowCart.php" class="cart_name fl">我的购物车</a>
         <?php
-        if(!empty($_SESSION['user_id'])){
+        if(empty($_SESSION['user_id'])){
 			$user_id=$_SESSION['user_id'];
             $q = "SELECT * from cart_info WHERE user_id='$user_id'";
             $r = mysqli_query($conn,$q);
@@ -96,12 +96,12 @@
 		</ul>
    <div class="container">
      <div class="wrap"  style="left:-802px;">
-                <img src="images/ad.jpg">
+                <img src="images/1.webp">
                 <a href="detail.php?id='9787040406641'"><img src="images/index_ad.jpg"></a>
-                <img src="images/ad_staff.jpg">
+                <img src="images/ad1.jpg">
                 <img src="images/ad2.jpg">
-                <img src="images/ad3.jpg">
-                <img src="images/ad.jpg">
+                <img src="images/4.webp">
+                <img src="images/1.webp">
                 <a href="detail.php?id='9787040406641'"><img src="images/index_ad.jpg"></a>
 
       </div>
@@ -354,6 +354,121 @@
 
     </div>
 
+     <div class="list_model">
+         <div class="list_title clearfix">
+             <h3 class="fl" id="model01">订单可视化</h3>
+             <div class="subtitle fl">
+                 <span>|</span>
+             </div>
+             <a href="bar.html" class="goods_more fr" id="fruit_more">查看更多 ></a>
+         </div>
+
+
+         <div class="goods_con clearfix">
+         <div style="height: 100%; margin: 0">
+         <div id="container" style="height: 100%"></div>
+             <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+             <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+             <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+             <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+             <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+             <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+             <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+
+             <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+             <script type="text/javascript">
+
+
+                 var arr1=[],arr2=[],arr3=[];
+                 function arrTest(){
+                     $.ajax({
+                         type:"post",
+                         async:false,
+                         url:"jsconn.php",
+                         data:{},
+                         dataType:"json",
+                         success:function(result){
+                             if (result) {
+                                 for (var i = 0; i < result.length; i++) {
+                                     arr1.push(result[i].order_id);
+                                     arr2.push(result[i].book_name);
+                                     arr3.push(result[i].book_num);
+                                 }
+                             }
+                         },
+                         error: function(errmsg) {
+                             alert("Ajax获取服务器数据出错了！"+ errmsg);
+                         }
+                     })
+                     return arr1,arr2,arr3;
+                 }
+                 arrTest();
+
+                 var dom = document.getElementById("container");
+                 var myChart = echarts.init(dom);
+
+                 var option = {
+
+                     tooltip: {
+                         trigger: 'axis'
+                     },
+
+                     legend: {
+                         data:['book_num']
+                     },
+
+                     toolbox: {
+                         show : true,
+                         feature : {
+                             dataView : {show: true, readOnly: false},
+                             magicType : {show: true, type: ['line', 'bar']},
+                             restore : {show: true},
+                             saveAsImage : {show: true}
+                         }
+                     },
+                     calculable : true,
+
+                     xAxis : [
+                         {
+                             type : 'category',
+                             data : arr2
+                         }],
+
+                     yAxis : [
+                         {type : 'value'}
+                     ],
+
+                     series : [
+
+                         {
+                             "name":"book_num",
+                             "type":"bar",
+                             "data":arr3,
+                             markPoint : {
+                                 data : [
+                                     {type : 'max', name: '最大值'},
+                                     {type : 'min', name: '最小值'}
+                                 ]
+                             },
+                             markLine : {
+                                 data : [
+                                     {type : 'average', name: '平均值'}
+                                 ]
+                             }
+                         }
+                     ]
+                 };
+
+                 myChart.setOption(option);
+             </script>
+             </>
+
+         </div>
+
+     </div>
+
+
+
 
         <div class="goods_con clearfix">
 
@@ -371,7 +486,8 @@
 
     <script type="text/javascript" src="js/editpwd.js"></script>
 
-</body>
+</div>
+
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="js/demo.js"></script>
 <script type="text/javascript" src="js/floor.js"></script>
