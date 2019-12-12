@@ -159,7 +159,7 @@
 			<p>
             <div class="table-con">
                 <?php
-                $sql="SELECT*from friend_apply,user_info  where friend_apply.uid = '$id' and friend_apply.uid = user_info.user_id order by apply_time desc";
+                $sql="SELECT*from friend_apply,user_info  where friend_apply.uid = '$id' and friend_apply.sid = user_info.user_id order by apply_time desc";
                 $r=mysqli_query($conn,$sql);
                 if($r){
                 echo '

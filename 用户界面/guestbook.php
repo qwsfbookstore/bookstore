@@ -142,12 +142,15 @@
 	if ($pagenum > 1) {
 		for($i=1;$i<=$pagenum;$i++) {
 			if($i==$p) {
-				echo '&nbsp;[',$i,']';
+				echo '&nbsp;[',$i,']&nbsp;&nbsp;';
+			
 			} else {
-				echo '&nbsp;<a href="guestbook.php?p=',$i,'">'.$i.'</a>';
+				echo '&nbsp;<a href="guestbook.php?p=',$i,'">'.$i.'</a>&nbsp;&nbsp;';
+				
 			}
 		}
 	}
+	
 	?>
 </p>
 </div>
