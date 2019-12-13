@@ -98,6 +98,7 @@
                 <th>用户ID</th>
                 <th>员工ID</th>
                 <th>订单时间</th>
+                <th>订单状态</th>
                 <th>查看详情</th>
                 <th>操作</th>
           
@@ -133,12 +134,23 @@
                 <td class="center"><?php echo $row["user_id"]?></td>
                 <td class="center"><?php echo $row["staff_id"]?></td>
                 <td class="center"><?php echo $row["order_time"]?></td>
+                <td class="center"><?php echo $row["order_status"]?></td>
                 <td class="center"><a href="orderdetail.php?id=<?php echo $row["order_id"]?>">查看详情</a></td>
                    <?php
                    if ($row["staff_id"]) {
+                       if ($row["staff_id"] != $_SESSION['staff_id']) {
                        ?>
                        <td class="center">不可操作</td>
                        <?php
+                   }else if($row["order_status"]=="未发货"){
+                           ?>
+                           <td class = "center"><a href="deliver.php?id=<?php echo $row["order_id"]?>">发货</a></td>
+                           <?php
+                       }else{
+                           ?>
+                           <td class="center">不可操作</td>
+                           <?php
+                       }
                    }else{
                        session_start();
                        $_SESSION['order_id']=$row["order_id"];
@@ -147,6 +159,7 @@
                        <?php
                    }
                    ?>
+
             </tr>
                 <?php
             }
