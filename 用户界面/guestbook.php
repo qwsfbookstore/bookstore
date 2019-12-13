@@ -338,8 +338,6 @@
     $("#submit_rereply").click(function(){
         var plnr = $("#rereplytext").val();
         var plid = code;
-        alert(plnr);
-        alert(plid);
         $.ajax({
             url:"rereply.php",
             data:{reply_text:plnr,rid:plid},

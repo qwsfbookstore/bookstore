@@ -29,10 +29,10 @@ $insert_sql .= "('$user_id','$nickname',$_POST[face],'$content',$createtime)";
 
 if(mysqli_query($conn,$insert_sql)){
 	echo "<script>
-        alert('留言成功！')
+        alert('发表动态成功！')
         window.location.href=\"guestbook.php\";
     </script>";
 } else {
-	echo '<script>alert("留言失败！");history.go(-1);</script>';
+	echo '<script>alert("发表动态失败！");history.go(-1);</script>';
 }
 ?>
