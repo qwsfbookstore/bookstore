@@ -52,7 +52,7 @@
 </div>
 <div class="search_bar clearfix">
     <a href="index.php" class="logo fl"><img src="images/logo1.png" width="160" height="99"></a>
-	<form action="search_result.php" method="post" autocomplete="off">
+	<form action="search_result.php" method="get" autocomplete="off">
     <div class="search_con fl">
         <input type="text" class="input_text fl" name="search_word" placeholder="搜索商品">
         <input type="submit" class="input_btn fr" name="" value="搜索">
