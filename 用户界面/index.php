@@ -533,7 +533,7 @@
              <div class="subtitle fl">
                  <span>|</span>
              </div>
-             <a href="bar.html" class="goods_more fr" id="fruit_more">查看更多 ></a>
+             <a href="order_bar.html" class="goods_more fr" id="fruit_more">查看更多 ></a>
          </div>
          <div class="goods_con clearfix">
              <div style="height: 100%; margin: 0">
