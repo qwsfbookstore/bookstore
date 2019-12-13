@@ -244,8 +244,6 @@
     $("#submit").click(function(){
         var plnr = $("#applytext").val();
         var plid = code;
-        alert(plnr);
-        alert(plid);
         $.ajax({
             url:"addfriend.php",
             data:{apply_text:plnr,sid:plid},
