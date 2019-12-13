@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
+Source Server         : localhost_
 Source Server Version : 50723
 Source Host           : localhost:3306
 Source Database       : bookstore
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50723
 File Encoding         : 65001
 
-Date: 2019-12-13 00:09:07
+Date: 2019-12-13 21:04:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -1162,7 +1162,7 @@ CREATE TABLE `friend_apply` (
   `apply_time` varchar(255) DEFAULT NULL,
   `apply_status` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of friend_apply
@@ -1175,6 +1175,7 @@ INSERT INTO `friend_apply` VALUES ('47', '200007', '200009', '想认识一下小
 INSERT INTO `friend_apply` VALUES ('84', '200001', '200009', '你好', '2019-12-12', '待通过');
 INSERT INTO `friend_apply` VALUES ('87', '200001', '200014', '我也在学数据库', '2019-12-12', '待通过');
 INSERT INTO `friend_apply` VALUES ('86', '200001', '200006', 'hi', '2019-12-12', '待通过');
+INSERT INTO `friend_apply` VALUES ('88', '200004', '200001', '我也是方总的粉丝欸！！', '2019-12-13', '待通过');
 
 -- ----------------------------
 -- Table structure for friend_relationship
@@ -1753,6 +1754,48 @@ INSERT INTO `order_info` VALUES ('300199', '200022', '100021', '2019-12-23', '�
 INSERT INTO `order_info` VALUES ('300200', '200004', '100009', '2019-12-23', '未发货');
 
 -- ----------------------------
+-- Table structure for p_reply
+-- ----------------------------
+DROP TABLE IF EXISTS `p_reply`;
+CREATE TABLE `p_reply` (
+  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `pid` int(11) DEFAULT NULL,
+  `uid` char(6) DEFAULT NULL,
+  `reply_content` text,
+  `reply_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `pid` (`pid`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of p_reply
+-- ----------------------------
+INSERT INTO `p_reply` VALUES ('1', '4', '200001', '我也觉得', '2019-12-13 11:37:00');
+INSERT INTO `p_reply` VALUES ('2', '5', '200001', '我也喜欢', '2019-12-13 11:48:00');
+INSERT INTO `p_reply` VALUES ('3', '4', '200001', '表白方总555', '2019-12-13 11:50:00');
+
+-- ----------------------------
+-- Table structure for r_reply
+-- ----------------------------
+DROP TABLE IF EXISTS `r_reply`;
+CREATE TABLE `r_reply` (
+  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `rid` int(11) DEFAULT NULL,
+  `uid` char(6) DEFAULT NULL,
+  `reply_content` text,
+  `reply_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `rid` (`rid`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of r_reply
+-- ----------------------------
+INSERT INTO `r_reply` VALUES ('4', '3', '200014', '方总是真的很好', '2019-12-13 12:14:00');
+INSERT INTO `r_reply` VALUES ('5', '2', '200007', '方总NB！！！', '2019-12-13 12:15:00');
+INSERT INTO `r_reply` VALUES ('6', '2', '200004', '哈哈哈', '2019-12-13 12:16:00');
+
+-- ----------------------------
 -- Table structure for search_record
 -- ----------------------------
 DROP TABLE IF EXISTS `search_record`;
@@ -1873,7 +1916,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SEC
 -- View structure for book_top
 -- ----------------------------
 DROP VIEW IF EXISTS `book_top`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SECURITY INVOKER VIEW `book_top` AS select `book_info`.`book_id` AS `book_id`,`order_details`.`book_num` AS `book_sale_num`,`book_info`.`book_grade` AS `book_grade`,`book_info`.`book_name` AS `book_name`,`book_info`.`book_picture` AS `book_picture`,`book_info`.`book_publisher` AS `book_publisher`,`book_info`.`book_type` AS `book_type`,`book_info`.`book_purchase_price` AS `book_purchase_price`,`book_info`.`book_sale_price` AS `book_sale_price`,`book_info`.`CH_intro` AS `CH_intro`,`book_info`.`ENG_intro` AS `ENG_intro` from (`book_info` left join `order_details` on((convert(`book_info`.`book_id` using utf8mb4) = `order_details`.`book_id`))) group by `book_info`.`book_id` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants user`@`skip-grants host` SQL SECURITY INVOKER VIEW `book_top` AS select `book_info`.`book_id` AS `book_id`,`order_details`.`book_num` AS `book_sale_num`,`book_info`.`book_grade` AS `book_grade`,`book_info`.`book_name` AS `book_name`,`book_info`.`book_picture` AS `book_picture`,`book_info`.`book_publisher` AS `book_publisher`,`book_info`.`book_type` AS `book_type`,`book_info`.`book_purchase_price` AS `book_purchase_price`,`book_info`.`book_sale_price` AS `book_sale_price`,`book_info`.`CH_intro` AS `CH_intro`,`book_info`.`ENG_intro` AS `ENG_intro` from (`book_info` join `order_details`) where (convert(`book_info`.`book_id` using utf8mb4) = `order_details`.`book_id`) group by `book_info`.`book_id` ;
 
 -- ----------------------------
 -- View structure for cart_info
