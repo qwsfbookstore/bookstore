@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0">
+       <div id="container" style="height: 100%"></div>
+       <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+       <script type="text/javascript">
+
+
+var arr1=[],arr2=[],arr3=[];
+function arrTest(){
+    $.ajax({
+        type:"post",
+        async:false,
+        url:"jsconn.php",
+        data:{},
+        dataType:"json",
+        success:function(result){
+            if (result) {
+                for (var i = 0; i < result.length; i++) {
+                    arr1.push(result[i].order_id);
+                    arr2.push(result[i].book_name);
+                    arr3.push(result[i].book_num);
+                }
+            }
+        },
+        error: function(errmsg) {
+            alert("Ajax获取服务器数据出错了！"+ errmsg);
+        }
+    })
+    return arr1,arr2,arr3;
+}
+arrTest();
+
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+
+var option = {
+    title : {
+        text: '订单统计'
+    },
+
+
+    tooltip: {
+        trigger: 'axis'
+    },
+
+    legend: {
+        data:['book_name','book_num']
+    },
+
+    toolbox: {
+        show : true,
+        feature : {
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+
+    xAxis : [
+        {
+            type : 'category',
+            data : arr2
+        }],
+
+    yAxis : [
+        {type : 'value'}
+    ],
+
+    series : [
+    
+        {
+            "name":"book_num",
+            "type":"bar",
+            "data":arr3,
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        }
+    ]
+};
+
+myChart.setOption(option);
+       </script>
+   </body>
+</html>
