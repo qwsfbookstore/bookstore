@@ -48,12 +48,10 @@
                 include ("db.php");
                 session_start();
                 if(empty($_SESSION['user_name']))
-                    echo'<a href="login.html">登录</a>
-                        <span>|</span>
-                        <a href="register.html">注册</a>';
+                    echo "<script>alert('请先登录！');window.location.href='index.php';</script>";
                 else
                     echo'欢迎您：'.$_SESSION['user_name'];
-                 ?>
+                ?>
                 <span>|</span>
                 <a href="logout.php">退出</a>
             </div>
@@ -120,18 +118,51 @@
       $sid=$gb_array['user_id'];
       $q1=  "select * from friend_relationship where uid='$user_id'and fid='$sid'";
       if($user_id!=$gb_array['user_id']&&!(mysqli_fetch_array(mysqli_query($conn,$q1))))
-	  {echo "<button id='add' class='test_btn' style='height: 25px;background: #FF8000;border-color: #FF8000;color:white;padding-top: 2px' data-toggle='modal' data-target='#myModal' code=".$gb_array['user_id'].">加好友</button></p>";}
+	  {echo "<button class='test_btn' style='display: inline-block;border: 0;width: 60px;height: 20px;line-height: 20px;cursor: pointer; text-align: center;background-color: #ff8040;color: #fff;border-radius: 10px;margin-left: 20px' data-toggle='modal' data-target='#myModal1' code=".$gb_array['user_id'].">加好友</button>
+       ";}
 	  ?>
+        <button class='test_btn' style='display: inline-block;border: 0;width: 50px;height: 20px;line-height: 20px;cursor: pointer; text-align: center;background-color: #ff8040;color: #fff;border-radius: 10px;margin-left: 10px' data-toggle='modal' data-target='#myModal2' code="<?=$gb_array['id']?>">评论</button></p>
 	<p class="guestbook-content"><?=nl2br($gb_array['content'])?></p>
 	<?php
 		// 回复
 		if(!empty($gb_array['reply_time'])) {
 	?>
-	<p class="guestbook-head">管理员回复： <span class="guestbook-time">[<?=date("Y-m-d H:i", $gb_array['reply_time'])?>]</span></p>
+	<p class="guestbook-head">管理员评论： <span class="guestbook-time">[<?=date("Y-m-d H:i", $gb_array['reply_time'])?>]</span></p>
 	<p class="guestbook-content"><?=nl2br($gb_array['reply'])?></p>
 	<?php
 		}	// 回复结束
+    $pid=$gb_array['id'];
+    $sql="SELECT*from p_reply where pid = '$pid'";
+    $r=mysqli_query($conn,$sql);
+    while ($row=mysqli_fetch_array($r)) {
 	?>
+        <p class="guestbook-head">用户&nbsp;<?php echo $row['uid'] ?>&nbsp;评论： <span class="guestbook-time">[<?=$row['reply_time']?>]</span>
+            <?php
+            $sid=$row['uid'];
+            $q1=  "select * from friend_relationship where uid='$user_id'and fid='$sid'";
+            if($user_id!=$row['uid']&&!(mysqli_fetch_array(mysqli_query($conn,$q1))))
+            {echo "<button class='test_btn' style='display: inline-block;border: 0;width: 60px;height: 20px;line-height: 20px;cursor: pointer; text-align: center;background-color: #ff8040;color: #fff;border-radius: 10px;margin-left: 20px' data-toggle='modal' data-target='#myModal1' code=".$row['uid'].">加好友</button>
+       ";}
+            ?>
+            <button class='test_btn' style='display: inline-block;border: 0;width: 50px;height: 20px;line-height: 20px;cursor: pointer; text-align: center;background-color: #ff8040;color: #fff;border-radius: 10px;margin-left: 10px' data-toggle='modal' data-target='#myModal3' code="<?=$row['id']?>">回复</button></p>
+        <p class="guestbook-content"><?=nl2br($row['reply_content'])?></p>
+        <?php
+        $rid=$row['id'];
+        $sql1="SELECT*from r_reply where rid = '$rid'";
+        $r1=mysqli_query($conn,$sql1);
+        while ($row1=mysqli_fetch_array($r1)) {
+        ?>
+            <p class="guestbook-head">用户&nbsp;<?php echo $row1['uid'] ?>&nbsp;回复：用户&nbsp;<?php echo $row['uid'] ?>&nbsp;<span class="guestbook-time">[<?=$row['reply_time']?>]</span>
+                <?php
+                $sid=$row['uid'];
+                $q1=  "select * from friend_relationship where uid='$user_id'and fid='$sid'";
+                if($user_id!=$row1['uid']&&!(mysqli_fetch_array(mysqli_query($conn,$q1))))
+                {echo "<button class='test_btn' style='display: inline-block;border: 0;width: 60px;height: 20px;line-height: 20px;cursor: pointer; text-align: center;background-color: #ff8040;color: #fff;border-radius: 10px;margin-left: 20px' data-toggle='modal' data-target='#myModal1' code=".$row1['uid'].">加好友</button>
+       ";}
+                ?>
+                <button class='test_btn' style='display: inline-block;border: 0;width: 50px;height: 20px;line-height: 20px;cursor: pointer; text-align: center;background-color: #ff8040;color: #fff;border-radius: 10px;margin-left: 10px' data-toggle='modal' data-target='#myModal3' code="<?=$row1['id']?>">回复</button></p>
+            <p class="guestbook-content"><?=nl2br($row1['reply_content'])?></p>
+        <?php }} ?>
 </div>
 	<?php
 	}	//while循环结束
@@ -162,7 +193,7 @@
 </div><!--动态列表结束-->
 
     <!-- 好友申请模态框（Modal） -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -173,6 +204,38 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                     <button id='submit' type="button" class="btn btn-primary qdhf" style='height: 35px;background: #FF8000;border-color: #FF8000;padding-top: 3px'>发送申请</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">评论</h4>
+                </div>
+                <textarea id='replytext' class="modal-body" style="width: 599px;"></textarea>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button id='submit_reply' type="button" class="btn btn-primary qdhf" style='height: 35px;background: #FF8000;border-color: #FF8000;padding-top: 3px'>提交评论</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">回复</h4>
+                </div>
+                <textarea id='rereplytext' class="modal-body" style="width: 599px;"></textarea>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button id='submit_rereply' type="button" class="btn btn-primary qdhf" style='height: 35px;background: #FF8000;border-color: #FF8000;padding-top: 3px'>提交回复</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
@@ -223,7 +286,7 @@
 	<label for="title">动态内容:</label>
 	<textarea id="content" name="content"></textarea>
 	</p>
-	<input type="submit" name="submit" class="submit" value="  确 定  " />
+	<input type="submit" name="submit" class="submit" style='display: inline-block;border: 0;width: 80px;height: 30px;line-height: 30px;cursor: pointer; text-align: center;background-color: #ff2832;font-size:17px;color: #fff;margin-left: 10px' value="  确 定  " />
 	<span>(请自觉遵守互联网相关政策法规，严禁发布色情、暴力、反动言论) </span>
 	</form>
 	</div>
@@ -235,7 +298,6 @@
 </html>
 
 <script>
-    //定义空字符串，容纳被申请人的id
     var code="";
     $(".test_btn").click(function(){
         code = $(this).attr("code");
@@ -257,5 +319,38 @@
         });
     })
 
+    $("#submit_reply").click(function(){
+        var plnr = $("#replytext").val();
+        var plid = code;
+        $.ajax({
+            url:"sendreply.php",
+            data:{reply_text:plnr,pid:plid},
+            type:"POST",
+            dataType:"TEXT",
+            success:function(data){
+                window.location.href="guestbook.php";
+                alert("评论成功！");
+
+            }
+        });
+    })
+
+    $("#submit_rereply").click(function(){
+        var plnr = $("#rereplytext").val();
+        var plid = code;
+        alert(plnr);
+        alert(plid);
+        $.ajax({
+            url:"rereply.php",
+            data:{reply_text:plnr,rid:plid},
+            type:"POST",
+            dataType:"TEXT",
+            success:function(data){
+                window.location.href="guestbook.php";
+                alert("回复成功！");
+
+            }
+        });
+    })
 </script>
 

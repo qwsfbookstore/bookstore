@@ -22,6 +22,7 @@
         <div class="fr">
             <div class="login_btn fl">
                 <?php
+                include ("db.php");
                 session_start();
                 if(empty($_SESSION['user_name']))
                     echo "<script>alert('请先登录！');window.location.href='index.php';</script>";
@@ -95,7 +96,6 @@
 
                 <dd>
                     <?php
-                    include "db.php";
                     $id=$_SESSION['user_id'];
                     $row = sql('user_class', '*', "user_id = '$id'");
                     echo "我的积分：&nbsp;&nbsp". $row['user_points']
