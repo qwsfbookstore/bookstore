@@ -157,16 +157,42 @@
 
 
 </div>
+<div class="product_content clearfix">
+    <div class="aside">
+    	<?php 
+    	$sql1 = "SELECT book_info.book_name, book_info.book_id, book_info.book_picture, book_info.book_sale_price FROM book_similarity JOIN book_info ON book_similarity.book2 = book_info.book_id WHERE book_similarity.book1 = {$book_id} ORDER BY similarity DESC";
+    	$result1 = $conn->query($sql1);
+    	for ($i = 0; $i < 3; $i++) {
+    		$row = $result1->fetch_assoc()
+    		?>
+        <div id="alsoVies" class="abox">
+            <h3>相似推荐——<?php echo $row['book_name'];?></h3>
+            <ul class="none_b listo1 list_alsoview">
+                <li>
+                    <p class="pic">
+                        <a href="detail.php?id=<?php echo $row['book_id']; ?>" target="_blank">
+                            <img src="<?php echo $row['book_picture'];?>" alt="">
+                        </a>
+                    </p>
 
+                    <p class="price">
+                        <span class="price_d" style="font-size:20px;">¥<?php echo $row['book_sale_price'];?></span>
+                    </p>
+                    <p class="name">
+                        <p class="pdname"></p>
+                    </p>
+                    <p class="bottom_product"></p>
+                </li>
+            </ul>
+        </div>
+        <?php
+        } 
+        ?>
+    </div>
 </div>
  <div class="footer_nav_box">
    <div class="clear"></div>
 </div>
 
-
-
-
-
 </body>
 </html>
-
