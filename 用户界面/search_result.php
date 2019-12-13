@@ -142,8 +142,9 @@ if($result->num_rows > 0){
     			<td><a href='search_result.php?search_word=".$search_word."&page=".strval($page + 1)."&start=".strval($start + $pagesize)."'>下一页</a></td>";
     		}else{
     			echo "<td><a href='search_result.php?search_word=".$search_word."&page=".strval($page - 1)."&start=".strval($start - $pagesize)."'>上一页</a></td><td>第".$page."页</td><td>共".$page_num."页</td>";
-    		}
+		}
     	}
+}
 }
 else{
 	echo '<div style="float:center;width:400px;margin:0 auto;border:1px solid #ff2832;">
