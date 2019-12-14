@@ -45,13 +45,19 @@
                 <dd><a href="order_list.php" >订单列表</a></dd>
             </dl>
         </li>
-		<li>
-            <dl>
-                <dt>员工管理</dt>
-				<dd><a href="addstaff.php">员工添加</a></dd>
-                <dd><a href="staff_list.php" >员工列表</a></dd>
-            </dl>
-        </li>
+        <?php
+        if($_SESSION['staff_position']=='经理') {
+            ?>
+            <li>
+                <dl>
+                    <dt>员工管理</dt>
+                    <dd><a href="addstaff.php">员工添加</a></dd>
+                    <dd><a href="staff_list.php">员工列表</a></dd>
+                </dl>
+            </li>
+            <?php
+        }
+        ?>
 		<li>
             <dl>
                 <dt>留言管理</dt>
