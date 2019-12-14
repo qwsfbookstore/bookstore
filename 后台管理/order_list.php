@@ -44,6 +44,7 @@
         <?php
         session_start();
         echo'超级管理员：'.$_SESSION['staff_name'];
+        $staffid = $_SESSION['staff_id'];
         ?>
     </h2>
     <ul>
@@ -122,7 +123,11 @@
             }
 
             mysqli_query($conn, "set names 'UTF8'");
-            $sql="SELECT * from order_info ORDER BY order_time DESC";
+            if ($_SESSION['staff_position']=='经理') {
+                $sql = "SELECT * from order_info ORDER BY order_time DESC";
+            }else{
+                $sql = "SELECT * from order_info where staff_id='$staffid' or staff_id=NULL or staff_id = '' ORDER BY order_time DESC";
+            }
             $word = "search_word";
             if (isset($_POST[$word])){
                 $word = $_POST["search_word"];
@@ -133,6 +138,9 @@
                 $sql = $sql." WHERE order_id='".$word."'";
             }
             $r=mysqli_query($conn,$sql);
+
+
+
             while ($row=mysqli_fetch_array($r)) {
                 ?>
                <tr>
