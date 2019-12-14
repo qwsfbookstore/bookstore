@@ -220,6 +220,62 @@
      </div>
 </div>
 </div>
+<?php
+if (isset($user_id)){
+$sql1 = "SELECT book_id FROM purchase_record WHERE user_id = {$user_id} ORDER BY book_num DESC";
+$r1 = mysqli_query($conn, $sql1);
+if ($r1){
+    $books = array();
+    while ($row = $r1->fetch_array()) {
+        $book_id = $row["book_id"];
+        $sql2 = "SELECT book_info.book_name, book_info.book_id, book_info.book_picture, book_info.book_sale_price, book_info.book_grade FROM book_similarity JOIN book_info ON book_similarity.book2 = book_info.book_id WHERE book_similarity.book1 = {$book_id} ORDER BY similarity DESC";
+        $r2 = mysqli_query($conn, $sql2);
+        for ($i=0; $i<4; $i++){
+            $r = $r2->fetch_array();
+            $books[$r["book_id"]] = $r["book_grade"];
+        }
+    }
+    arsort($books);
+    foreach ($books as $key => $value) {
+    }
+?>
+<div class="list_model">
+        <div class="list_title clearfix">
+            <h3 class="fl" id="model01">猜你喜欢</h3>
+            <div class="subtitle fl">
+                <span>|</span>
+            </div>
+            <a href="search_result.php" class="goods_more fr" id="fruit_more">查看更多 ></a>
+  </div>
+        <div class="goods_con clearfix">
+            <ul  class="goods_list fl">
+                <span></span>
+                <?php
+                for ($i=0; $i<4; $i++){
+                    $id = key($books);
+                    $sql3 = "SELECT * FROM book_info WHERE book_id = {$id}";
+                    $r3 = mysqli_query($conn, $sql3);
+                    $row1 = $r3->fetch_array();
+                ?>
+                <li>
+
+                    <h4><a href="detail.php?id=<?php echo $row1["book_id"]?>"><?php echo $row1["book_name"] ?></a></h4>
+                    <a href="detail.php?id=<?php echo $row1["book_id"]?>"><img src=<?php echo $row1["book_picture"]?>></a>
+                    <div class="prize"><?php echo $row1["book_sale_price"]."元"?></div>
+                </li>
+                    <?php
+                    next($books);
+                }
+                ?>
+            </ul>
+        </div>
+
+</div>
+<?php
+}
+}
+?>
+
 <div class="list_model">
         <div class="list_title clearfix">
             <h3 class="fl" id="model01">文学</h3>
