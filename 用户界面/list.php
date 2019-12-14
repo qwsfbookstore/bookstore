@@ -61,8 +61,23 @@
     $sql1 = "SELECT DISTINCT book_info.book_id, book_info.book_name, book_info.book_picture, authors_name.names, book_info.book_publisher, book_info.book_sale_price, book_info.book_type, book_info.book_grade, book_info.CH_intro, book_info.CH_intro FROM (book_info INNER JOIN authors_name ON book_info.book_id = authors_name.book_id) WHERE book_type='$type'";
     $result = $conn->query($sql1);
 
+    $pagesize = 15;
+    if (isset($_GET["start"])){
+    	$start = intval($_GET["start"]);
+    }else{
+	    $start = 0;
+    }
+    if (isset($_GET["page"])){
+    	$page = intval($_GET["page"]);
+    }else{
+    	$page = 1;
+    }
 
     if($result->num_rows > 0){
+    	$numall = $result->num_rows;
+	    $page_num = ($numall % $pagesize)?(intval($numall / $pagesize) + 1):($numall / $pagesize);
+	    $result = $conn->query($sql1." ORDER BY book_grade DESC limit $start, $pagesize");
+	    $numb = $result->num_rows;
         while($row = $result->fetch_assoc()){
             echo '<div style="border:1px solid #ff2832;float:middle;width:1000px;margin:0 auto;">
 		<div class="product_storyList_content_left"><img src='.$row["book_picture"].' style="height:200px;width:145px;"/></div>
@@ -85,7 +100,25 @@
         }
 
     }
-
+    echo "<br/><br/>";
+    echo "<table style='margin:0 auto;width:20%;font-size:16px;'>";
+    if ($page_num == 1){
+    	echo "<td>第1页</td><td>共1页</td>";
+    }else{
+    	if ($page == 1){
+    		echo "<td>第1页</td><td>共".$page_num."页</td><td><a href='search_result.php?type=".$type."&page=2&start=15'>下一页</a></td>";
+    	}else{
+    		if ($page != $page_num){
+    			echo "<td><a href='search_result.php?type=".$type."&page=".strval($page - 1)."&start=".strval($start - $pagesize)."'>上一页</a></td>
+    			<td>第".$page."页</td>
+    			<td>共".$page_num."页</td>
+    			<td><a href='search_result.php?type=".$type."&page=".strval($page + 1)."&start=".strval($start + $pagesize)."'>下一页</a></td>";
+    		}else{
+    			echo "<td><a href='search_result.php?type=".$type."&page=".strval($page - 1)."&start=".strval($start - $pagesize)."'>上一页</a></td><td>第".$page."页</td><td>共".$page_num."页</td>";
+    		}
+    	}
+    }
+    echo "</table><br/><br/>";
     $conn->close();
     ?>
 
