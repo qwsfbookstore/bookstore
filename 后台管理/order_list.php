@@ -61,7 +61,6 @@
             <dl>
                 <dt>订单管理</dt>
                 <dd><a href="order_list.php" >订单列表</a></dd>
-                <dd><a href="monthly_profit.html" >订单可视化</a></dd>
             </dl>
         </li>
         <?php
@@ -153,11 +152,7 @@
                 <td class="center"><a href="orderdetail.php?id=<?php echo $row["order_id"]?>">查看详情</a></td>
                    <?php
                    if ($row["staff_id"]) {
-                       if ($row["staff_id"] != $_SESSION['staff_id']) {
-                       ?>
-                       <td class="center">不可操作</td>
-                       <?php
-                   }else if($row["order_status"]=="未发货"){
+                      if($row["order_status"]=="未发货"){
                            ?>
                            <td class = "center"><a href="deliver.php?id=<?php echo $row["order_id"]?>">发货</a></td>
                            <?php
