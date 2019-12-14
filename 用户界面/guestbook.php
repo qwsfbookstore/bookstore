@@ -99,7 +99,9 @@
 	// 引用相关文件
 	require("config.php");
 	// 确定当前页数 $p 参数
-	$p = $_GET['p']?$_GET['p']:1;
+	if (isset($_GET['p'])){
+            $p = $_GET['p'];
+    	}else{$p = 1;}
 	// 数据指针
 	$offset = ($p-1)*$pagesize;
 
