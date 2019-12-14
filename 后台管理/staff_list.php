@@ -60,6 +60,7 @@
             <dl>
                 <dt>订单管理</dt>
                 <dd><a href="order_list.php" >订单列表</a></dd>
+                <dd><a href="monthly_profit.html" >订单可视化</a></dd>
             </dl>
         </li>
         <li>
