@@ -37,16 +37,41 @@
         $result1 = mysqli_query($conn,$sql1);
     ?>
     <div class="header_con">
-        <div class="header">
-            <div class="welcome fl">欢迎来到奇文书坊!</div>
-			</div>
-     </div>
+    <div class="header">
+        <div class="welcome fl">欢迎来到奇文书坊</div>
+        <div class="fr">
+            <div class="login_btn fl">
+                <?php
+                include "db.php";
+                session_start();
+                if(empty($_SESSION['user_name']))
+                    echo'<a href="login.html">登录</a>
+                        <span>|</span>
+                        <a href="register.html">注册</a>';
+                else
+                    echo'欢迎您：'.$_SESSION['user_name'];
+                 ?>
+                <span>|</span>
+                <a href="logout.php">退出</a>
+            </div>
+            <div class="user_link fl">
+                <span>|</span>
+                <a href="personalinfo.php">用户中心</a>
+                <span>|</span>
+                <a href="ShowCart.php">我的购物车</a>
+                <span>|</span>
+                <a href="checkorder.php">我的订单</a>
+                <span>|</span>
+                <a href="guestbook.php">读书社区</a>
+            </div>
+        </div>
+    </div>
+</div>
     <div class="search_bar clearfix">
         <a href="index.php" class="logo fl"><img src="images/logo1.png" width="140" height="90"></a>
         <div class="guest_cart fr">
             <a href="ShowCart.php" class="cart_name fl">我的购物车</a>
             <?php
-            session_start();
             $user_id=$_SESSION['user_id'];
             if($user_id){
                 $q = "SELECT * from cart_info WHERE user_id='$user_id'";
