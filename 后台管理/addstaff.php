@@ -73,8 +73,11 @@
 		</li>
 		<li>
 			<dl>
-				<dt>留言管理</dt>
+				<dt>消息管理</dt>
 				<dd><a href="admin_guestbook.php" >留言列表</a></dd>
+                <dd>
+                    <a href="message.php" >库存消息</a>
+                </dd>
 			</dl>
 		</li>
 
