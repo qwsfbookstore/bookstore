@@ -9,7 +9,7 @@
 header("Content-type: text/html; charset=utf-8");
 $servername = "localhost";
 $staffname = "root";
-$password = "";
+$password = "root";
 $dbname = "bookstore";
 
 $conn = new mysqli($servername, $staffname, $password, $dbname);

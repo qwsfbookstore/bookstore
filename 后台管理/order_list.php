@@ -61,6 +61,7 @@
             <dl>
                 <dt>订单管理</dt>
                 <dd><a href="order_list.php" >订单列表</a></dd>
+                <dd><a href="monthly_profit.php" >订单可视化</a></dd>
             </dl>
         </li>
         <?php
@@ -78,8 +79,30 @@
         ?>
         <li>
             <dl>
-                <dt>留言管理</dt>
+                <dt>消息管理</dt>
                 <dd><a href="admin_guestbook.php" >留言列表</a></dd>
+                <dd>
+                    <?php
+                    $servername = "localhost";
+                    $username = "root";
+                    $password = "";
+                    $dbname = "bookstore";
+
+                    $conn = new mysqli($servername, $username, $password, $dbname);
+                    if($conn->connect_error){
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    mysqli_query($conn, "set names 'UTF8'");
+
+                    $staff_store=$_SESSION["staff_store"];
+                    if($_SESSION['staff_position']=='普通员工') {
+                        $check_sql = "SELECT * FROM book_stock WHERE store_id='$staff_store' AND stock_number<10";
+                    }
+                    $num_result = $conn->query($check_sql);
+                    ?>
+                    <a href="message.php" >库存消息&nbsp;&nbsp;<?php echo $num_result->num_rows ?></a>
+                </dd>
             </dl>
         </li>
 
@@ -112,17 +135,7 @@
             </tr>
 
             <?php
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "bookstore";
 
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            if($conn->connect_error){
-                die("Connection failed: " . $conn->connect_error);
-            }
-
-            mysqli_query($conn, "set names 'UTF8'");
             if ($_SESSION['staff_position']=='经理') {
                 $sql = "SELECT * from order_info ORDER BY order_time DESC";
             }else{

@@ -11,7 +11,7 @@ if($conn->connect_error){
 }
 
 mysqli_query($conn, "set names 'UTF8'");
-
+$staff_store=$_SESSION["staff_store"];
 if($_GET["action"]=="update"){
     $book_id = $_GET["book_id"];
     $book_name = $_POST["bookname"];
@@ -19,16 +19,17 @@ if($_GET["action"]=="update"){
     $book_type = $_POST["booktype"];
     $CH_intro = $_POST["CH_intro"];
     $ENG_intro = $_POST["ENG_intro"];
+    $stock_num = $_POST["stock_num"];
     $book_purchase_price = $_POST["price1"];
     $book_sale_price = $_POST["price2"];
     $book_grade = $_POST["bookscore"];
     $book_picture = $_POST["imglink"];
 
-    $sql1 = "update book_info set book_name='$book_name', book_publisher='$book_publisher', book_type='$book_type', CH_intro='$CH_intro', book_purchase_price='$book_purchase_price', book_sale_price='$book_sale_price', book_grade='$book_grade', book_picture='$book_picture' where book_id = '$book_id';";
+    $sql1 = "update book_info,book_stock set book_name='$book_name', book_publisher='$book_publisher', book_type='$book_type', CH_intro='$CH_intro', book_purchase_price='$book_purchase_price', book_sale_price='$book_sale_price', book_grade='$book_grade', book_picture='$book_picture', stock_number='$stock_num' where book_info.book_id = '$book_id' and book_stock.book_id = '$book_id' and book_stock.store_id = '$staff_store';";
 
     $result1 = $conn->query($sql1);
         if($result1){
-            echo '<script>alert("修改成功！");window.location="product_list.php";</script>';
+            echo '<script>alert("修改成功！");history.go(-2);</script>';
         }
         else {
             echo '<script>alert("修改失败！");</script>';
