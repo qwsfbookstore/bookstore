@@ -190,8 +190,42 @@
                     }}
 
                     ?>
-
                 </table>
+                <br><br><br>
+                <div class="table-con">
+                <table>
+                    <caption align="top" style="margin-bottom: 5px;"><strong>好友推荐</strong></caption>
+                    <thead>
+                        <tr>
+                            <th>用户名</th>
+                            <th>性别</th>
+                            <th>联系方式</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+
+                        $sql = 'SELECT user2_id, user_name, user_sex, user_tel FROM user_similarity JOIN user_info ON user_similarity.user2_id=user_info.user_id WHERE user1_id='.$id.' ORDER BY similarity DESC';
+                        $result = mysqli_query($conn, $sql);
+                        for ($i=0; $i<4; $i++){
+                            $row = mysqli_fetch_array($result);
+
+                            ?>
+                        <tr>
+                            <td><?php echo $row["user_name"]; ?></td>
+                            <td><?php echo $row["user_sex"]; ?></td>
+                            <td><?php echo $row["user_tel"]; ?></td>
+                            <td><a href="" title="">加好友</a></td>
+                        </tr>
+                        <?php
+                        }
+
+                        ?>
+                        
+                    </tbody>
+                </table>
+            </div>
 
             </div>
 			</p>
